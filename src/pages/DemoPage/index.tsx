@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 
 import { useTheme } from '@shared/theme/useTheme';
 
-import { Button, Flex, Typography } from 'antd';
+import { Button, Flex, Typography, notification } from 'antd';
 
 import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 
 import { MachineOption } from './MachineOption';
 
+import { useTurnOnMachineApi, type TurnOnMachineResponse } from '@shared/hooks/useTurnOnMachineApi';
+import { useTurnOffMachineApi, type TurnOffMachineResponse } from '@shared/hooks/useTurnOffMachineApi';
+
 const DemoPage: React.FC = () => {
   const theme = useTheme();
+
+  const [api, contextHolder] = notification.useNotification();
 
   const [selectedMachine, setSelectedMachine] = useState<number>(0);
   const [applyingMachineId, setApplyingMachineId] = useState<number | null>(null);
@@ -25,15 +30,29 @@ const DemoPage: React.FC = () => {
     { label: 'Machine 8', value: 8 },
   ];
 
-  const simulateAction = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-  };
+  const {
+    turnOnMachine,
+    loading: isTurningOn,
+  } = useTurnOnMachineApi<TurnOnMachineResponse>();
+
+  const {
+    turnOffMachine,
+    loading: isTurningOff,
+    error: turnOffError,
+  } = useTurnOffMachineApi<TurnOffMachineResponse>();
 
   const handleTurnOn = async () => {
     if (!selectedMachine) return;
     setApplyingMachineId(selectedMachine);
     try {
-      await simulateAction();
+      await turnOnMachine({ relay_id: selectedMachine });
+      api.success({
+        message: `Machine ${selectedMachine} turned on successfully`,
+      });
+    } catch (error) {
+      api.error({
+        message: `Failed to turn on machine ${selectedMachine}`,
+      });
     } finally {
       setApplyingMachineId(null);
     }
@@ -43,7 +62,14 @@ const DemoPage: React.FC = () => {
     if (!selectedMachine) return;
     setApplyingMachineId(selectedMachine);
     try {
-      await simulateAction();
+      await turnOffMachine({ relay_id: selectedMachine });
+      api.success({
+        message: `Machine ${selectedMachine} turned off successfully`,
+      });
+    } catch (error) {
+      api.error({
+        message: `Failed to turn off machine ${selectedMachine}`,
+      });
     } finally {
       setApplyingMachineId(null);
     }
@@ -51,6 +77,7 @@ const DemoPage: React.FC = () => {
 
   return (
     <DefaultLayout style={{ alignItems: 'center' }}>
+      {contextHolder}
       <Typography.Title level={1}>Demo</Typography.Title>
 
       <Flex 
@@ -66,7 +93,7 @@ const DemoPage: React.FC = () => {
               value={machine.value}
               selectedValue={selectedMachine}
               onSelect={() => setSelectedMachine(machine.value)}
-              isApplying={applyingMachineId === machine.value}
+              isApplying={applyingMachineId === machine.value && isTurningOn}
             />
           </div>
         ))}
@@ -76,7 +103,7 @@ const DemoPage: React.FC = () => {
         <Button
           type="primary"
           size="large"
-          loading={!!applyingMachineId}
+          loading={isTurningOn}
           style={{
             borderRadius: theme.custom.radius.full,
             minWidth: 128,
@@ -90,7 +117,7 @@ const DemoPage: React.FC = () => {
         <Button
           type="primary"
           size="large"
-          loading={!!applyingMachineId}
+          loading={isTurningOn}
           style={{
             borderRadius: theme.custom.radius.full,
             minWidth: 128,
