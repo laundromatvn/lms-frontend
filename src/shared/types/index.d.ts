@@ -135,6 +135,7 @@ declare module 'antd/es/theme/interface' {
         large: string;
         xlarge: string;
         xxlarge: string;
+        full: string;
       };
       shadows: {
         xxsmall: string;

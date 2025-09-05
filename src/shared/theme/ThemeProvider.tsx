@@ -151,6 +151,7 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
           large: "12px",
           xlarge: "16px",
           xxlarge: "24px",
+          full: "9999px",
         },
         shadows: {
           xxsmall: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
