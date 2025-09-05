@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { useTheme } from '@shared/hooks/useTheme';
+import { useTheme } from '@shared/theme/useTheme';
 
 import { Button, Flex, Typography } from 'antd';
 

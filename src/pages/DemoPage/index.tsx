@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useTheme } from '@shared/hooks/useTheme';
+import { useTheme } from '@shared/theme/useTheme';
 
 import { Button, Flex, Typography } from 'antd';
 
@@ -12,6 +12,7 @@ const DemoPage: React.FC = () => {
   const theme = useTheme();
 
   const [selectedMachine, setSelectedMachine] = useState<number>(0);
+  const [applyingMachineId, setApplyingMachineId] = useState<number | null>(null);
 
   const machines = [
     { label: 'Machine 1', value: 1 },
@@ -23,6 +24,30 @@ const DemoPage: React.FC = () => {
     { label: 'Machine 7', value: 7 },
     { label: 'Machine 8', value: 8 },
   ];
+
+  const simulateAction = async () => {
+    await new Promise((resolve) => setTimeout(resolve, 1200));
+  };
+
+  const handleTurnOn = async () => {
+    if (!selectedMachine) return;
+    setApplyingMachineId(selectedMachine);
+    try {
+      await simulateAction();
+    } finally {
+      setApplyingMachineId(null);
+    }
+  };
+
+  const handleTurnOff = async () => {
+    if (!selectedMachine) return;
+    setApplyingMachineId(selectedMachine);
+    try {
+      await simulateAction();
+    } finally {
+      setApplyingMachineId(null);
+    }
+  };
 
   return (
     <DefaultLayout style={{ alignItems: 'center' }}>
@@ -41,6 +66,7 @@ const DemoPage: React.FC = () => {
               value={machine.value}
               selectedValue={selectedMachine}
               onSelect={() => setSelectedMachine(machine.value)}
+              isApplying={applyingMachineId === machine.value}
             />
           </div>
         ))}
@@ -50,10 +76,13 @@ const DemoPage: React.FC = () => {
         <Button
           type="primary"
           size="large"
+          loading={!!applyingMachineId}
           style={{
             borderRadius: theme.custom.radius.full,
             minWidth: 128,
           }}
+          onClick={handleTurnOn}
+          disabled={!selectedMachine}
         >
           Turn On
         </Button>
@@ -61,10 +90,13 @@ const DemoPage: React.FC = () => {
         <Button
           type="primary"
           size="large"
+          loading={!!applyingMachineId}
           style={{
             borderRadius: theme.custom.radius.full,
             minWidth: 128,
           }}
+          onClick={handleTurnOff}
+          disabled={!selectedMachine}
         >
           Turn Off
         </Button>

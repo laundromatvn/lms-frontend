@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useTheme } from '@shared/hooks/useTheme';
+import { useTheme } from '@shared/theme/useTheme';
 
 import { CrownMinimalistic } from '@solar-icons/react';
 
