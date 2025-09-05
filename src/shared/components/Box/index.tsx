@@ -13,6 +13,8 @@ interface Props {
   style?: React.CSSProperties;
   border?: boolean;
   onClick?: () => void;
+  onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
+  onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 export const Box: React.FC<Props> = ({
@@ -24,6 +26,8 @@ export const Box: React.FC<Props> = ({
   style,
   border = false,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
 }) => {
   const theme = useTheme();
 
@@ -36,12 +40,14 @@ export const Box: React.FC<Props> = ({
       padding: theme.custom.spacing.medium ,
       borderRadius: theme.custom.radius.medium,
       backgroundColor: theme.custom.colors.background.light,
-      border: border ? `1px solid ${theme.custom.colors.neutral.default}` : 'none',
+      border: border ? `1px solid ${theme.custom.colors.neutral[200]}` : 'none',
       width: 'fit-content',
       height: 'fit-content',
       ...style,
     }}
     onClick={onClick}
+    onMouseEnter={onMouseEnter}
+    onMouseLeave={onMouseLeave}
   >
     {children}
   </Flex>;

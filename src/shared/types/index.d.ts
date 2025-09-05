@@ -105,23 +105,23 @@ declare module 'antd/es/theme/interface' {
         };
       };
       spacing: {
-        xxsmall: string;
-        xsmall: string;
-        small: string;
-        medium: string;
-        large: string;
-        xlarge: string;
-        xxlarge: string;
+        xxsmall: number;
+        xsmall: number;
+        small: number;
+        medium: number;
+        large: number;
+        xlarge: number;
+        xxlarge: number;
       };
       radius: {
-        xxsmall: string;
-        xsmall: string;
-        small: string;
-        medium: string;
-        large: string;
-        xlarge: string;
-        xxlarge: string;
-        full: string;
+        xxsmall: number;
+        xsmall: number;
+        small: number;
+        medium: number;
+        large: number;
+        xlarge: number;
+        xxlarge: number;
+        full: number;
       };
       shadows: {
         xxsmall: string;
@@ -133,13 +133,13 @@ declare module 'antd/es/theme/interface' {
         xxlarge: string;
       };
       fontSize: {
-        xxsmall: string;
-        xsmall: string;
-        small: string;
-        medium: string;
-        large: string;
-        xlarge: string;
-        xxlarge: string;
+        xxsmall: number;
+        xsmall: number;
+        small: number;
+        medium: number;
+        large: number;
+        xlarge: number;
+        xxlarge: number;
       };
       fontWeight: {
         xxsmall: number;
@@ -151,13 +151,13 @@ declare module 'antd/es/theme/interface' {
         xxlarge: number;
       };
       breakpoints: {
-        xxsmall: string;
-        xsmall: string;
-        small: string;
-        medium: string;
-        large: string;
-        xlarge: string;
-        xxlarge: string;
+        xxsmall: number;
+        xsmall: number;
+        small: number;
+        medium: number;
+        large: number;
+        xlarge: number;
+        xxlarge: number;
       };
       borders: {
         xxsmall: string;
