@@ -38,7 +38,6 @@ const DemoPage: React.FC = () => {
   const {
     turnOffMachine,
     loading: isTurningOff,
-    error: turnOffError,
   } = useTurnOffMachineApi<TurnOffMachineResponse>();
 
   const handleTurnOn = async () => {
@@ -93,7 +92,7 @@ const DemoPage: React.FC = () => {
               value={machine.value}
               selectedValue={selectedMachine}
               onSelect={() => setSelectedMachine(machine.value)}
-              isApplying={applyingMachineId === machine.value && isTurningOn}
+              isApplying={applyingMachineId === machine.value && (isTurningOn || isTurningOff)}
             />
           </div>
         ))}
@@ -117,7 +116,7 @@ const DemoPage: React.FC = () => {
         <Button
           type="primary"
           size="large"
-          loading={isTurningOn}
+          loading={isTurningOff}
           style={{
             borderRadius: theme.custom.radius.full,
             minWidth: 128,
