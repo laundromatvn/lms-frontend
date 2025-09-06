@@ -38,6 +38,7 @@ export const useTurnOffMachineApi = <T = TurnOffMachineResponse>() => {
       return response.data as T
     } catch (error: any) {
       setState({ data: null, loading: false, error: new Error(error.message) });
+      throw error;
     }
   }, [setState]);
 

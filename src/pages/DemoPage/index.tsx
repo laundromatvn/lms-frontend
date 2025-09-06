@@ -28,6 +28,8 @@ const DemoPage: React.FC = () => {
     { label: 'Machine 6', value: 6 },
     { label: 'Machine 7', value: 7 },
     { label: 'Machine 8', value: 8 },
+    { label: 'Machine 9', value: 9 },
+    { label: 'Machine 10', value: 10 },
   ];
 
   const {
