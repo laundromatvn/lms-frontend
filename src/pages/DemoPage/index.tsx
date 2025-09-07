@@ -112,21 +112,7 @@ const DemoPage: React.FC = () => {
           onClick={handleTurnOn}
           disabled={!selectedMachine}
         >
-          Turn On
-        </Button>
-
-        <Button
-          type="primary"
-          size="large"
-          loading={isTurningOff}
-          style={{
-            borderRadius: theme.custom.radius.full,
-            minWidth: 128,
-          }}
-          onClick={handleTurnOff}
-          disabled={!selectedMachine}
-        >
-          Turn Off
+          Start
         </Button>
       </Flex>
     </DefaultLayout>
