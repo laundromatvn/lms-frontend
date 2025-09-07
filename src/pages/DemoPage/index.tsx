@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { useTheme } from '@shared/theme/useTheme';
 
 import { Button, Flex, Typography, notification } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 
@@ -13,24 +14,19 @@ import { useTurnOffMachineApi, type TurnOffMachineResponse } from '@shared/hooks
 
 const DemoPage: React.FC = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const [api, contextHolder] = notification.useNotification();
 
   const [selectedMachine, setSelectedMachine] = useState<number>(0);
   const [applyingMachineId, setApplyingMachineId] = useState<number | null>(null);
 
-  const machines = [
-    { label: 'Machine 1', value: 1 },
-    { label: 'Machine 2', value: 2 },
-    { label: 'Machine 3', value: 3 },
-    { label: 'Machine 4', value: 4 },
-    { label: 'Machine 5', value: 5 },
-    { label: 'Machine 6', value: 6 },
-    { label: 'Machine 7', value: 7 },
-    { label: 'Machine 8', value: 8 },
-    { label: 'Machine 9', value: 9 },
-    { label: 'Machine 10', value: 10 },
-  ];
+  const machines = useMemo(() => (
+    Array.from({ length: 10 }, (_, idx) => {
+      const id = idx + 1;
+      return { label: t('machines.label', { id }), value: id };
+    })
+  ), [t]);
 
   const {
     turnOnMachine,
@@ -48,11 +44,11 @@ const DemoPage: React.FC = () => {
     try {
       await turnOnMachine({ relay_id: selectedMachine });
       api.success({
-        message: `Machine ${selectedMachine} turned on successfully`,
+        message: t('machines.turnedOn', { id: selectedMachine }),
       });
     } catch (error) {
       api.error({
-        message: `Failed to turn on machine ${selectedMachine}`,
+        message: t('machines.turnOnFailed', { id: selectedMachine }),
       });
     } finally {
       setApplyingMachineId(null);
@@ -65,11 +61,11 @@ const DemoPage: React.FC = () => {
     try {
       await turnOffMachine({ relay_id: selectedMachine });
       api.success({
-        message: `Machine ${selectedMachine} turned off successfully`,
+        message: t('machines.turnedOff', { id: selectedMachine }),
       });
     } catch (error) {
       api.error({
-        message: `Failed to turn off machine ${selectedMachine}`,
+        message: t('machines.turnOffFailed', { id: selectedMachine }),
       });
     } finally {
       setApplyingMachineId(null);
@@ -79,7 +75,7 @@ const DemoPage: React.FC = () => {
   return (
     <DefaultLayout style={{ alignItems: 'center' }}>
       {contextHolder}
-      <Typography.Title level={1}>Demo</Typography.Title>
+      <Typography.Title level={1}>{t('common.demo')}</Typography.Title>
 
       <Flex 
         wrap
@@ -112,7 +108,7 @@ const DemoPage: React.FC = () => {
           onClick={handleTurnOn}
           disabled={!selectedMachine}
         >
-          Start
+          {t('common.start')}
         </Button>
       </Flex>
     </DefaultLayout>

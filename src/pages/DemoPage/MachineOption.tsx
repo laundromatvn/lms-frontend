@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useTheme } from '@shared/theme/useTheme';
 
 import { Flex, Spin, Typography } from 'antd';
+import { useTranslation } from 'react-i18next';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import { Box } from '@shared/components/Box'
@@ -20,6 +21,7 @@ interface Props {
 export const MachineOption: React.FC<Props> = ({ label, value, selectedValue, onSelect, isApplying }) => {
   const theme = useTheme();
   const [isHovered, setIsHovered] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -65,7 +67,7 @@ export const MachineOption: React.FC<Props> = ({ label, value, selectedValue, on
             backgroundColor: theme.custom.colors.primary.default,
             width: '100%',
           }}>
-          <Typography.Text style={{ color: theme.custom.colors.text.inverted }}>Selected</Typography.Text>
+          <Typography.Text style={{ color: theme.custom.colors.text.inverted }}>{t('common.selected', 'Selected')}</Typography.Text>
         </Box>
       )}
     </Box>

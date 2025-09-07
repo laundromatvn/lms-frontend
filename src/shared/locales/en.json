@@ -1,0 +1,17 @@
+{
+  "common": {
+    "companyName": "Wash&Dry247",
+    "demo": "Demo",
+    "start": "Start",
+    "selected": "Selected"
+  },
+  "machines": {
+    "label": "Machine {{id}}",
+    "turnedOn": "Machine {{id}} turned on successfully",
+    "turnedOff": "Machine {{id}} turned off successfully",
+    "turnOnFailed": "Failed to turn on machine {{id}}",
+    "turnOffFailed": "Failed to turn off machine {{id}}"
+  }
+}
+
+

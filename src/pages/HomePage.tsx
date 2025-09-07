@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@shared/theme/useTheme';
 
 import { Button, Flex } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 import { Logo } from '@shared/components/common/Logo';
 
 const HomePage: React.FC = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -32,7 +34,7 @@ const HomePage: React.FC = () => {
         }}
         onClick={() => navigate('/demo')}
       >
-        Demo
+        {t('common.demo')}
       </Button>
     </Flex>
   );

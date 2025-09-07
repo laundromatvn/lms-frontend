@@ -1,0 +1,17 @@
+{
+  "common": {
+    "companyName": "Wash&Dry247",
+    "demo": "Bản demo",
+    "start": "Bắt đầu",
+    "selected": "Đã chọn"
+  },
+  "machines": {
+    "label": "Máy {{id}}",
+    "turnedOn": "Máy {{id}} đã được bật thành công",
+    "turnedOff": "Máy {{id}} đã được tắt thành công",
+    "turnOnFailed": "Bật máy {{id}} thất bại",
+    "turnOffFailed": "Tắt máy {{id}} thất bại"
+  }
+}
+
+
