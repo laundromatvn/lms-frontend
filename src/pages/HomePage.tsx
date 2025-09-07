@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { useTheme } from '@shared/theme/useTheme';
 
-import { Button, Flex, Typography } from 'antd';
+import { Button, Flex } from 'antd';
 
-import { CrownMinimalistic } from '@solar-icons/react'
+import { Logo } from '@shared/components/common/Logo';
 
 const HomePage: React.FC = () => {
   const theme = useTheme();
@@ -13,10 +13,14 @@ const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <Flex vertical justify="center" align="center" style={{ height: '100vh', width: '100vw' }}>
-      <Typography.Title level={1} style={{ color: theme.custom.colors.primary.default }}>
-        <CrownMinimalistic /> Laundromat
-      </Typography.Title>
+    <Flex
+      vertical
+      justify="center"
+      align="center"
+      gap={theme.custom.spacing.large}
+      style={{ height: '100vh', width: '100vw' }}
+    >
+      <Logo size="xlarge" />
 
       <Button
         type="primary"

@@ -9,9 +9,10 @@ import { Box } from '@shared/components/Box';
 
 interface Props {
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
+  style?: React.CSSProperties;
 }
 
-export const Logo: React.FC<Props> = ({ size = 'medium' }) => {
+export const Logo: React.FC<Props> = ({ size = 'medium', style }) => {
   const theme = useTheme();
 
   const navigate = useNavigate();
@@ -35,13 +36,13 @@ export const Logo: React.FC<Props> = ({ size = 'medium' }) => {
 
   return (
     <Box
-      border
       align="center"
       justify="center"
       style={{
         cursor: 'pointer',
         padding: theme.custom.spacing.xxsmall,
         backgroundColor: theme.custom.colors.primary.light,
+        ...style,
       }}
       onClick={() => navigate('/')}
     >
