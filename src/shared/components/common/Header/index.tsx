@@ -6,6 +6,8 @@ import { CrownMinimalistic } from '@solar-icons/react';
 
 import { Flex, Layout, Typography } from 'antd';
 
+import { Logo } from '@shared/components/common/Logo';
+
 const { Header: AntdHeader } = Layout;
 
 const MAX_WIDTH = 1200;
@@ -41,14 +43,7 @@ export const Header: React.FC = () => {
             width: '100%',
             height: '100%',
           }}>
-          <Typography.Title
-            level={1}
-            style={{
-              color: theme.custom.colors.text.inverted,
-              margin: 0,
-            }}>
-            <CrownMinimalistic size={32}/> Laundromat
-          </Typography.Title>
+          <Logo size="small" />
         </Flex>
 
         <Flex
