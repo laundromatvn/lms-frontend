@@ -18,6 +18,9 @@ import { LeftRightSection } from '@shared/components/LeftRightSection';
 import type { AddOnOption, SelectedMachineOption } from './type';
 import { WashModalContent } from './WashModalContent';
 import { DryModalContent } from './DryModalContent';
+import { AddOnTypeEnum } from '@shared/enums/AddOnTypeEnum';
+
+const MIN_DRYING_TIME = 15;
 
 interface Props {
   machine: Machine;
@@ -31,6 +34,7 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
   const { t } = useTranslation();
 
   const isSelected = selectedMachineOptions.some((option) => option.machine.id === machine.id);
+  const selectedMachineOption = selectedMachineOptions.find((option) => option.machine.id === machine.id);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selectedAddOns, setSelectedAddOns] = useState<AddOnOption[]>([]);
@@ -52,6 +56,25 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
 
   const onRemoveAddOn = (addOnOption: AddOnOption) => {
     setSelectedAddOns(selectedAddOns.filter((option) => option.addOn.id !== addOnOption.addOn.id));
+  };
+
+  const totalPrice = () => {
+    if (machine.machine_type === MachineTypeEnum.WASHER) {
+      const coldWaterPrice = selectedMachineOption?.addOns.find((addOn) => addOn.addOn.type === AddOnTypeEnum.COLD_WATER && !addOn.addOn.is_default)?.addOn.price || 0;
+      const detergentPrice = selectedMachineOption?.addOns.find((addOn) => addOn.addOn.type === AddOnTypeEnum.DETERGENT && !addOn.addOn.is_default)?.addOn.price || 0;
+      const softenerPrice = selectedMachineOption?.addOns.find((addOn) => addOn.addOn.type === AddOnTypeEnum.SOFTENER && !addOn.addOn.is_default)?.addOn.price || 0;
+
+      return Number(coldWaterPrice) + Number(detergentPrice) + Number(softenerPrice) + Number(machine.base_price);
+    } else {
+      let totalDurationTime = 0;
+      selectedMachineOption?.addOns.forEach((addOn) => {
+        if (addOn.addOn.type === AddOnTypeEnum.DRYING_TIME_MINUTE) {
+          totalDurationTime += addOn.quantity;
+        }
+      });
+
+      return Math.max(Number(totalDurationTime), MIN_DRYING_TIME) * Number(machine.base_price);
+    }
   };
 
   return (
@@ -82,7 +105,7 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
         <Typography.Text strong>{machine.name}</Typography.Text>
 
         <Typography.Text strong style={{ color: theme.custom.colors.success.default }}>
-          {formatCurrencyCompact(machine.base_price)}
+          {formatCurrencyCompact(totalPrice())}
         </Typography.Text>
       </Box>
 
