@@ -25,7 +25,8 @@ export const CustomerLoadClothesPage: React.FC = () => {
     <DefaultLayout>
       <Instruction
         instruction={t('customerFlow.pleaseLoadYourClothesFirst')}
-        image={<Image src={loadClothesImage} style={{ height: '100%', maxHeight: 520 }} preview={false} />}
+        imageUrl={loadClothesImage}
+        style={{ height: 'calc(100% - 64px)' }}
       />
 
       <LeftRightSection
@@ -50,7 +51,7 @@ export const CustomerLoadClothesPage: React.FC = () => {
           </Button>
         )}
         align="flex-end"
-        style={{ height: '100%', maxHeight: 64 }}
+        style={{ height: 64 }}
       />
     </DefaultLayout>
   );
