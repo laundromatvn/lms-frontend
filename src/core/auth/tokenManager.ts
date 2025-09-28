@@ -4,6 +4,8 @@ import {
   ACCESS_TOKEN_EXPIRY_BUFFER_MS,
   REFRESH_TOKEN_EXPIRY_BUFFER_MS,
   PROACTIVE_REFRESH_THRESHOLD_MS,
+  ACCESS_TOKEN_TTL_SECONDS,
+  REFRESH_TOKEN_TTL_SECONDS,
 } from '@core/constant'
 
 type TokenState = TokenBundle | null
@@ -80,6 +82,31 @@ class TokenManager {
     }
   }
 
+  // Force a refresh using the current refresh token, even if access token is still valid
+  async refreshAccessNow(): Promise<void> {
+    if (!this.tokens) return
+    if (this.isRefreshTokenExpired()) {
+      this.clear()
+      return
+    }
+    if (!this.refreshingPromise) {
+      this.refreshingPromise = this.performRefresh()
+        .finally(() => {
+          this.refreshingPromise = null
+        })
+    }
+    try {
+      await this.refreshingPromise
+    } catch {
+      this.clear()
+    }
+  }
+
+  // Alias for clarity if we later differentiate behaviors
+  async rotateRefreshTokenNow(): Promise<void> {
+    await this.refreshAccessNow()
+  }
+
   private async performRefresh(): Promise<string> {
     if (!this.tokens) throw new Error('No tokens to refresh')
     const res = await apiRefreshToken(this.tokens.refreshToken)
@@ -87,8 +114,8 @@ class TokenManager {
     const updated: TokenBundle = {
       accessToken: res.access_token,
       refreshToken: res.refresh_token,
-      accessTokenExp: Date.now() + res.expires_in * 1000,
-      refreshTokenExp: Date.now() + res.refresh_expires_in * 1000,
+      accessTokenExp: Date.now() + ACCESS_TOKEN_TTL_SECONDS * 1000,
+      refreshTokenExp: Date.now() + REFRESH_TOKEN_TTL_SECONDS * 1000,
     }
     this.setTokens(updated)
     return updated.accessToken

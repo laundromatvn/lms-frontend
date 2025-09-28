@@ -10,7 +10,7 @@ export type RefreshTokenResponse = {
 };
 
 export async function refreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
-  const url = `${getBackendUrl()}/api/v1/auth/refresh`;
+  const url = `${getBackendUrl()}/api/v1/auth/refresh-token`;
   const headers = { 'Content-Type': 'application/json' };
   const body = { refresh_token: refreshToken };
   const res = await axios.post<RefreshTokenResponse>(url, body, { headers });
