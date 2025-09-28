@@ -2,8 +2,11 @@
   "common": {
     "companyName": "WashGo247",
     "demo": "Bản demo",
+    "email": "Email",
     "start": "Bắt đầu",
-    "selected": "Đã chọn"
+    "selected": "Đã chọn",
+    "signIn": "Đăng nhập",
+    "password": "Mật khẩu"
   },
   "machines": {
     "label": "Máy {{id}}",

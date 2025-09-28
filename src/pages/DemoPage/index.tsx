@@ -12,7 +12,7 @@ import { MachineOption } from './MachineOption';
 import { useTurnOnMachineApi, type TurnOnMachineResponse } from '@shared/hooks/useTurnOnMachineApi';
 import { useTurnOffMachineApi, type TurnOffMachineResponse } from '@shared/hooks/useTurnOffMachineApi';
 
-const DemoPage: React.FC = () => {
+export const DemoPage: React.FC = () => {
   const theme = useTheme();
   const { t } = useTranslation();
 
@@ -114,5 +114,3 @@ const DemoPage: React.FC = () => {
     </DefaultLayout>
   );
 };
-
-export default DemoPage;

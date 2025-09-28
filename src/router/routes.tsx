@@ -1,5 +1,6 @@
-import HomePage from '@pages/HomePage';
-import DemoPage from '@pages/DemoPage';
+import { HomePage } from '@pages/HomePage';
+import { DemoPage } from '@pages/DemoPage';
+import { SignInPage } from '@pages/Auth';
 
 import { type Route } from './index';
 
@@ -11,5 +12,9 @@ export const routes: Route[] = [
   {
     path: '/demo',
     component: <DemoPage />,
+  },
+  {
+    path: '/sign-in',
+    component: <SignInPage />,
   },
 ];

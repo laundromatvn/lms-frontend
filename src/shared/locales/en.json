@@ -2,8 +2,11 @@
   "common": {
     "companyName": "WashGo247",
     "demo": "Demo",
+    "email": "Email",
+    "selected": "Selected",
     "start": "Start",
-    "selected": "Selected"
+    "signIn": "Sign In",
+    "password": "Password"
   },
   "machines": {
     "label": "Machine {{id}}",
