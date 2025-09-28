@@ -7,6 +7,7 @@ import { Button, Typography, Form, Input, Divider, notification } from 'antd';
 import { useTheme } from '@shared/theme/useTheme';
 
 import { useSignInApi } from '@shared/hooks/useSignInApi';
+import { tokenManager, type TokenBundle } from '@core/auth/tokenManager';
 
 import { AuthContainer } from './components';
 
@@ -30,6 +31,15 @@ export const SignInPage: React.FC = () => {
 
   useEffect(() => {
     if (data) {
+      try {
+        const bundle: TokenBundle = {
+          accessToken: (data as any).access_token,
+          refreshToken: (data as any).refresh_token,
+          accessTokenExp: Date.now() + (data as any).expires_in * 1000,
+          refreshTokenExp: Date.now() + (data as any).refresh_expires_in * 1000,
+        }
+        tokenManager.setTokens(bundle)
+      } catch {}
       api.success({
         message: t('messages.signInSuccess'),
       });

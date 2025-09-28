@@ -13,6 +13,7 @@ export default defineConfig({
     alias: {
       '@shared': resolvePath(__dirname, './src/shared'),
       '@pages': resolvePath(__dirname, './src/pages'),
+      '@core': resolvePath(__dirname, './src/core'),
     },
   },
 })

@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axiosClient from '@core/axiosClient'
 import { useCallback, useState } from 'react'
 
 import { getBackendUrl } from '@shared/utils/env'
@@ -24,17 +24,13 @@ export const useSignInApi = <T = SignInResponse>() => {
 
     const url = `${getBackendUrl()}/api/v1/auth/sign-in`
 
-    const headers = {
-      'Content-Type': 'application/json',
-    }
-
     const body = {
       email,
       password,
     }
 
     try {
-      const response = await axios.post<T>(url, body, { headers })
+      const response = await axiosClient.post<T>(url.replace(getBackendUrl(), ''), body)
 
       setState({ data: response.data as T, loading: false, error: null });
       return response.data as T
