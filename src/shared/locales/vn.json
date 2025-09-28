@@ -21,13 +21,16 @@
     "reload": "Tải lại",
     "wash": "Giặt",
     "washer": "Máy Giặt",
-    "dryer": "Máy Sấy"
+    "dryer": "Máy Sấy",
+    "removeSelection": "Bỏ Chọn"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu",
     "selectWashingMachine": "Chọn Máy Giặt ({{totalSelected}}/{{maxSelected}})",
     "selectDryerMachine": "Chọn Máy Sấy ({{totalSelected}}/{{maxSelected}})",
-    "whatWouldYouLikeToDo": "Bạn muốn làm gì hôm nay?"
+    "whatWouldYouLikeToDo": "Bạn muốn làm gì hôm nay?",
+    "maxSelectedWashingMachines": "Bạn chỉ có thể chọn tối đa {{maxSelected}} máy giặt",
+    "maxSelectedDryerMachines": "Bạn chỉ có thể chọn tối đa {{maxSelected}} máy sấy"
   },
   "messages": {
     "signInSuccess": "Đăng nhập thành công",

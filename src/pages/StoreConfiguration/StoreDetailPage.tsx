@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { Typography, Skeleton, notification, Button, Flex } from 'antd';
+import { Typography, Skeleton, Button, Flex } from 'antd';
 
 import { useTheme } from '@shared/theme/useTheme';
 
+import { storeStorage } from '@core/storage/storeStorage';
 import { type Machine } from '@shared/types/machine';
 import { useListMachineApi, type ListMachineResponse } from '@shared/hooks/useListMachineApi';
 
@@ -18,8 +19,6 @@ export const StoreDetailPage: React.FC = () => {
   const theme = useTheme();
 
   const navigate = useNavigate();
-
-  const [api, contextHolder] = notification.useNotification();
 
   const { storeId } = useParams() as { storeId: string };
   const [machines, setMachines] = useState<Machine[]>([]);
@@ -38,6 +37,7 @@ export const StoreDetailPage: React.FC = () => {
   }
 
   useEffect(() => {
+    storeStorage.save(storeId);
     getStoreMachines(storeId);
   }, []);
 
@@ -49,8 +49,6 @@ export const StoreDetailPage: React.FC = () => {
 
   return (
     <DefaultLayout >
-      {contextHolder}
-
       <Typography.Title level={2}>{t('storeConfiguration.storeDetail')}</Typography.Title>
 
       <Flex vertical gap={theme.custom.spacing.medium} style={{ width: '100%', height: '100%', overflow: 'hidden' }}>

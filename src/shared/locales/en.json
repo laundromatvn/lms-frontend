@@ -21,13 +21,16 @@
     "reload": "Reload",
     "wash": "Wash",
     "washer": "Washer",
-    "dryer": "Dryer"
+    "dryer": "Dryer",
+    "removeSelection": "Remove Selection"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
     "selectWashingMachine": "Select Washing Machine ({{totalSelected}}/{{maxSelected}})",
     "selectDryerMachine": "Select Dryer Machine ({{totalSelected}}/{{maxSelected}})",
-    "whatWouldYouLikeToDo": "What would you like to do?"
+    "whatWouldYouLikeToDo": "What would you like to do?",
+    "maxSelectedWashingMachines": "You can only select up to {{maxSelected}} washing machines",
+    "maxSelectedDryerMachines": "You can only select up to {{maxSelected}} dryer machines"
   },
   "messages": {
     "signInSuccess": "Sign in successfully",
