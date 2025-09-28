@@ -9,6 +9,7 @@ import { StoreListingPage } from '@pages/StoreConfiguration/StoreListingPage';
 import { StoreDetailPage } from '@pages/StoreConfiguration/StoreDetailPage';
 
 import { CustomerWelcomePage } from '@pages/CustomerFlow';
+import { CustomerLoadClothesPage } from '@pages/CustomerFlow';
 
 
 import { type Route } from './index';
@@ -48,5 +49,9 @@ export const routes: Route[] = [
   {
     path: '/customer-flow/welcome',
     component: <CustomerWelcomePage />,
+  },
+  {
+    path: '/customer-flow/load-clothes',
+    component: <CustomerLoadClothesPage />,
   },
 ];

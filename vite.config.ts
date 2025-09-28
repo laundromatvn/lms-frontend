@@ -11,6 +11,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
+      '@public': resolvePath(__dirname, './public'),
       '@shared': resolvePath(__dirname, './src/shared'),
       '@pages': resolvePath(__dirname, './src/pages'),
       '@core': resolvePath(__dirname, './src/core'),

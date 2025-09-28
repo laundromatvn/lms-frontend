@@ -22,6 +22,7 @@
     "wash": "Wash"
   },
   "customerFlow": {
+    "pleaseLoadYourClothesFirst": "Please load your clothes first",
     "whatWouldYouLikeToDo": "What would you like to do?"
   },
   "messages": {

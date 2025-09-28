@@ -44,6 +44,7 @@
     "storeDetail": "Chi tiết cửa hàng",
     "machines": "Máy",
     "relayNo": "Relay {{relayNo}}",
-    "touchOnMachineDescription": "(*) Nhấn vào máy để bắt đầu"
+    "touchOnMachineDescription": "(*) Nhấn vào máy để bắt đầu",
+    "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu"
   }
 }
