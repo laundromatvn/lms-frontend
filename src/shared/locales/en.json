@@ -34,6 +34,9 @@
   },
   "storeConfiguration": {
     "selectStore": "Select a store",
-    "selectedStore": "Selected store: {{storeName}}"
+    "selectedStore": "Selected store: {{storeName}}",
+    "storeDetail": "Store Detail",
+    "machines": "Machines",
+    "relayNo": "Relay {{relayNo}}"
   }
 }

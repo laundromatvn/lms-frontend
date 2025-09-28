@@ -5,7 +5,9 @@ import { SignInPage } from '@pages/Auth';
 import { GenerateOTPPage } from '@pages/Auth/GenerateOTPPage';
 import { VerifyOTPPage } from '@pages/Auth/VerifyOTPPage';
 
-import { StoreConfigurationOnboardingPage } from '@pages/StoreConfiguration/StoreConfigurationOnboardingPage';
+import { StoreListingPage } from '@pages/StoreConfiguration/StoreListingPage';
+import { StoreDetailPage } from '@pages/StoreConfiguration/StoreDetailPage';
+
 
 import { type Route } from './index';
 
@@ -31,7 +33,11 @@ export const routes: Route[] = [
     component: <VerifyOTPPage />,
   },
   {
-    path: '/store-configuration/onboarding',
-    component: <StoreConfigurationOnboardingPage />,
+    path: '/store-configuration/stores',
+    component: <StoreListingPage />,
+  },
+  {
+    path: '/store-configuration/stores/:storeId',
+    component: <StoreDetailPage />,
   },
 ];

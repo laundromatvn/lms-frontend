@@ -38,6 +38,9 @@ export const Header: React.FC = () => {
         backgroundColor: theme.custom.colors.primary.default,
         height: 64,
         width: '100%',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1000,
       }}>
       <Flex
         justify="space-between"

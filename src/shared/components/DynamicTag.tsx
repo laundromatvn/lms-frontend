@@ -6,18 +6,22 @@ import { useTheme } from '@shared/theme/useTheme';
 
 interface Props {
   value: string;
+  style?: React.CSSProperties;
 }
 
-export const DynamicTag: React.FC<Props> = ({ value }) => {
+export const DynamicTag: React.FC<Props> = ({ value, style }) => {
   const theme = useTheme();
 
   const color = useMemo(() => {
     switch (value.toLowerCase()) {
       case 'active':
+      case 'idle':
         return theme.custom.colors.success.default;
       case 'inactive':
         return theme.custom.colors.neutral.default;
       case 'pending':
+      case 'pending_setup':
+      case 'busy':
         return theme.custom.colors.warning.default;
       case 'error':
         return theme.custom.colors.danger.default;
@@ -34,6 +38,8 @@ export const DynamicTag: React.FC<Props> = ({ value }) => {
       borderRadius: theme.custom.radius.full,
       paddingLeft: theme.custom.spacing.medium,
       paddingRight: theme.custom.spacing.medium,
+      height: 'fit-content',
+      ...style,
     }}
   >
     {value}

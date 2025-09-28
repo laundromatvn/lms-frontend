@@ -2,39 +2,39 @@ import { useCallback, useState } from 'react'
 
 import { getBackendUrl } from '@shared/utils/env'
 
-import { type ApiState } from '@shared/hooks/types'
-import { type Store } from '@shared/types/store';
+import { type ApiState } from '@shared/hooks/types';
+import { type Machine } from '@shared/types/machine';
 
-import axiosClient from '@core/axiosClient'
+import axiosClient from '@core/axiosClient';
 
-export type ListStoreRequest = {
-  tenant_id: string;
+export type ListMachineRequest = {
+  store_id: string;
   page: number;
   page_size: number;
 }
 
-export type ListStoreResponse = {
-  data: Store[];
+export type ListMachineResponse = {
+  data: Machine[];
   page: number;
   page_size: number;
   total: number;
   total_pages: number;
 }
 
-export const useListStoreApi = <T = ListStoreResponse>() => {
+export const useListMachineApi = <T = ListMachineResponse>() => {
   const [state, setState] = useState<ApiState<T>>({
     data: null,
     loading: false,
     error: null,
   });
 
-  const listStore = useCallback(async ({ tenant_id, page = 1, page_size = 10 }: ListStoreRequest) => {
+  const listMachine = useCallback(async ({ store_id, page = 1, page_size = 10 }: ListMachineRequest) => {
     setState(prevState => ({ ...prevState, loading: true, error: null }));
 
-    const url = `${getBackendUrl()}/api/v1/store`
+    const url = `${getBackendUrl()}/api/v1/machine`
 
     const queryParams = {
-      tenant_id,
+      store_id,
       page,
       page_size,
     }
@@ -53,5 +53,5 @@ export const useListStoreApi = <T = ListStoreResponse>() => {
     }
   }, [setState]);
 
-  return { ...state, listStore };
+  return { ...state, listMachine };
 }

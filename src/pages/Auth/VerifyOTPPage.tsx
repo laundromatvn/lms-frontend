@@ -46,7 +46,7 @@ export const VerifyOTPPage: React.FC = () => {
     if (getLMSProfileData) {
       userStorage.save(getLMSProfileData.user);
       tenantStorage.save(getLMSProfileData.tenant);
-      navigate('/store-configuration/onboarding');
+      navigate('/store-configuration/stores');
     }
   }, [getLMSProfileData]);
 

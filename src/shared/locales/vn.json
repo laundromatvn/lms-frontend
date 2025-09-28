@@ -34,6 +34,9 @@
   },
   "storeConfiguration": {
     "selectStore": "Chọn cửa hàng",
-    "selectedStore": "Cửa hàng đã chọn: {{storeName}}"
+    "selectedStore": "Cửa hàng đã chọn: {{storeName}}",
+    "storeDetail": "Chi tiết cửa hàng",
+    "machines": "Máy",
+    "relayNo": "Relay {{relayNo}}"
   }
 }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 import { Flex, Typography, Skeleton, notification, Button } from 'antd';
 
@@ -15,9 +16,11 @@ import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 import { StoreMenu } from './components/StoreMenu';
 import { LeftRightSection } from '@shared/components/LeftRightSection';
 
-export const StoreConfigurationOnboardingPage: React.FC = () => {
+export const StoreListingPage: React.FC = () => {
   const { t } = useTranslation();
   const theme = useTheme();
+
+  const navigate = useNavigate();
 
   const [api, contextHolder] = notification.useNotification();
 
@@ -87,18 +90,15 @@ export const StoreConfigurationOnboardingPage: React.FC = () => {
               <Button
                 type="primary"
                 size="large"
-                disabled={!selectedStoreId}
-                style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+                  disabled={!selectedStoreId}
+                  style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+                  onClick={() => navigate(`/store-configuration/stores/${selectedStoreId}`)}  
               >
                 {t('common.continue')}
               </Button>
             )}
             style={{ marginTop: 'auto', marginBottom: theme.custom.spacing.large }}
           />
-
-          <Flex>
-
-          </Flex>
         </>
       )}
     </DefaultLayout>

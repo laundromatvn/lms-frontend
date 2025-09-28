@@ -37,8 +37,11 @@ export const DefaultLayout: React.FC<Props> = ({ children, style }) => {
           gap: theme.custom.spacing.medium,
           maxWidth: MAX_WIDTH,
           width: '100%',
+          height: 'calc(100vh - 64px)',
+          minHeight: 'calc(100vh - 64px)',
           margin: 'auto',
           padding: theme.custom.spacing.medium,
+          overflow: 'hidden',
           ...style,
         }}
       >
