@@ -12,7 +12,7 @@ export const DynamicTag: React.FC<Props> = ({ value }) => {
   const theme = useTheme();
 
   const color = useMemo(() => {
-    switch (value.toLowerCase() ) {
+    switch (value.toLowerCase()) {
       case 'active':
         return theme.custom.colors.success.default;
       case 'inactive':
@@ -28,5 +28,14 @@ export const DynamicTag: React.FC<Props> = ({ value }) => {
     }
   }, [value]);
 
-  return <Tag color={color}>{value}</Tag>;
+  return <Tag
+    color={color}
+    style={{
+      borderRadius: theme.custom.radius.full,
+      paddingLeft: theme.custom.spacing.medium,
+      paddingRight: theme.custom.spacing.medium,
+    }}
+  >
+    {value}
+  </Tag>;
 };

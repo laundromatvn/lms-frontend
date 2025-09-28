@@ -8,6 +8,7 @@
     "getLMSProfileFailed": "You do not have access to this application"
   },
   "common": {
+    "back": "Back",
     "companyName": "WashGo247",
     "continue": "Continue",
     "demo": "Demo",

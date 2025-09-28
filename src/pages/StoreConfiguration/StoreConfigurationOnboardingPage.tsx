@@ -13,6 +13,7 @@ import { useListStoreApi } from '@shared/hooks/useListStoreApi';
 
 import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 import { StoreMenu } from './components/StoreMenu';
+import { LeftRightSection } from '@shared/components/LeftRightSection';
 
 export const StoreConfigurationOnboardingPage: React.FC = () => {
   const { t } = useTranslation();
@@ -66,15 +67,14 @@ export const StoreConfigurationOnboardingPage: React.FC = () => {
 
       {!isLoading && stores.length > 0 && (
         <>
-          <Flex justify="space-between" style={{ width: '100%' }}>
-            <Typography.Text style={{ fontSize: theme.custom.fontSize.medium }}>
+          <LeftRightSection
+            left={<Typography.Text style={{ fontSize: theme.custom.fontSize.medium }}>
               {t('storeConfiguration.selectedStore', { storeName: stores.find((store) => store.id === selectedStoreId)?.name })}
-            </Typography.Text>
-
-            <Button type="default" size="large" onClick={getStores}>
+            </Typography.Text>}
+            right={<Button type="default" size="large" onClick={getStores}>
               {t('common.reload')}
-            </Button>
-          </Flex>
+            </Button>}
+          />
 
           <StoreMenu
             stores={stores}
@@ -82,10 +82,22 @@ export const StoreConfigurationOnboardingPage: React.FC = () => {
             onSelect={(storeId) => setSelectedStoreId(storeId)}
           />
 
+          <LeftRightSection
+            right={(
+              <Button
+                type="primary"
+                size="large"
+                disabled={!selectedStoreId}
+                style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+              >
+                {t('common.continue')}
+              </Button>
+            )}
+            style={{ marginTop: 'auto', marginBottom: theme.custom.spacing.large }}
+          />
+
           <Flex>
-            <Button type="primary" size="large" style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}>
-              {t('common.continue')}
-            </Button>
+
           </Flex>
         </>
       )}
