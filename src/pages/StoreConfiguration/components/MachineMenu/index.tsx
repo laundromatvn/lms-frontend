@@ -21,7 +21,12 @@ export const MachineMenu: React.FC<Props> = ({ machines }) => {
       justify="flex-start"
       align="flex-start"
       gap={theme.custom.spacing.medium}
-      style={{ width: '100%', height: '100%', overflowY: 'auto' }}
+      style={{
+        width: '100%',
+        height: '100%',
+        overflowY: 'auto',
+        paddingRight: theme.custom.spacing.medium,
+      }}
     >
       {machines.map((machine) => (
         <MachineOption key={machine.id} machine={machine} />
