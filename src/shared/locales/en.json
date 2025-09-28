@@ -19,10 +19,14 @@
     "signIn": "Sign In",
     "password": "Password",
     "reload": "Reload",
-    "wash": "Wash"
+    "wash": "Wash",
+    "washer": "Washer",
+    "dryer": "Dryer"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
+    "selectWashingMachine": "Select Washing Machine ({{totalSelected}}/{{maxSelected}})",
+    "selectDryerMachine": "Select Dryer Machine ({{totalSelected}}/{{maxSelected}})",
     "whatWouldYouLikeToDo": "What would you like to do?"
   },
   "messages": {

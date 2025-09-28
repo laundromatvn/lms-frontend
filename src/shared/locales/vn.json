@@ -19,9 +19,14 @@
     "signIn": "Đăng nhập",
     "password": "Mật khẩu",
     "reload": "Tải lại",
-    "wash": "Giặt"
+    "wash": "Giặt",
+    "washer": "Máy Giặt",
+    "dryer": "Máy Sấy"
   },
   "customerFlow": {
+    "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu",
+    "selectWashingMachine": "Chọn Máy Giặt ({{totalSelected}}/{{maxSelected}})",
+    "selectDryerMachine": "Chọn Máy Sấy ({{totalSelected}}/{{maxSelected}})",
     "whatWouldYouLikeToDo": "Bạn muốn làm gì hôm nay?"
   },
   "messages": {
@@ -44,7 +49,6 @@
     "storeDetail": "Chi tiết cửa hàng",
     "machines": "Máy",
     "relayNo": "Relay {{relayNo}}",
-    "touchOnMachineDescription": "(*) Nhấn vào máy để bắt đầu",
-    "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu"
+    "touchOnMachineDescription": "(*) Nhấn vào máy để bắt đầu"
   }
 }

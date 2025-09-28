@@ -25,7 +25,7 @@ export const CustomerLoadClothesPage: React.FC = () => {
     <DefaultLayout>
       <Instruction
         instruction={t('customerFlow.pleaseLoadYourClothesFirst')}
-        image={<Image src={loadClothesImage} style={{ height: '100%', maxHeight: 480 }} preview={false} />}
+        image={<Image src={loadClothesImage} style={{ height: '100%', maxHeight: 520 }} preview={false} />}
       />
 
       <LeftRightSection
@@ -34,7 +34,7 @@ export const CustomerLoadClothesPage: React.FC = () => {
             type="default"
             size="large"
             style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
-            onClick={() => navigate(`/customer-flow/select-machines?workingType=${workingType}`)}
+            onClick={() => navigate(`/customer-flow/welcome`)}
           >
             {t('common.back')}
           </Button>
@@ -49,6 +49,8 @@ export const CustomerLoadClothesPage: React.FC = () => {
             {t('common.continue')}
           </Button>
         )}
+        align="flex-end"
+        style={{ height: '100%', maxHeight: 64 }}
       />
     </DefaultLayout>
   );
