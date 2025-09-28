@@ -1,7 +1,7 @@
 import { tokenStorage, type TokenBundle } from '@core/storage/tokenStorage'
 import { tenantStorage } from '@core/storage/tenantStorage'
 import { userStorage } from '@core/storage/userStorage'
-import { refreshTokenApi } from '@shared/hooks/useRefreshTokenApi'
+import { refreshToken, type RefreshTokenResponse } from './authApi'
 import {
   ACCESS_TOKEN_EXPIRY_BUFFER_MS,
   REFRESH_TOKEN_EXPIRY_BUFFER_MS,
@@ -142,13 +142,21 @@ class TokenManager {
 
   private async performRefresh(): Promise<string> {
     if (!this.tokens) throw new Error('No tokens to refresh')
-    const res = await refreshTokenApi(this.tokens.refreshToken)
+    const res: RefreshTokenResponse = await refreshToken(this.tokens.refreshToken)
+
+    const accessTokenTtlMs = (res as any)?.expires_in
+      ? (res as any).expires_in * 1000
+      : ACCESS_TOKEN_TTL_SECONDS * 1000
+
+    const refreshTokenTtlMs = (res as any)?.refresh_expires_in
+      ? (res as any).refresh_expires_in * 1000
+      : REFRESH_TOKEN_TTL_SECONDS * 1000
 
     const updated: TokenBundle = {
       accessToken: res.access_token,
       refreshToken: res.refresh_token,
-      accessTokenExp: Date.now() + ACCESS_TOKEN_TTL_SECONDS * 1000,
-      refreshTokenExp: Date.now() + REFRESH_TOKEN_TTL_SECONDS * 1000,
+      accessTokenExp: Date.now() + accessTokenTtlMs,
+      refreshTokenExp: Date.now() + refreshTokenTtlMs,
     }
     this.setTokens(updated)
     return updated.accessToken
