@@ -27,7 +27,7 @@ export const HomePage: React.FC = () => {
             borderRadius: theme.custom.radius.full,
             padding: theme.custom.spacing.medium,
           }}
-          onClick={() => navigate('/sign-in')}
+          onClick={() => navigate('/auth/sign-in')}
         >
           {t('common.signIn')}
         </Button>

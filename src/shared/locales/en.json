@@ -1,4 +1,11 @@
 {
+  "auth": {
+    "OTPVerification": "OTP Verification",
+    "generateOTPDescription": "OTP will be sent to your email",
+    "verifyOTPDescription": "Enter the OTP sent to your email",
+    "generateOTP": "Generate OTP",
+    "verifyOTP": "Verify OTP"
+  },
   "common": {
     "companyName": "WashGo247",
     "demo": "Demo",
@@ -10,7 +17,9 @@
   },
   "messages": {
     "signInSuccess": "Sign in successfully",
-    "incorrectCredentials": "Incorrect credentials"
+    "incorrectCredentials": "Incorrect credentials",
+    "generateOTPFailed": "Failed to generate OTP",
+    "verifyOTPFailed": "Failed to verify OTP"
   },
   "machines": {
     "label": "Machine {{id}}",

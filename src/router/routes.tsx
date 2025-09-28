@@ -1,9 +1,13 @@
 import { HomePage } from '@pages/HomePage';
 import { DemoPage } from '@pages/DemoPage';
+
 import { SignInPage } from '@pages/Auth';
+import { GenerateOTPPage } from '@pages/Auth/GenerateOTPPage';
+import { VerifyOTPPage } from '@pages/Auth/VerifyOTPPage';
+
+import { StoreConfigurationOnboardingPage } from '@pages/StoreConfiguration/StoreConfigurationOnboardingPage';
 
 import { type Route } from './index';
-import { StoreConfigurationOnboardingPage } from '@pages/StoreConfiguration/StoreConfigurationOnboardingPage';
 
 export const routes: Route[] = [
   {
@@ -15,8 +19,16 @@ export const routes: Route[] = [
     component: <DemoPage />,
   },
   {
-    path: '/sign-in',
+    path: '/auth/sign-in',
     component: <SignInPage />,
+  },
+  {
+    path: '/auth/generate-otp',
+    component: <GenerateOTPPage />,
+  },
+  {
+    path: '/auth/verify-otp',
+    component: <VerifyOTPPage />,
   },
   {
     path: '/store-configuration/onboarding',

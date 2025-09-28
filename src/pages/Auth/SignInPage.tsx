@@ -8,6 +8,7 @@ import { useTheme } from '@shared/theme/useTheme';
 
 import { useSignInApi } from '@shared/hooks/useSignInApi';
 import { tokenManager, type TokenBundle } from '@core/auth/tokenManager';
+import { ACCESS_TOKEN_TTL_SECONDS, REFRESH_TOKEN_TTL_SECONDS } from '@core/constant'
 
 import { AuthContainer } from './components';
 
@@ -35,8 +36,8 @@ export const SignInPage: React.FC = () => {
         const bundle: TokenBundle = {
           accessToken: (data as any).access_token,
           refreshToken: (data as any).refresh_token,
-          accessTokenExp: Date.now() + (data as any).expires_in * 1000,
-          refreshTokenExp: Date.now() + (data as any).refresh_expires_in * 1000,
+          accessTokenExp: Date.now() + ACCESS_TOKEN_TTL_SECONDS * 1000,
+          refreshTokenExp: Date.now() + REFRESH_TOKEN_TTL_SECONDS * 1000,
         }
         tokenManager.setTokens(bundle)
       } catch {}
@@ -44,7 +45,7 @@ export const SignInPage: React.FC = () => {
         message: t('messages.signInSuccess'),
       });
 
-      navigate('/store-configuration/onboarding');
+      navigate('/auth/generate-otp');
     } 
   }, [data])
 
