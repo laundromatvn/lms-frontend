@@ -1,7 +1,7 @@
 // Centralized timing/scheduling constants
 
-export const ACCESS_TOKEN_TTL_SECONDS = 15;
-export const REFRESH_TOKEN_TTL_SECONDS = 86_400;
+export const ACCESS_TOKEN_TTL_SECONDS = 300; // 5 minutes
+export const REFRESH_TOKEN_TTL_SECONDS = 86_400; // 1 day
 
 export const ACCESS_TOKEN_EXPIRY_BUFFER_MS = 5_000; // 5s early refresh buffer
 export const REFRESH_TOKEN_EXPIRY_BUFFER_MS = 5_000; // 5s early refresh buffer
@@ -16,5 +16,5 @@ export const PROACTIVE_REFRESH_CHECK_INTERVAL_MS = 30 * 1000; // 10 seconds
 export const PROACTIVE_REFRESH_THRESHOLD_MS = 60 * 1000; // 60 seconds
 
 // Forced refresh intervals (even if tokens are still valid)
-export const FORCE_ACCESS_REFRESH_INTERVAL_MS = 5 * 1000; // 5 seconds
-export const FORCE_REFRESH_ROTATION_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
+export const FORCE_ACCESS_REFRESH_INTERVAL_MS = 270 * 1000; // 270 seconds (4.5 minutes)
+export const FORCE_REFRESH_ROTATION_INTERVAL_MS = 50 * 60 * 1000; // 50 minutes

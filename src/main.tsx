@@ -1,4 +1,4 @@
-import { StrictMode } from 'react'
+import React from 'react'
 import { createRoot } from 'react-dom/client'
 import 'antd/dist/reset.css';
 import './index.css'
@@ -7,9 +7,9 @@ import { ThemeProvider } from './shared/theme/ThemeProvider.tsx';
 import '@shared/services/i18n';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  <React.StrictMode>
     <ThemeProvider>
       <App />
     </ThemeProvider>
-  </StrictMode>,
+  </React.StrictMode>,
 )

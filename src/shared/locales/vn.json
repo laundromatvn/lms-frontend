@@ -3,17 +3,20 @@
     "OTPVerification": "Xác thực OTP",
     "generateOTPDescription": "OTP sẽ được gửi đến email của bạn",
     "verifyOTPDescription": "Nhập OTP đã được gửi đến email của bạn",
-    "generateOTP": "Tạo OTP",
-    "verifyOTP": "Xác thực OTP"
+    "sendOTP": "Gửi OTP",
+    "verifyOTP": "Xác thực OTP",
+    "getLMSProfileFailed": "Bạn không có quyền truy cập vào ứng dụng này"
   },
   "common": {
     "companyName": "WashGo247",
+    "continue": "Tiếp tục",
     "demo": "Bản demo",
     "email": "Email",
     "start": "Bắt đầu",
     "selected": "Đã chọn",
     "signIn": "Đăng nhập",
-    "password": "Mật khẩu"
+    "password": "Mật khẩu",
+    "reload": "Tải lại"
   },
   "messages": {
     "signInSuccess": "Đăng nhập thành công",
@@ -29,6 +32,7 @@
     "turnOffFailed": "Tắt máy {{id}} thất bại"
   },
   "storeConfiguration": {
-    "selectStore": "Chọn cửa hàng"
+    "selectStore": "Chọn cửa hàng",
+    "selectedStore": "Cửa hàng đã chọn: {{storeName}}"
   }
 }

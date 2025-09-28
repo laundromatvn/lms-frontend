@@ -7,6 +7,9 @@ import { Button, Typography, Divider, notification, Input, Flex } from 'antd';
 import { useTheme } from '@shared/theme/useTheme';
 
 import { useVerifyOTPApi } from '@shared/hooks/useVerifyOTPApi';
+import { useGetLMSProfileApi } from '@shared/hooks/useGetLMSProfile';
+import { userStorage } from '@core/storage/userStorage';
+import { tenantStorage } from '@core/storage/tenantStorage';
 
 import { AuthContainer } from './components';
 
@@ -18,23 +21,53 @@ export const VerifyOTPPage: React.FC = () => {
 
   const [api, contextHolder] = notification.useNotification();
 
-  const { verifyOTP, loading, data, error } = useVerifyOTPApi();
+  const {
+    verifyOTP,
+    loading: verifyOTPLoading,
+    data: verifyOTPData,
+    error: verifyOTPError,
+  } = useVerifyOTPApi();
+  const {
+    getLMSProfile,
+    loading: getLMSProfileLoading,
+    data: getLMSProfileData,
+    error: getLMSProfileError,
+  } = useGetLMSProfileApi();
 
   const [otp, setOtp] = useState('');
 
   useEffect(() => {
-    if (data) {
-      navigate('/store-configuration/onboarding');
+    if (verifyOTPData) {
+      getLMSProfile();
     }
-  }, [data]);
+  }, [verifyOTPData]);
 
   useEffect(() => {
-    if (error) {
+    if (getLMSProfileData) {
+      userStorage.save(getLMSProfileData.user);
+      tenantStorage.save(getLMSProfileData.tenant);
+      navigate('/store-configuration/onboarding');
+    }
+  }, [getLMSProfileData]);
+
+  useEffect(() => {
+    if (verifyOTPError) {
       api.error({
         message: t('messages.verifyOTPFailed'),
       });
     }
-  }, [error]);
+  }, [verifyOTPError]);
+
+  useEffect(() => {
+    if (getLMSProfileError) {
+      api.error({
+        message: t('auth.getLMSProfileFailed'),
+      });
+      setTimeout(() => {
+        navigate('/auth/sign-in');
+      }, 3000);
+    }
+  }, [getLMSProfileError]);
 
   return (
     <AuthContainer>
@@ -50,7 +83,7 @@ export const VerifyOTPPage: React.FC = () => {
           length={6}
           value={otp}
           onChange={(val) => setOtp(val.replace(/\D/g, ''))}
-          disabled={loading}
+          disabled={verifyOTPLoading || getLMSProfileLoading}
           size="large"
           style={{ width: '100%' }}
         />
@@ -60,7 +93,7 @@ export const VerifyOTPPage: React.FC = () => {
         type="primary"
         size="large"
         onClick={() => verifyOTP({ otp })}
-        loading={loading}
+        loading={verifyOTPLoading || getLMSProfileLoading}
         disabled={otp.length !== 6}
         style={{
           width: '100%',

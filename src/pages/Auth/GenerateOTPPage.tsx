@@ -55,7 +55,7 @@ export const GenerateOTPPage: React.FC = () => {
           padding: theme.custom.spacing.medium,
         }}
       >
-        {t('auth.generateOTP')}
+        {t('auth.sendOTP')}
       </Button>
     </AuthContainer>
   );

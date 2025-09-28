@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { ThemeProvider } from '@shared/theme/ThemeProvider';
@@ -9,25 +9,56 @@ import AppRouter from './router';
 import { routes } from './router/routes';
 
 const App: React.FC = () => {
+  const proactiveIdRef = useRef<number | null>(null);
+  const forceAccessIdRef = useRef<number | null>(null);
+  const rotateRefreshIdRef = useRef<number | null>(null);
+
   useEffect(() => {
-    const proactiveId = setInterval(() => {
-      tokenManager.proactiveRefresh();
-    }, PROACTIVE_REFRESH_CHECK_INTERVAL_MS);
 
-    const forceAccessId = setInterval(() => {
-      tokenManager.refreshAccessNow();
-    }, FORCE_ACCESS_REFRESH_INTERVAL_MS);
+    const startIntervals = () => {
+      if (proactiveIdRef.current !== null) return; // already running
+      proactiveIdRef.current = window.setInterval(() => {
+        tokenManager.proactiveRefresh();
+      }, PROACTIVE_REFRESH_CHECK_INTERVAL_MS);
 
-    const rotateRefreshId = setInterval(() => {
-      tokenManager.rotateRefreshTokenNow();
-    }, FORCE_REFRESH_ROTATION_INTERVAL_MS);
+      forceAccessIdRef.current = window.setInterval(() => {
+        tokenManager.refreshAccessNow();
+      }, FORCE_ACCESS_REFRESH_INTERVAL_MS);
+
+      rotateRefreshIdRef.current = window.setInterval(() => {
+        tokenManager.rotateRefreshTokenNow();
+      }, FORCE_REFRESH_ROTATION_INTERVAL_MS);
+    };
+
+    const stopIntervals = () => {
+      if (proactiveIdRef.current !== null) {
+        clearInterval(proactiveIdRef.current);
+        proactiveIdRef.current = null;
+      }
+      if (forceAccessIdRef.current !== null) {
+        clearInterval(forceAccessIdRef.current);
+        forceAccessIdRef.current = null;
+      }
+      if (rotateRefreshIdRef.current !== null) {
+        clearInterval(rotateRefreshIdRef.current);
+        rotateRefreshIdRef.current = null;
+      }
+    };
+
+    const unsubscribe = tokenManager.subscribeAuth((authenticated) => {
+      if (authenticated) {
+        startIntervals();
+      } else {
+        stopIntervals();
+      }
+    });
 
     return () => {
-      clearInterval(proactiveId);
-      clearInterval(forceAccessId);
-      clearInterval(rotateRefreshId);
+      stopIntervals();
+      unsubscribe();
     };
   }, []);
+
   return (
     <Router>
       <ThemeProvider>

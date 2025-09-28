@@ -3,17 +3,20 @@
     "OTPVerification": "OTP Verification",
     "generateOTPDescription": "OTP will be sent to your email",
     "verifyOTPDescription": "Enter the OTP sent to your email",
-    "generateOTP": "Generate OTP",
-    "verifyOTP": "Verify OTP"
+    "sendOTP": "Send OTP",
+    "verifyOTP": "Verify OTP",
+    "getLMSProfileFailed": "You do not have access to this application"
   },
   "common": {
     "companyName": "WashGo247",
+    "continue": "Continue",
     "demo": "Demo",
     "email": "Email",
     "selected": "Selected",
     "start": "Start",
     "signIn": "Sign In",
-    "password": "Password"
+    "password": "Password",
+    "reload": "Reload"
   },
   "messages": {
     "signInSuccess": "Sign in successfully",
@@ -29,6 +32,7 @@
     "turnOffFailed": "Failed to turn off machine {{id}}"
   },
   "storeConfiguration": {
-    "selectStore": "Select a store"
+    "selectStore": "Select a store",
+    "selectedStore": "Selected store: {{storeName}}"
   }
 }

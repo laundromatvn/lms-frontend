@@ -1,37 +1,30 @@
-import axios from 'axios'
 import { useCallback, useState } from 'react'
 
 import { getBackendUrl } from '@shared/utils/env'
 
+import axiosClient from '@core/axiosClient'
 import { type ApiState } from '@shared/hooks/types'
+import { type LMSProfile } from '@shared/types/LMSProfile';
 
-export type SignInRequest = {
-  email: string;
-  password: string;
-}
+export type GetMeResponse = LMSProfile;
 
-export type SignInResponse = any;
-
-export const useSignInApi = <T = SignInResponse>() => {
+export const useGetLMSProfileApi = <T = GetMeResponse>() => {
   const [state, setState] = useState<ApiState<T>>({
     data: null,
     loading: false,
     error: null,
   });
 
-  const signIn = useCallback(async ({ email, password }: SignInRequest) => {
+  const getLMSProfile = useCallback(async () => {
     setState(prevState => ({ ...prevState, loading: true, error: null }));
 
-    const url = `${getBackendUrl()}/api/v1/auth/sign-in`
-
-    const body = {
-      email,
-      password,
-    }
+    const url = `${getBackendUrl()}/api/v1/auth/lms-profile`
 
     try {
-      const headers = { 'Content-Type': 'application/json' }
-      const response = await axios.post<T>(url, body, { headers })
+      const response = await axiosClient.get<T>(
+        url.replace(getBackendUrl(), ''),
+      )
+
       setState({ data: response.data as T, loading: false, error: null });
       return response.data as T
     } catch (error: any) {
@@ -40,5 +33,5 @@ export const useSignInApi = <T = SignInResponse>() => {
     }
   }, [setState]);
 
-  return { ...state, signIn };
+  return { ...state, getLMSProfile };
 }

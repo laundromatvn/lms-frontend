@@ -1,5 +1,7 @@
-import { tokenStorage, type TokenBundle } from './tokenStorage'
-import { refreshToken as apiRefreshToken } from './authApi'
+import { tokenStorage, type TokenBundle } from '@core/storage/tokenStorage'
+import { tenantStorage } from '@core/storage/tenantStorage'
+import { userStorage } from '@core/storage/userStorage'
+import { refreshTokenApi } from '@shared/hooks/useRefreshTokenApi'
 import {
   ACCESS_TOKEN_EXPIRY_BUFFER_MS,
   REFRESH_TOKEN_EXPIRY_BUFFER_MS,
@@ -13,24 +15,55 @@ type TokenState = TokenBundle | null
 class TokenManager {
   private tokens: TokenState
   private refreshingPromise: Promise<string> | null
+  private authListeners: Array<(authenticated: boolean) => void>
 
   constructor() {
     this.tokens = tokenStorage.load()
     this.refreshingPromise = null
+    this.authListeners = []
   }
 
   setTokens(tokens: TokenBundle): void {
     this.tokens = tokens
     tokenStorage.save(tokens)
+    this.notifyAuthChanged(true)
   }
 
   clear(): void {
     this.tokens = null
     tokenStorage.clear()
+    try {
+      tenantStorage.clear()
+      userStorage.clear()
+    } catch {}
+    this.notifyAuthChanged(false)
   }
 
   getAccessToken(): string | null {
     return this.tokens?.accessToken ?? null
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.tokens
+  }
+
+  subscribeAuth(listener: (authenticated: boolean) => void): () => void {
+    this.authListeners.push(listener)
+    // immediate notify with current state
+    try {
+      listener(this.isAuthenticated())
+    } catch {}
+    return () => {
+      this.authListeners = this.authListeners.filter((l) => l !== listener)
+    }
+  }
+
+  private notifyAuthChanged(authenticated: boolean): void {
+    for (const listener of this.authListeners) {
+      try {
+        listener(authenticated)
+      } catch {}
+    }
   }
 
   isAccessTokenExpired(bufferMs = ACCESS_TOKEN_EXPIRY_BUFFER_MS): boolean {
@@ -109,7 +142,7 @@ class TokenManager {
 
   private async performRefresh(): Promise<string> {
     if (!this.tokens) throw new Error('No tokens to refresh')
-    const res = await apiRefreshToken(this.tokens.refreshToken)
+    const res = await refreshTokenApi(this.tokens.refreshToken)
 
     const updated: TokenBundle = {
       accessToken: res.access_token,

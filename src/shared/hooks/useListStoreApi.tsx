@@ -4,34 +4,40 @@ import { useCallback, useState } from 'react'
 import { getBackendUrl } from '@shared/utils/env'
 
 import { type ApiState } from '@shared/hooks/types'
+import axiosClient from '@core/axiosClient'
 
-export type SignInRequest = {
-  email: string;
-  password: string;
+export type ListStoreRequest = {
+  tenant_id: string;
+  page: number;
+  page_size: number;
 }
 
-export type SignInResponse = any;
+export type ListStoreResponse = any;
 
-export const useSignInApi = <T = SignInResponse>() => {
+export const useListStoreApi = <T = ListStoreResponse>() => {
   const [state, setState] = useState<ApiState<T>>({
     data: null,
     loading: false,
     error: null,
   });
 
-  const signIn = useCallback(async ({ email, password }: SignInRequest) => {
+  const listStore = useCallback(async ({ tenant_id, page = 1, page_size = 10 }: ListStoreRequest) => {
     setState(prevState => ({ ...prevState, loading: true, error: null }));
 
-    const url = `${getBackendUrl()}/api/v1/auth/sign-in`
+    const url = `${getBackendUrl()}/api/v1/store`
 
-    const body = {
-      email,
-      password,
+    const queryParams = {
+      tenant_id,
+      page,
+      page_size,
     }
 
     try {
-      const headers = { 'Content-Type': 'application/json' }
-      const response = await axios.post<T>(url, body, { headers })
+      const response = await axiosClient.get<T>(
+        url.replace(getBackendUrl(), ''),
+        { params: queryParams }
+      )
+
       setState({ data: response.data as T, loading: false, error: null });
       return response.data as T
     } catch (error: any) {
@@ -40,5 +46,5 @@ export const useSignInApi = <T = SignInResponse>() => {
     }
   }, [setState]);
 
-  return { ...state, signIn };
+  return { ...state, listStore };
 }
