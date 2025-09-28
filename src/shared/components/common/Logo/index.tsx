@@ -54,7 +54,7 @@ export const Logo: React.FC<Props> = ({ size = 'medium', style }) => {
           color: theme.custom.colors.primary.default,
         }}
       >
-        Wash&Dry247
+        WashGo247
       </Typography.Title>
     </Box>
   );
