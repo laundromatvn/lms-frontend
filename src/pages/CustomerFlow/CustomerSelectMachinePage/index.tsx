@@ -103,14 +103,6 @@ export const CustomerSelectMachinePage: React.FC = () => {
     }
   }, [listClassifiedStoreMachineData]);
 
-  useEffect(() => {
-    console.log("selectedWashingMachineOptions", selectedWashingMachineOptions);
-  }, [selectedWashingMachineOptions]);
-
-  useEffect(() => {
-    console.log("selectedDryerMachineOptions", selectedDryerMachineOptions);
-  }, [selectedDryerMachineOptions]);
-
   return (
     <DefaultLayout style={{ alignItems: 'center' }}>
       {contextHolder}

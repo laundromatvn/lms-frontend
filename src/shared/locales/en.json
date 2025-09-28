@@ -30,7 +30,8 @@
     "hotWater": "Hot Water",
     "detergent": "Detergent",
     "softener": "Softener",
-    "default": "Default"
+    "default": "Default",
+    "minutes": "Minutes"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
@@ -62,6 +63,7 @@
     "relayNo": "Relay {{relayNo}}",
     "touchOnMachineDescription": "(*) Touch on the machine to start",
     "selectForMachine": "Select for machine: {{machineName}}",
-    "selectMultipleAddOns": "Select multiple add-ons:"
+    "selectMultipleAddOns": "Select multiple add-ons:",
+    "selectDryingDuration": "Select drying duration:"
   }
 }

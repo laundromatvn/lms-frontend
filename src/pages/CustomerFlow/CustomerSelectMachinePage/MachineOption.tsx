@@ -124,8 +124,6 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
             : <DryModalContent
                 selectedAddOns={selectedAddOns}
                 setSelectedAddOns={setSelectedAddOns}
-                onSelect={onSelectAddOn}
-                onRemove={onRemoveAddOn}
               />
             }
         </Flex>
