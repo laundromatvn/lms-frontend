@@ -1,23 +1,57 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Typography, Form, Input, Divider } from 'antd';
+import { Button, Typography, Form, Input, Divider, notification } from 'antd';
 
 import { useTheme } from '@shared/theme/useTheme';
 
+import { useSignInApi } from '@shared/hooks/useSignInApi';
+
 import { AuthContainer } from './components';
+
 
 export const SignInPage: React.FC = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const [form] = Form.useForm();
+  const [api, contextHolder] = notification.useNotification();
+
+  const { signIn, loading, data, error } = useSignInApi();
+  
+  const handleSubmit = async () => {
+    await signIn({
+      email: form.getFieldValue('email'),
+      password: form.getFieldValue('password'),
+    });
+  };
+
+  useEffect(() => {
+    if (data) {
+      api.success({
+        message: t('messages.signInSuccess'),
+      });
+
+      navigate('/store-configuration/onboarding');
+    } 
+  }, [data])
+
+  useEffect(() => {
+    if (error) {
+      api.error({
+        message: t('messages.incorrectCredentials'),
+      });
+    }
+  }, [error])
+
   return (
     <AuthContainer>
+      {contextHolder}
       <Typography.Title level={2}>{t('common.signIn')}</Typography.Title>
       <Divider />
-      <Form>
+      <Form form={form}>
         <Form.Item label={t('common.email')} name="email" labelCol={{ span: 24 }}>
           <Input size="large" />
         </Form.Item>
@@ -32,6 +66,8 @@ export const SignInPage: React.FC = () => {
             htmlType="submit"
             size="large"
             style={{ width: '100%', borderRadius: theme.custom.radius.full }}
+            onClick={handleSubmit}
+            loading={loading}
           >
             {t('common.signIn')}
           </Button>

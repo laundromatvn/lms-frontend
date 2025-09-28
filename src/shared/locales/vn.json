@@ -8,13 +8,18 @@
     "signIn": "Đăng nhập",
     "password": "Mật khẩu"
   },
+  "messages": {
+    "signInSuccess": "Đăng nhập thành công",
+    "incorrectCredentials": "Thông tin đăng nhập không chính xác"
+  },
   "machines": {
     "label": "Máy {{id}}",
     "turnedOn": "Máy {{id}} đã được bật thành công",
     "turnedOff": "Máy {{id}} đã được tắt thành công",
     "turnOnFailed": "Bật máy {{id}} thất bại",
     "turnOffFailed": "Tắt máy {{id}} thất bại"
+  },
+  "storeConfiguration": {
+    "selectStore": "Chọn cửa hàng"
   }
 }
-
-

@@ -8,13 +8,18 @@
     "signIn": "Sign In",
     "password": "Password"
   },
+  "messages": {
+    "signInSuccess": "Sign in successfully",
+    "incorrectCredentials": "Incorrect credentials"
+  },
   "machines": {
     "label": "Machine {{id}}",
     "turnedOn": "Machine {{id}} turned on successfully",
     "turnedOff": "Machine {{id}} turned off successfully",
     "turnOnFailed": "Failed to turn on machine {{id}}",
     "turnOffFailed": "Failed to turn off machine {{id}}"
+  },
+  "storeConfiguration": {
+    "selectStore": "Select a store"
   }
 }
-
-
