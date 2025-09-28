@@ -28,7 +28,7 @@ export const DynamicTag: React.FC<Props> = ({ value, style }) => {
       case 'success':
         return theme.custom.colors.success.default;
       default:
-        return theme.custom.colors.neutral[200];
+        return theme.custom.colors.neutral[400];
     }
   }, [value]);
 
@@ -39,6 +39,7 @@ export const DynamicTag: React.FC<Props> = ({ value, style }) => {
       paddingLeft: theme.custom.spacing.medium,
       paddingRight: theme.custom.spacing.medium,
       height: 'fit-content',
+      width: 'fit-content',
       ...style,
     }}
   >

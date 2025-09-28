@@ -22,7 +22,15 @@
     "wash": "Giặt",
     "washer": "Máy Giặt",
     "dryer": "Máy Sấy",
-    "removeSelection": "Bỏ Chọn"
+    "removeSelection": "Bỏ Chọn",
+    "select": "Chọn",
+    "selectMachine": "Chọn Máy",
+    "cancel": "Hủy",
+    "coldWater": "Nước lạnh",
+    "hotWater": "Nước nóng",
+    "detergent": "Xà phòng",
+    "softener": "Chất lỏng giặt",
+    "default": "Mặc định"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu",
@@ -52,6 +60,8 @@
     "storeDetail": "Chi tiết cửa hàng",
     "machines": "Máy",
     "relayNo": "Relay {{relayNo}}",
-    "touchOnMachineDescription": "(*) Nhấn vào máy để bắt đầu"
+    "touchOnMachineDescription": "(*) Nhấn vào máy để bắt đầu",
+    "selectForMachine": "Chọn cho máy: {{machineName}}",
+    "selectMultipleAddOns": "Chọn nhiều dịch vụ:"
   }
 }

@@ -1,31 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { WashingMachineMinimalistic } from '@solar-icons/react';
 
-import { Button, Flex, Typography } from 'antd';
+import { Button, Flex, Modal, Typography } from 'antd';
 
 import { useTheme } from '@shared/theme/useTheme';
+
+import { formatCurrencyCompact } from '@shared/utils/currency';
 
 import { MachineTypeEnum } from '@shared/enums/MachineTypeEnum';
 import { type Machine } from '@shared/types/machine';
 
 import { Box } from '@shared/components/Box';
+import { LeftRightSection } from '@shared/components/LeftRightSection';
 
-import { formatCurrencyCompact } from '@shared/utils/currency';
+import type { AddOnOption, SelectedMachineOption } from './type';
+import { WashModalContent } from './WashModalContent';
+import { DryModalContent } from './DryModalContent';
 
 interface Props {
   machine: Machine;
-  selectedMachineIds: string[];
-  onSelect: () => void;
-  onRemove: () => void;
+  selectedMachineOptions: SelectedMachineOption[];
+  onSelect: (machineOption: SelectedMachineOption) => void;
+  onRemove: (machineOption: SelectedMachineOption) => void;
 }
 
-export const MachineOption: React.FC<Props> = ({ machine, selectedMachineIds, onSelect, onRemove }) => {
+export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions, onSelect, onRemove }) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const isSelected = selectedMachineIds.includes(machine.id);
+  const isSelected = selectedMachineOptions.some((option) => option.machine.id === machine.id);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [selectedAddOns, setSelectedAddOns] = useState<AddOnOption[]>([]);
 
   const defaultColor = machine.machine_type === MachineTypeEnum.WASHER
     ? theme.custom.colors.info.default
@@ -33,6 +41,18 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineIds, on
   const lightColor = machine.machine_type === MachineTypeEnum.WASHER
     ? theme.custom.colors.info.light
     : theme.custom.colors.warning.light;
+
+  const onSelectAddOn = (addOnOption: AddOnOption) => {
+    if (selectedAddOns.some((option) => option.addOn.id === addOnOption.addOn.id)) {
+      return;
+    }
+
+    setSelectedAddOns([...selectedAddOns, addOnOption]);
+  };
+
+  const onRemoveAddOn = (addOnOption: AddOnOption) => {
+    setSelectedAddOns(selectedAddOns.filter((option) => option.addOn.id !== addOnOption.addOn.id));
+  };
 
   return (
     <Flex vertical gap={theme.custom.spacing.large}>
@@ -42,7 +62,7 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineIds, on
         align="center"
         justify="center"
         gap={theme.custom.spacing.large}
-        onClick={onSelect}
+        onClick={() => setIsModalOpen(true)}
         style={{
           height: 312,
           borderColor: defaultColor,
@@ -69,7 +89,7 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineIds, on
       {isSelected && (
         <Button
           type="dashed"
-          onClick={onRemove}
+          onClick={() => onRemove({ machine, addOns: [] })}
           style={{
             width: '100%',
             height: 48
@@ -78,6 +98,65 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineIds, on
           {t('common.removeSelection')}
         </Button>
       )}
+
+      <Modal
+        open={isModalOpen}
+        onCancel={() => setIsModalOpen(false)}
+        closable={false}
+        maskClosable={false}
+        footer={null}
+        width={1200}
+        styles={{
+          content: { height: 600, overflow: 'hidden' },
+          body: { height: '100%' },
+        }}
+      >
+        <Flex vertical gap={theme.custom.spacing.large} style={{ width: '100%', height: 'calc(100% - 48px)' }}>
+          <Typography.Text strong>{t('storeConfiguration.selectForMachine', { machineName: machine.name })}</Typography.Text>
+
+          {machine.machine_type === MachineTypeEnum.WASHER
+            ? <WashModalContent
+              selectedAddOns={selectedAddOns}
+              setSelectedAddOns={setSelectedAddOns}
+              onSelect={onSelectAddOn}
+              onRemove={onRemoveAddOn}
+            />
+            : <DryModalContent
+                selectedAddOns={selectedAddOns}
+                setSelectedAddOns={setSelectedAddOns}
+                onSelect={onSelectAddOn}
+                onRemove={onRemoveAddOn}
+              />
+            }
+        </Flex>
+
+        <LeftRightSection
+          left={(
+            <Button
+              type="default"
+              size="large"
+              onClick={() => setIsModalOpen(false)}
+              style={{ width: 240, height: 48, borderRadius: theme.custom.radius.full }}
+            >
+              {t('common.back')}
+            </Button>
+          )}
+          right={(
+            <Button
+              type="primary"
+              size="large"
+              onClick={() => {
+                onSelect({ machine, addOns: selectedAddOns });
+                setIsModalOpen(false);
+              }}
+              style={{ width: 240, height: 48, borderRadius: theme.custom.radius.full }}
+            >
+              {t('common.selectMachine')}
+            </Button>
+          )}
+          style={{ width: '100%', height: 48 }}
+        />
+      </Modal>
     </Flex>
   )
 };

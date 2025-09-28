@@ -22,7 +22,15 @@
     "wash": "Wash",
     "washer": "Washer",
     "dryer": "Dryer",
-    "removeSelection": "Remove Selection"
+    "removeSelection": "Remove Selection",
+    "select": "Select",
+    "selectMachine": "Select Machine",
+    "cancel": "Cancel",
+    "coldWater": "Cold Water",
+    "hotWater": "Hot Water",
+    "detergent": "Detergent",
+    "softener": "Softener",
+    "default": "Default"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
@@ -52,6 +60,8 @@
     "storeDetail": "Store Detail",
     "machines": "Machines",
     "relayNo": "Relay {{relayNo}}",
-    "touchOnMachineDescription": "(*) Touch on the machine to start"
+    "touchOnMachineDescription": "(*) Touch on the machine to start",
+    "selectForMachine": "Select for machine: {{machineName}}",
+    "selectMultipleAddOns": "Select multiple add-ons:"
   }
 }

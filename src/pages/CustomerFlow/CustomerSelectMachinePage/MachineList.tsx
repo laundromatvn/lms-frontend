@@ -6,25 +6,26 @@ import { WorkingTypeEnum } from '@shared/enums/WorkingTypeEnum';
 import { type Machine } from '@shared/types/machine';
 
 import { MachineOption } from './MachineOption';
+import type { SelectedMachineOption } from './type';
 
 interface Props {
   workingType: WorkingTypeEnum;
   machines: Machine[];
-  selectedWashingMachineIds: string[];
-  onSelectWashingMachine: (machineId: string) => void;
-  onRemoveWashingMachine: (machineId: string) => void;
-  selectedDryerMachineIds: string[];
-  onSelectDryerMachine: (machineId: string) => void;
-  onRemoveDryerMachine: (machineId: string) => void;
+  selectedWashingMachineOptions: SelectedMachineOption[];
+  onSelectWashingMachine: (machineOption: SelectedMachineOption) => void;
+  onRemoveWashingMachine: (machineOption: SelectedMachineOption) => void;
+  selectedDryerMachineOptions: SelectedMachineOption[];
+  onSelectDryerMachine: (machineOption: SelectedMachineOption) => void;
+  onRemoveDryerMachine: (machineOption: SelectedMachineOption) => void;
 }
 
 export const MachineList: React.FC<Props> = ({
   workingType,
   machines,
-  selectedWashingMachineIds,
+  selectedWashingMachineOptions,
   onSelectWashingMachine,
   onRemoveWashingMachine,
-  selectedDryerMachineIds,
+  selectedDryerMachineOptions,
   onSelectDryerMachine,
   onRemoveDryerMachine,
 }) => {
@@ -48,15 +49,15 @@ export const MachineList: React.FC<Props> = ({
         <MachineOption
           key={machine.id}
           machine={machine}
-          selectedMachineIds={workingType === WorkingTypeEnum.WASH
-            ? selectedWashingMachineIds
-            : selectedDryerMachineIds}
-          onSelect={() => workingType === WorkingTypeEnum.WASH
-            ? onSelectWashingMachine(machine.id)
-            : onSelectDryerMachine(machine.id)}
-          onRemove={() => workingType === WorkingTypeEnum.WASH
-            ? onRemoveWashingMachine(machine.id)
-            : onRemoveDryerMachine(machine.id)}
+          selectedMachineOptions={workingType === WorkingTypeEnum.WASH
+            ? selectedWashingMachineOptions
+            : selectedDryerMachineOptions}
+          onSelect={(machineOption) => workingType === WorkingTypeEnum.WASH
+            ? onSelectWashingMachine(machineOption)
+            : onSelectDryerMachine( machineOption)}
+          onRemove={(machineOption) => workingType === WorkingTypeEnum.WASH
+            ? onRemoveWashingMachine( machineOption)
+            : onRemoveDryerMachine( machineOption)}
         />
       ))}
     </div>
