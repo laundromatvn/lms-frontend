@@ -12,18 +12,24 @@
     "companyName": "WashGo247",
     "continue": "Continue",
     "demo": "Demo",
+    "dry": "Dry",
     "email": "Email",
     "selected": "Selected",
     "start": "Start",
     "signIn": "Sign In",
     "password": "Password",
-    "reload": "Reload"
+    "reload": "Reload",
+    "wash": "Wash"
+  },
+  "customerFlow": {
+    "whatWouldYouLikeToDo": "What would you like to do?"
   },
   "messages": {
     "signInSuccess": "Sign in successfully",
     "incorrectCredentials": "Incorrect credentials",
     "generateOTPFailed": "Failed to generate OTP",
-    "verifyOTPFailed": "Failed to verify OTP"
+    "verifyOTPFailed": "Failed to verify OTP",
+    "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved."
   },
   "machines": {
     "label": "Machine {{id}}",
@@ -37,6 +43,7 @@
     "selectedStore": "Selected store: {{storeName}}",
     "storeDetail": "Store Detail",
     "machines": "Machines",
-    "relayNo": "Relay {{relayNo}}"
+    "relayNo": "Relay {{relayNo}}",
+    "touchOnMachineDescription": "(*) Touch on the machine to start"
   }
 }

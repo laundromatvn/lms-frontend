@@ -144,6 +144,9 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
           large: 24,
           xlarge: 32,
           xxlarge: 48,
+          xxxlarge: 64,
+          xxxxlarge: 80,
+          xxxxxlarge: 96,
         },
         radius: {
           xxsmall: 2,

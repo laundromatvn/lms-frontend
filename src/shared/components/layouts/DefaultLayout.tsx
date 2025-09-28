@@ -1,12 +1,13 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { useTheme } from '@shared/theme/useTheme';
 
-import { Layout } from 'antd';
+import { Layout, Typography } from 'antd';
 
 import { Header } from '@shared/components/common/Header';
 
-const { Content } = Layout;
+const { Content, Footer } = Layout;
 
 const MAX_WIDTH = 1200;
 
@@ -17,11 +18,12 @@ interface Props {
 
 export const DefaultLayout: React.FC<Props> = ({ children, style }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   return (
-    <Layout 
-      style={{ 
-        minHeight: '100vh', 
+    <Layout
+      style={{
+        minHeight: '100vh',
         width: '100vw',
         backgroundColor: theme.custom.colors.background.light,
       }}
@@ -37,8 +39,8 @@ export const DefaultLayout: React.FC<Props> = ({ children, style }) => {
           gap: theme.custom.spacing.medium,
           maxWidth: MAX_WIDTH,
           width: '100%',
-          height: 'calc(100vh - 64px)',
-          minHeight: 'calc(100vh - 64px)',
+          height: 'calc(100vh - 64px - 48px)',
+          minHeight: 'calc(100vh - 64px - 48px)',
           margin: 'auto',
           padding: theme.custom.spacing.medium,
           overflow: 'hidden',
@@ -47,6 +49,16 @@ export const DefaultLayout: React.FC<Props> = ({ children, style }) => {
       >
         {children}
       </Content>
+
+      <Footer
+        style={{
+          height: 48,
+          textAlign: 'center',
+          backgroundColor: theme.custom.colors.background.light,
+        }}
+      >
+        <Typography.Text>{t('messages.allRightsReserved')}</Typography.Text>
+      </Footer>
     </Layout>
   );
 };

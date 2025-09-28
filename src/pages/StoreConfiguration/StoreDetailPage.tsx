@@ -78,6 +78,7 @@ export const StoreDetailPage: React.FC = () => {
                   type="primary"
                   size="large"
                   style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+                  onClick={() => navigate('/customer-flow/welcome')}
                 >
                   {t('common.start')}
                 </Button>

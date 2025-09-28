@@ -12,18 +12,24 @@
     "companyName": "WashGo247",
     "continue": "Tiếp tục",
     "demo": "Bản demo",
+    "dry": "Sấy",
     "email": "Email",
     "start": "Bắt đầu",
     "selected": "Đã chọn",
     "signIn": "Đăng nhập",
     "password": "Mật khẩu",
-    "reload": "Tải lại"
+    "reload": "Tải lại",
+    "wash": "Giặt"
+  },
+  "customerFlow": {
+    "whatWouldYouLikeToDo": "Bạn muốn làm gì hôm nay?"
   },
   "messages": {
     "signInSuccess": "Đăng nhập thành công",
     "incorrectCredentials": "Thông tin đăng nhập không chính xác",
     "generateOTPFailed": "Tạo OTP thất bại",
-    "verifyOTPFailed": "Xác thực OTP thất bại"
+    "verifyOTPFailed": "Xác thực OTP thất bại",
+    "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved."
   },
   "machines": {
     "label": "Máy {{id}}",
@@ -37,6 +43,7 @@
     "selectedStore": "Cửa hàng đã chọn: {{storeName}}",
     "storeDetail": "Chi tiết cửa hàng",
     "machines": "Máy",
-    "relayNo": "Relay {{relayNo}}"
+    "relayNo": "Relay {{relayNo}}",
+    "touchOnMachineDescription": "(*) Nhấn vào máy để bắt đầu"
   }
 }
