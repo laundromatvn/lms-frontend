@@ -31,7 +31,9 @@
     "detergent": "Detergent",
     "softener": "Softener",
     "default": "Default",
-    "minutes": "Minutes"
+    "minutes": "Minutes",
+    "total": "Total",
+    "confirm": "Confirm"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
@@ -39,7 +41,8 @@
     "selectDryerMachine": "Select Dryer Machine ({{totalSelected}}/{{maxSelected}})",
     "whatWouldYouLikeToDo": "What would you like to do?",
     "maxSelectedWashingMachines": "You can only select up to {{maxSelected}} washing machines",
-    "maxSelectedDryerMachines": "You can only select up to {{maxSelected}} dryer machines"
+    "maxSelectedDryerMachines": "You can only select up to {{maxSelected}} dryer machines",
+    "orderOverview": "Order Overview"
   },
   "messages": {
     "signInSuccess": "Sign in successfully",

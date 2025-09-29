@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,12 +10,17 @@ import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 
 import { MachineOption } from './MachineOption';
 import { MachineTypeEnum } from '@shared/enums/MachineTypeEnum';
+import { selectMachineStorage } from '@core/storage/selectMachineStorage';
 
 export const CustomerWelcomePage: React.FC = () => {
   const { t } = useTranslation();
   const theme = useTheme();
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    selectMachineStorage.clear();
+  }, []);
 
   return (
     <DefaultLayout style={{ alignItems: 'center' }}>

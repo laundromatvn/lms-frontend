@@ -18,6 +18,7 @@ import { WorkingTypeEnum } from '@shared/enums/WorkingTypeEnum';
 import { LeftRightSection } from '@shared/components/LeftRightSection';
 import { MachineList } from './MachineList';
 import type { SelectedMachineOption } from './type';
+import { selectMachineStorage } from '@core/storage/selectMachineStorage';
 
 const MAX_SELECTED_WASHING_MACHINES = 2;
 const MAX_SELECTED_DRYING_MACHINES = 2;
@@ -151,7 +152,7 @@ export const CustomerSelectMachinePage: React.FC = () => {
             type="default"
             size="large"
             style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
-            onClick={() => navigate(`/customer-flow/load-clothes?workingType=${workingType}`)}
+            onClick={() => navigate(`/customer-flow/load-clothes`)}
           >
             {t('common.back')}
           </Button>
@@ -161,7 +162,13 @@ export const CustomerSelectMachinePage: React.FC = () => {
             type="primary"
             size="large"
             style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
-            onClick={() => navigate(`/customer-flow/select-machines?workingType=${workingType}`)}
+            onClick={() => {
+              selectMachineStorage.save({
+                selectedWashingMachineOptions,
+                selectedDryerMachineOptions,
+              });
+              navigate(`/customer-flow/order-overview`)
+            }}
             disabled={selectedWashingMachineOptions.length === 0 && selectedDryerMachineOptions.length === 0}
           >
             {t('common.continue')}

@@ -31,7 +31,9 @@
     "detergent": "Xà phòng",
     "softener": "Chất lỏng giặt",
     "default": "Mặc định",
-    "minutes": "Phút"
+    "minutes": "Phút",
+    "total": "Tổng",
+    "confirm": "Xác nhận"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu",
@@ -39,7 +41,8 @@
     "selectDryerMachine": "Chọn Máy Sấy ({{totalSelected}}/{{maxSelected}})",
     "whatWouldYouLikeToDo": "Bạn muốn làm gì hôm nay?",
     "maxSelectedWashingMachines": "Bạn chỉ có thể chọn tối đa {{maxSelected}} máy giặt",
-    "maxSelectedDryerMachines": "Bạn chỉ có thể chọn tối đa {{maxSelected}} máy sấy"
+    "maxSelectedDryerMachines": "Bạn chỉ có thể chọn tối đa {{maxSelected}} máy sấy",
+    "orderOverview": "Tổng quan đơn hàng"
   },
   "messages": {
     "signInSuccess": "Đăng nhập thành công",
