@@ -38,7 +38,8 @@
     "pay": "Thanh toán",
     "tryAgain": "Thử lại",
     "notifyMessage": "Thông báo",
-    "getInvoice": "Lấy hóa đơn"
+    "getInvoice": "Lấy hóa đơn",
+    "done": "Hoàn thành"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu",
@@ -61,7 +62,8 @@
     "paymentFailed": "Thanh toán thất bại",
     "pleaseTryAgain": "Vui lòng thử lại",
     "pleaseNotifyMessage": "Vui lòng thông báo",
-    "pleaseGetInvoice": "Vui lòng lấy hóa đơn"
+    "pleaseGetInvoice": "Vui lòng lấy hóa đơn",
+    "pleasePressStart": "Vui lòng bấm bắt đầu"
   },
   "messages": {
     "signInSuccess": "Đăng nhập thành công",

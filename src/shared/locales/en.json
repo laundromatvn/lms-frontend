@@ -38,7 +38,8 @@
     "pay": "Pay",
     "tryAgain": "Try Again",
     "notifyMessage": "Notify Message",
-    "getInvoice": "Get Invoice"
+    "getInvoice": "Get Invoice",
+    "done": "Done"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
@@ -61,7 +62,8 @@
     "paymentFailed": "Payment failed",
     "pleaseTryAgain": "Please try again",
     "pleaseNotifyMessage": "Please notify message",
-    "pleaseGetInvoice": "Please get invoice"
+    "pleaseGetInvoice": "Please get invoice",
+    "pleasePressStart": "Please press start"
   },
   "messages": {
     "signInSuccess": "Sign in successfully",

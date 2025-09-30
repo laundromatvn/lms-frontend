@@ -15,7 +15,7 @@ import { CustomerOrderOverviewPage } from '@pages/CustomerFlow/CustomerOrderOver
 import { CustomerPaymentPage } from '@pages/CustomerFlow/CustomerPaymentPage';
 import { CustomerSuccessPage } from '@pages/CustomerFlow/CustomerSuccessPage';
 import { CustomerFailedPage } from '@pages/CustomerFlow/CustomerFailedPage';
-
+import { CustomerPressStartPage } from '@pages/CustomerFlow/CustomerPressStartPage';
 
 import { type Route } from './index';
 
@@ -79,4 +79,8 @@ export const routes: Route[] = [
     path: '/customer-flow/failed',
     component: <CustomerFailedPage />,
   },
+  {
+    path: '/customer-flow/press-start',
+    component: <CustomerPressStartPage />,
+  }
 ];

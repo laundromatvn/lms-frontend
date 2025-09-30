@@ -93,21 +93,13 @@ export const CustomerSuccessPage: React.FC = () => {
         </Flex>
 
         <LeftRightSection
-          left={(
-            <Button
-              type="default"
-              size="large"
-              style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
-              onClick={() => navigate(`/customer-flow/welcome`)}
-            >
-              {t('common.back')}
-            </Button>
-          )}
+          left={null}
           right={(
             <Button
               type="primary"
               size="large"
               style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+              onClick={() => navigate('/customer-flow/press-start')}
             >
               {t('common.continue')}
             </Button>
