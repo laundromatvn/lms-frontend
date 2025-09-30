@@ -34,7 +34,7 @@ export const Instruction: React.FC<Props> = ({ imageUrl, instruction, style }) =
       <Image
         src={imageUrl}
         preview={false}
-        style={{ height: 400, objectFit: 'contain' }}
+        style={{ height: 600, objectFit: 'contain' }}
       />
 
       <Typography.Text

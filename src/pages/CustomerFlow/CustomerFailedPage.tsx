@@ -1,14 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { Button, Flex, Image } from 'antd';
 
 import { useTheme } from '@shared/theme/useTheme';
 
 import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
-import { WorkingTypeEnum } from '@shared/enums/WorkingTypeEnum';
-import { LeftRightSection } from '@shared/components/LeftRightSection';
 import { PaymentMessage } from './components/PaymentMessage';
 import { Box } from '@shared/components/Box';
 
@@ -18,9 +16,6 @@ export const CustomerFailedPage: React.FC = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const navigate = useNavigate();
-
-  const [searchParams] = useSearchParams();
-  const workingType = searchParams.get('workingType') as WorkingTypeEnum;
 
   return (
     <DefaultLayout>
