@@ -23,7 +23,7 @@ import { PaymentMethodSelection } from './PaymentMethodSelection';
 import { PaymentMethodDetails } from './PaymentMethodDetails';
 
 const PAYMENT_POLLING_INTERVAL = 2000;
-const PAYMENT_TIMEOUT = 10_000;
+const PAYMENT_TIMEOUT = 90_000;
 
 export const CustomerPaymentPage: React.FC = () => {
   const { t } = useTranslation();
@@ -49,6 +49,9 @@ export const CustomerPaymentPage: React.FC = () => {
     loading: getPaymentLoading,
     data: getPaymentData,
   } = useGetPaymentApi();
+
+  const [remainingMs, setRemainingMs] = React.useState<number | null>(null);
+  const countdownDeadlineRef = React.useRef<number | null>(null);
 
   const handleCreatePayment = async () => {
     const storeId = storeStorage.load();
@@ -76,6 +79,8 @@ export const CustomerPaymentPage: React.FC = () => {
       if (!isMounted) return;
       navigate('/customer-flow/failed');
     }, timeoutMs);
+    countdownDeadlineRef.current = Date.now() + timeoutMs;
+    setRemainingMs(timeoutMs);
     const intervalId = window.setInterval(async () => {
       try {
         const latest = await getPayment(payment.id);
@@ -100,6 +105,8 @@ export const CustomerPaymentPage: React.FC = () => {
       isMounted = false;
       window.clearInterval(intervalId);
       window.clearTimeout(timeoutId);
+      countdownDeadlineRef.current = null;
+      setRemainingMs(null);
     };
   };
 
@@ -114,6 +121,19 @@ export const CustomerPaymentPage: React.FC = () => {
     const cleanup = handleCheckPayment();
     return cleanup;
   }, [payment?.id]);
+
+  useEffect(() => {
+    if (!countdownDeadlineRef.current) return;
+    const tick = () => {
+      const ms = Math.max(0, (countdownDeadlineRef.current as number) - Date.now());
+      setRemainingMs(ms);
+    };
+    tick();
+    const id = window.setInterval(tick, 1000);
+    return () => {
+      window.clearInterval(id);
+    };
+  }, [payment?.id, selectedMethod]);
 
   useEffect(() => {
     if (createPaymentData) {
@@ -166,6 +186,7 @@ export const CustomerPaymentPage: React.FC = () => {
             selectedMethod={selectedMethod}
             qrCode={payment?.details?.qr_code}
             loading={getPaymentLoading}
+            remainingSeconds={typeof remainingMs === 'number' ? Math.ceil(remainingMs / 1000) : undefined}
           />
         </Flex>
       )}

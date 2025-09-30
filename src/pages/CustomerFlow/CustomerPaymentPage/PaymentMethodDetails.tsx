@@ -12,11 +12,19 @@ interface PaymentMethodDetailsProps {
   qrCode?: string | null;
   loading?: boolean;
   style?: React.CSSProperties;
+  remainingSeconds?: number;
 }
 
-export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ selectedMethod, qrCode, loading, style }) => {
+export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ selectedMethod, qrCode, loading, style, remainingSeconds }) => {
   const { t } = useTranslation();
   const theme = useTheme();
+
+  const formatTime = (totalSeconds: number) => {
+    const seconds = Math.max(0, Math.floor(totalSeconds));
+    const minutes = Math.floor(seconds / 60);
+    const restSeconds = seconds % 60;
+    return `${minutes}:${String(restSeconds).padStart(2, '0')}`;
+  };
 
   return (
     <Flex
@@ -47,6 +55,11 @@ export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ sele
             <>
               <QRCode size={360} value={qrCode} />
               <Typography.Text>{t('customerFlow.scanToPay')}</Typography.Text>
+              {typeof remainingSeconds === 'number' && (
+                <Typography.Text type="secondary">
+                  {t('customerFlow.qrExpiresIn', { time: formatTime(remainingSeconds) })}
+                </Typography.Text>
+              )}
             </>
           ) : (
             <>
