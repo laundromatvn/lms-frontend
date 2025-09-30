@@ -33,7 +33,8 @@
     "default": "Mặc định",
     "minutes": "Phút",
     "total": "Tổng",
-    "confirm": "Xác nhận"
+    "confirm": "Xác nhận",
+    "pay": "Thanh toán"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu",
@@ -42,7 +43,14 @@
     "whatWouldYouLikeToDo": "Bạn muốn làm gì hôm nay?",
     "maxSelectedWashingMachines": "Bạn chỉ có thể chọn tối đa {{maxSelected}} máy giặt",
     "maxSelectedDryerMachines": "Bạn chỉ có thể chọn tối đa {{maxSelected}} máy sấy",
-    "orderOverview": "Tổng quan đơn hàng"
+    "orderOverview": "Tổng quan đơn hàng",
+    "payment": "Thanh toán",
+    "selectPaymentMethod": "Chọn phương thức thanh toán",
+    "qr": "QR",
+    "card": "Visa/MasterCard",
+    "scanToPay": "Quét mã QR để thanh toán",
+    "paymentSuccess": "Thanh toán thành công",
+    "paymentCardComingSoon": "Thanh toán thẻ sẽ sớm ra mắt"
   },
   "messages": {
     "signInSuccess": "Đăng nhập thành công",

@@ -33,7 +33,8 @@
     "default": "Default",
     "minutes": "Minutes",
     "total": "Total",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "pay": "Pay"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
@@ -42,7 +43,14 @@
     "whatWouldYouLikeToDo": "What would you like to do?",
     "maxSelectedWashingMachines": "You can only select up to {{maxSelected}} washing machines",
     "maxSelectedDryerMachines": "You can only select up to {{maxSelected}} dryer machines",
-    "orderOverview": "Order Overview"
+    "orderOverview": "Order Overview",
+    "payment": "Payment",
+    "selectPaymentMethod": "Select payment method",
+    "qr": "QR",
+    "card": "Visa/MasterCard",
+    "scanToPay": "Scan the QR code to pay",
+    "paymentSuccess": "Payment successful",
+    "paymentCardComingSoon": "Card payment coming soon"
   },
   "messages": {
     "signInSuccess": "Sign in successfully",

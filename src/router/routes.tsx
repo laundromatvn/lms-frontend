@@ -12,6 +12,7 @@ import { CustomerWelcomePage } from '@pages/CustomerFlow';
 import { CustomerLoadClothesPage } from '@pages/CustomerFlow';
 import { CustomerSelectMachinePage } from '@pages/CustomerFlow';
 import { CustomerOrderOverviewPage } from '@pages/CustomerFlow/CustomerOrderOverviewPage';
+import { CustomerPaymentPage } from '@pages/CustomerFlow/CustomerPaymentPage';
 
 
 import { type Route } from './index';
@@ -63,5 +64,9 @@ export const routes: Route[] = [
   {
     path: '/customer-flow/order-overview',
     component: <CustomerOrderOverviewPage />,
+  },
+  {
+    path: '/customer-flow/payment',
+    component: <CustomerPaymentPage />,
   },
 ];

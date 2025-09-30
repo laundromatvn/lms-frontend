@@ -6,13 +6,14 @@ import { useTheme } from '@shared/theme/useTheme';
 
 interface Props {
   value: string;
+  color?: string;
   style?: React.CSSProperties;
 }
 
-export const DynamicTag: React.FC<Props> = ({ value, style }) => {
+export const DynamicTag: React.FC<Props> = ({ value, color, style }) => {
   const theme = useTheme();
 
-  const color = useMemo(() => {
+  const dynamicColor = useMemo(() => {
     switch (value.toLowerCase()) {
       case 'active':
       case 'idle':
@@ -33,7 +34,7 @@ export const DynamicTag: React.FC<Props> = ({ value, style }) => {
   }, [value]);
 
   return <Tag
-    color={color}
+    color={color || dynamicColor}
     style={{
       borderRadius: theme.custom.radius.full,
       paddingLeft: theme.custom.spacing.medium,
