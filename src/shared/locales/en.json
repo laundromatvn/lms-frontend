@@ -71,7 +71,8 @@
     "generateOTPFailed": "Failed to generate OTP",
     "verifyOTPFailed": "Failed to verify OTP",
     "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved.",
-    "thisFeatureIsComingSoon": "This feature is coming soon"
+    "thisFeatureIsComingSoon": "This feature is coming soon",
+    "fetchStoresFailed": "Failed to fetch stores"
   },
   "machines": {
     "label": "Machine {{id}}",

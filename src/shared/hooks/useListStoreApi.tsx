@@ -31,7 +31,7 @@ export const useListStoreApi = <T = ListStoreResponse>() => {
   const listStore = useCallback(async ({ tenant_id, page = 1, page_size = 10 }: ListStoreRequest) => {
     setState(prevState => ({ ...prevState, loading: true, error: null }));
 
-    const url = `${getBackendUrl()}/api/v1/store`
+    const url = `${getBackendUrl()}/api/v1/store/`
 
     const queryParams = {
       tenant_id,

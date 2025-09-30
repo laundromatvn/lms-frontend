@@ -71,7 +71,8 @@
     "generateOTPFailed": "Tạo OTP thất bại",
     "verifyOTPFailed": "Xác thực OTP thất bại",
     "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved.",
-    "thisFeatureIsComingSoon": "Tính năng này sẽ sớm ra mắt"
+    "thisFeatureIsComingSoon": "Tính năng này sẽ sớm ra mắt",
+    "fetchStoresFailed": "Lấy danh sách cửa hàng thất bại"
   },
   "machines": {
     "label": "Máy {{id}}",
