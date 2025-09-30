@@ -14,6 +14,7 @@
     "demo": "Demo",
     "dry": "Dry",
     "email": "Email",
+    "loading": "Loading...",
     "selected": "Selected",
     "start": "Start",
     "signIn": "Sign In",
@@ -34,7 +35,8 @@
     "minutes": "Minutes",
     "total": "Total",
     "confirm": "Confirm",
-    "pay": "Pay"
+    "pay": "Pay",
+    "tryAgain": "Try Again"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
@@ -49,9 +51,13 @@
     "qr": "QR",
     "card": "Visa/MasterCard",
     "scanToPay": "Scan the QR code to pay",
+    "waitingForQrCode": "Waiting for QR code",
+    "qrExpiresIn": "QR expires in {{time}}",
     "paymentSuccess": "Payment successful",
     "paymentCardComingSoon": "Card payment coming soon",
-    "pleaseWaitABitWeAreProcessingYourOrder": "Please wait a bit, we are processing your order"
+    "pleaseWaitABitWeAreProcessingYourOrder": "Please wait a bit, we are processing your order",
+    "paymentFailed": "Payment failed",
+    "pleaseTryAgain": "Please try again"
   },
   "messages": {
     "signInSuccess": "Sign in successfully",

@@ -14,6 +14,7 @@
     "demo": "Bản demo",
     "dry": "Sấy",
     "email": "Email",
+    "loading": "Đang tải...",
     "start": "Bắt đầu",
     "selected": "Đã chọn",
     "signIn": "Đăng nhập",
@@ -34,7 +35,8 @@
     "minutes": "Phút",
     "total": "Tổng",
     "confirm": "Xác nhận",
-    "pay": "Thanh toán"
+    "pay": "Thanh toán",
+    "tryAgain": "Thử lại"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu",
@@ -49,9 +51,13 @@
     "qr": "QR",
     "card": "Visa/MasterCard",
     "scanToPay": "Quét mã QR để thanh toán",
+    "waitingForQrCode": "Đang chờ mã QR",
+    "qrExpiresIn": "Mã QR hết hạn sau {{time}}",
     "paymentSuccess": "Thanh toán thành công",
     "paymentCardComingSoon": "Thanh toán thẻ sẽ sớm ra mắt",
-    "pleaseWaitABitWeAreProcessingYourOrder": "Vui lòng chờ một chút, chúng tôi đang xử lý đơn hàng của bạn"
+    "pleaseWaitABitWeAreProcessingYourOrder": "Vui lòng chờ một chút, chúng tôi đang xử lý đơn hàng của bạn",
+    "paymentFailed": "Thanh toán thất bại",
+    "pleaseTryAgain": "Vui lòng thử lại"
   },
   "messages": {
     "signInSuccess": "Đăng nhập thành công",
