@@ -84,16 +84,7 @@ export const CustomerPaymentPage: React.FC = () => {
             {t('common.back')}
           </Button>
         )}
-        right={(
-          <Button
-            type="primary"
-            size="large"
-            style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
-            onClick={handlePay}
-          >
-            {t('common.pay')}
-          </Button>
-        )}
+        right={null}
       />
     </DefaultLayout>
   );
