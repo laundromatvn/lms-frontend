@@ -36,7 +36,9 @@
     "total": "Tổng",
     "confirm": "Xác nhận",
     "pay": "Thanh toán",
-    "tryAgain": "Thử lại"
+    "tryAgain": "Thử lại",
+    "notifyMessage": "Thông báo",
+    "getInvoice": "Lấy hóa đơn"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu",
@@ -57,14 +59,17 @@
     "paymentCardComingSoon": "Thanh toán thẻ sẽ sớm ra mắt",
     "pleaseWaitABitWeAreProcessingYourOrder": "Vui lòng chờ một chút, chúng tôi đang xử lý đơn hàng của bạn",
     "paymentFailed": "Thanh toán thất bại",
-    "pleaseTryAgain": "Vui lòng thử lại"
+    "pleaseTryAgain": "Vui lòng thử lại",
+    "pleaseNotifyMessage": "Vui lòng thông báo",
+    "pleaseGetInvoice": "Vui lòng lấy hóa đơn"
   },
   "messages": {
     "signInSuccess": "Đăng nhập thành công",
     "incorrectCredentials": "Thông tin đăng nhập không chính xác",
     "generateOTPFailed": "Tạo OTP thất bại",
     "verifyOTPFailed": "Xác thực OTP thất bại",
-    "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved."
+    "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved.",
+    "thisFeatureIsComingSoon": "Tính năng này sẽ sớm ra mắt"
   },
   "machines": {
     "label": "Máy {{id}}",

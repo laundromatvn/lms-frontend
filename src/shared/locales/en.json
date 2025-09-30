@@ -36,7 +36,9 @@
     "total": "Total",
     "confirm": "Confirm",
     "pay": "Pay",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "notifyMessage": "Notify Message",
+    "getInvoice": "Get Invoice"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
@@ -57,14 +59,17 @@
     "paymentCardComingSoon": "Card payment coming soon",
     "pleaseWaitABitWeAreProcessingYourOrder": "Please wait a bit, we are processing your order",
     "paymentFailed": "Payment failed",
-    "pleaseTryAgain": "Please try again"
+    "pleaseTryAgain": "Please try again",
+    "pleaseNotifyMessage": "Please notify message",
+    "pleaseGetInvoice": "Please get invoice"
   },
   "messages": {
     "signInSuccess": "Sign in successfully",
     "incorrectCredentials": "Incorrect credentials",
     "generateOTPFailed": "Failed to generate OTP",
     "verifyOTPFailed": "Failed to verify OTP",
-    "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved."
+    "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved.",
+    "thisFeatureIsComingSoon": "This feature is coming soon"
   },
   "machines": {
     "label": "Machine {{id}}",
