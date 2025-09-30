@@ -49,7 +49,7 @@ export const DryModalContent: React.FC<Props> = ({ selectedAddOns, setSelectedAd
 
   useEffect(() => {
     setSelectedAddOns([{
-      addOn: { id: 'duration', name: t('common.duration'), type: AddOnTypeEnum.DRYING_TIME_MINUTE, price: '0', is_default: true },
+      addOn: { id: 'duration', name: t('common.duration'), type: AddOnTypeEnum.DRYING_DURATION_MINUTE, price: '0', is_default: true },
       quantity: selectedDuration,
     }]);
   }, [selectedDuration]);

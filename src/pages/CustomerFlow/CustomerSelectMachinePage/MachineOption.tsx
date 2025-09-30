@@ -68,7 +68,7 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
     } else {
       let totalDurationTime = 0;
       selectedMachineOption?.addOns.forEach((addOn) => {
-        if (addOn.addOn.type === AddOnTypeEnum.DRYING_TIME_MINUTE) {
+        if (addOn.addOn.type === AddOnTypeEnum.DRYING_DURATION_MINUTE) {
           totalDurationTime += addOn.quantity;
         }
       });

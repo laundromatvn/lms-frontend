@@ -50,7 +50,8 @@
     "card": "Visa/MasterCard",
     "scanToPay": "Quét mã QR để thanh toán",
     "paymentSuccess": "Thanh toán thành công",
-    "paymentCardComingSoon": "Thanh toán thẻ sẽ sớm ra mắt"
+    "paymentCardComingSoon": "Thanh toán thẻ sẽ sớm ra mắt",
+    "pleaseWaitABitWeAreProcessingYourOrder": "Vui lòng chờ một chút, chúng tôi đang xử lý đơn hàng của bạn"
   },
   "messages": {
     "signInSuccess": "Đăng nhập thành công",

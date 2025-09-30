@@ -50,7 +50,8 @@
     "card": "Visa/MasterCard",
     "scanToPay": "Scan the QR code to pay",
     "paymentSuccess": "Payment successful",
-    "paymentCardComingSoon": "Card payment coming soon"
+    "paymentCardComingSoon": "Card payment coming soon",
+    "pleaseWaitABitWeAreProcessingYourOrder": "Please wait a bit, we are processing your order"
   },
   "messages": {
     "signInSuccess": "Sign in successfully",

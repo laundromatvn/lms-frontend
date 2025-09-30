@@ -27,7 +27,6 @@ export const MachineOption: React.FC<Props> = ({ machine }) => {
       justify="space-between"
       style={{
         width: '100%',
-        height: 512,
         border: `1px solid ${theme.custom.colors.neutral[200]}`,
         backgroundColor: theme.custom.colors.background.surface,
       }}
