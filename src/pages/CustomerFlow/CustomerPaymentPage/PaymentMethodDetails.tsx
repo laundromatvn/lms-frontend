@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Flex, Typography, QRCode } from 'antd';
+import { Flex, Typography, QRCode, Spin } from 'antd';
 
 import { useTheme } from '@shared/theme/useTheme';
 
@@ -9,10 +9,12 @@ import { PaymentMethodEnum } from '@shared/enums/PaymentMethodEnum';
 
 interface PaymentMethodDetailsProps {
   selectedMethod: PaymentMethodEnum;
+  qrCode?: string | null;
+  loading?: boolean;
   style?: React.CSSProperties;
 }
 
-export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ selectedMethod, style }) => {
+export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ selectedMethod, qrCode, loading, style }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
@@ -41,10 +43,22 @@ export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ sele
         style={{ width: '100%', height: '100%', overflowY: 'auto' }}
       >
         {selectedMethod === PaymentMethodEnum.QR ? (
-          <>
-            <QRCode value="https://washgo247.example/pay?order=demo" size={400} />
-            <Typography.Text>{t('customerFlow.scanToPay')}</Typography.Text>
-          </>
+          qrCode ? (
+            <>
+              <QRCode size={360} value={qrCode} />
+              <Typography.Text>{t('customerFlow.scanToPay')}</Typography.Text>
+            </>
+          ) : (
+            <>
+              <Typography.Title level={4} style={{ margin: 0 }}>
+                {t('customerFlow.qr')}
+              </Typography.Title>
+              <Spin size="large" />
+              <Typography.Text type="secondary">
+                {loading ? t('common.loading') : t('customerFlow.waitingForQrCode')}
+              </Typography.Text>
+            </>
+          )
         ) : (
           <>
             <Typography.Title level={4} style={{ margin: 0 }}>

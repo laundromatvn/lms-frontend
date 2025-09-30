@@ -11,6 +11,7 @@ import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 import { MachineOption } from './MachineOption';
 import { MachineTypeEnum } from '@shared/enums/MachineTypeEnum';
 import { selectMachineStorage } from '@core/storage/selectMachineStorage';
+import { orderStorage } from '@core/storage/orderStorage';
 
 export const CustomerWelcomePage: React.FC = () => {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ export const CustomerWelcomePage: React.FC = () => {
 
   useEffect(() => {
     selectMachineStorage.clear();
+    orderStorage.clear();
   }, []);
 
   return (

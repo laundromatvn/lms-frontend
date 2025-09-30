@@ -8,6 +8,7 @@ import { useTheme } from '@shared/theme/useTheme';
 
 import { storeStorage } from '@core/storage/storeStorage';
 import { selectMachineStorage } from '@core/storage/selectMachineStorage';
+import { orderStorage } from '@core/storage/orderStorage';
 
 import { useCreateOrderApi, type CreateOrderResponse } from '@shared/hooks/useCreateOrderApi';
 
@@ -50,6 +51,7 @@ export const CustomerOrderOverviewPage: React.FC = () => {
 
   useEffect(() => {
     if (createOrderData) {
+      orderStorage.save(createOrderData);
       navigate(`/customer-flow/payment?orderId=${createOrderData.id}`);
     }
   }, [createOrderData]);

@@ -13,6 +13,8 @@ import { CustomerLoadClothesPage } from '@pages/CustomerFlow';
 import { CustomerSelectMachinePage } from '@pages/CustomerFlow';
 import { CustomerOrderOverviewPage } from '@pages/CustomerFlow/CustomerOrderOverviewPage';
 import { CustomerPaymentPage } from '@pages/CustomerFlow/CustomerPaymentPage';
+import { CustomerSuccessPage } from '@pages/CustomerFlow/CustomerSuccessPage';
+import { CustomerFailedPage } from '@pages/CustomerFlow/CustomerFailedPage';
 
 
 import { type Route } from './index';
@@ -68,5 +70,13 @@ export const routes: Route[] = [
   {
     path: '/customer-flow/payment',
     component: <CustomerPaymentPage />,
+  },
+  {
+    path: '/customer-flow/success',
+    component: <CustomerSuccessPage />,
+  },
+  {
+    path: '/customer-flow/failed',
+    component: <CustomerFailedPage />,
   },
 ];
