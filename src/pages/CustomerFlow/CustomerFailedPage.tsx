@@ -9,6 +9,7 @@ import { useTheme } from '@shared/theme/useTheme';
 import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 import { PaymentMessage } from './components/PaymentMessage';
 import { Box } from '@shared/components/Box';
+import { useInactivityRedirect } from '@shared/hooks/useInactivityRedirect';
 
 import paymentFailedImage from '@public/customerFlow/paymentFailed.png';
 
@@ -16,6 +17,9 @@ export const CustomerFailedPage: React.FC = () => {
   const { t } = useTranslation();
   const theme = useTheme();
   const navigate = useNavigate();
+
+  // Auto-reset after 90s of inactivity back to welcome
+  useInactivityRedirect({ timeoutMs: 90_000, targetPath: '/customer-flow/welcome' });
 
   return (
     <DefaultLayout>

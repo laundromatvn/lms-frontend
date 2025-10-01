@@ -12,6 +12,7 @@ import { LeftRightSection } from '@shared/components/LeftRightSection';
 import { PaymentMessage } from './components/PaymentMessage';
 import { Box } from '@shared/components/Box';
 import { BaseModal } from '@shared/components/BaseModal';
+import { useInactivityRedirect } from '@shared/hooks/useInactivityRedirect';
 
 import notifyMessageImage from '@public/customerFlow/notifyMe.png';
 import getInvoiceImage from '@public/customerFlow/getInvoice.png';
@@ -25,6 +26,9 @@ export const CustomerSuccessPage: React.FC = () => {
   const workingType = searchParams.get('workingType') as WorkingTypeEnum;
 
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+
+  // Auto-reset after 90s of inactivity back to welcome
+  useInactivityRedirect({ timeoutMs: 90_000, targetPath: '/customer-flow/welcome' });
 
   return (
     <DefaultLayout>

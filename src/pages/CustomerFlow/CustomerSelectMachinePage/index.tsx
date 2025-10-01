@@ -19,6 +19,7 @@ import { LeftRightSection } from '@shared/components/LeftRightSection';
 import { MachineList } from './MachineList';
 import type { SelectedMachineOption } from './type';
 import { selectMachineStorage } from '@core/storage/selectMachineStorage';
+import { useInactivityRedirect } from '@shared/hooks/useInactivityRedirect';
 
 const MAX_SELECTED_WASHING_MACHINES = 2;
 const MAX_SELECTED_DRYING_MACHINES = 2;
@@ -103,6 +104,9 @@ export const CustomerSelectMachinePage: React.FC = () => {
       setDryers(listClassifiedStoreMachineData.dryers);
     }
   }, [listClassifiedStoreMachineData]);
+
+  // Auto-reset after 90s of inactivity back to welcome
+  useInactivityRedirect({ timeoutMs: 90_000, targetPath: '/customer-flow/welcome' });
 
   return (
     <DefaultLayout style={{ alignItems: 'center' }}>

@@ -16,6 +16,7 @@ import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 import { LeftRightSection } from '@shared/components/LeftRightSection';
 import { BaseModal } from '@shared/components/BaseModal';
 import { OrderSummarySection } from './OrderSummarySection';
+import { useInactivityRedirect } from '@shared/hooks/useInactivityRedirect';
 
 
 export const CustomerOrderOverviewPage: React.FC = () => {
@@ -28,6 +29,9 @@ export const CustomerOrderOverviewPage: React.FC = () => {
   const selectedMachines = useMemo(() => [...selectedWashingMachines, ...selectedDryerMachines], [selectedWashingMachines, selectedDryerMachines]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Auto-reset after 90s of inactivity back to welcome
+  useInactivityRedirect({ timeoutMs: 90_000, targetPath: '/customer-flow/welcome' });
 
   const { 
     createOrder,

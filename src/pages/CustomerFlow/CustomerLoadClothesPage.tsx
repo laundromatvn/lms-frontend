@@ -7,6 +7,7 @@ import { Button, Image } from 'antd';
 import { useTheme } from '@shared/theme/useTheme';
 
 import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
+import { useInactivityRedirect } from '@shared/hooks/useInactivityRedirect';
 import { WorkingTypeEnum } from '@shared/enums/WorkingTypeEnum';
 import { LeftRightSection } from '@shared/components/LeftRightSection';
 import { Instruction } from './components/Instruction';
@@ -20,6 +21,9 @@ export const CustomerLoadClothesPage: React.FC = () => {
 
   const [searchParams] = useSearchParams();
   const workingType = searchParams.get('workingType') as WorkingTypeEnum;
+
+  // Auto-reset after 90s of inactivity back to welcome
+  useInactivityRedirect({ timeoutMs: 90_000, targetPath: '/customer-flow/welcome' });
 
   return (
     <DefaultLayout>
