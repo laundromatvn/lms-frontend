@@ -53,7 +53,7 @@ export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ sele
         {selectedMethod === PaymentMethodEnum.QR ? (
           qrCode ? (
             <>
-              <QRCode size={360} value={qrCode} />
+              <QRCode size={200} value={qrCode} />
               <Typography.Text>{t('customerFlow.scanToPay')}</Typography.Text>
               {typeof remainingSeconds === 'number' && (
                 <Typography.Text type="secondary">

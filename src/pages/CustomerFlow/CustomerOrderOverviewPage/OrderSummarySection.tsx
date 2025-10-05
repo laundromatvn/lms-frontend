@@ -42,10 +42,15 @@ export const OrderSummarySection: React.FC<Props> = ({ selectedMachines, style }
     >
       {calculatedMachines.map((item) => (
         <Flex justify="space-between" style={{ width: '100%' }} >
-          <Typography.Text>{item.selectedMachine.machine.name}</Typography.Text>
+          <Typography.Text style={{ fontSize: theme.custom.fontSize.xxxlarge }}>
+            {item.selectedMachine.machine.name || `${t('storeConfiguration.relayNo', 'Relay No.', { relayNo: item.selectedMachine.machine.relay_no })}`}
+            </Typography.Text>
           <Typography.Text
             strong
-            style={{ color: theme.custom.colors.success.default }}
+            style={{
+              color: theme.custom.colors.success.default,
+              fontSize: theme.custom.fontSize.xxxlarge,
+            }}
           >
             {formatCurrencyCompact(item.price)}
           </Typography.Text>
@@ -60,10 +65,16 @@ export const OrderSummarySection: React.FC<Props> = ({ selectedMachines, style }
       />
 
       <Flex justify="space-between" style={{ width: '100%' }}>
-        <Typography.Text style={{ fontWeight: theme.custom.fontWeight.medium }}>{t('common.total')}</Typography.Text>
+        <Typography.Text style={{
+          fontWeight: theme.custom.fontWeight.medium,
+          fontSize: theme.custom.fontSize.xxxlarge,
+        }}>{t('common.total')}</Typography.Text>
         <Typography.Text
           strong
-          style={{ color: theme.custom.colors.success.default }}
+          style={{
+            color: theme.custom.colors.success.default,
+            fontSize: theme.custom.fontSize.xxxlarge,
+          }}
         >
           {formatCurrencyCompact(calculatedMachines.reduce((sum, item) => sum + item.price, 0))}
         </Typography.Text>

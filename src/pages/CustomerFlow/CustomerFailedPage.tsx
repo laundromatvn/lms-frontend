@@ -45,7 +45,7 @@ export const CustomerFailedPage: React.FC = () => {
             backgroundColor: theme.custom.colors.info.light,
           }}
         >
-          <Image src={paymentFailedImage} alt="failed" width={600} height={600} preview={false} />
+          <Image src={paymentFailedImage} alt="failed" width={240} height={240} preview={false} />
 
           <Button
             type="primary"
