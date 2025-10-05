@@ -10,12 +10,13 @@ import { PaymentMethodEnum } from '@shared/enums/PaymentMethodEnum';
 interface PaymentMethodDetailsProps {
   selectedMethod: PaymentMethodEnum;
   qrCode?: string | null;
+  transactionCode?: string | null;
   loading?: boolean;
   style?: React.CSSProperties;
   remainingSeconds?: number;
 }
 
-export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ selectedMethod, qrCode, loading, style, remainingSeconds }) => {
+export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ selectedMethod, qrCode, transactionCode, loading, style, remainingSeconds }) => {
   const { t } = useTranslation();
   const theme = useTheme();
 
@@ -52,15 +53,21 @@ export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ sele
       >
         {selectedMethod === PaymentMethodEnum.QR ? (
           qrCode ? (
-            <>
+            <Flex align="center" justify="center" gap={theme.custom.spacing.medium}>
               <QRCode size={200} value={qrCode} />
-              <Typography.Text>{t('customerFlow.scanToPay')}</Typography.Text>
-              {typeof remainingSeconds === 'number' && (
-                <Typography.Text type="secondary">
-                  {t('customerFlow.qrExpiresIn', { time: formatTime(remainingSeconds) })}
+
+              <Flex vertical align="center" justify="center" gap={theme.custom.spacing.medium} style={{ width: 400 }}>
+                <Typography.Text>{t('customerFlow.scanToPay')}</Typography.Text>
+                <Typography.Text type="secondary" style={{ textAlign: 'center' }}>
+                  {t('customerFlow.pleaseEnsureThisTransactionCodeInPaymentContent', { transactionCode })}
                 </Typography.Text>
-              )}
-            </>
+                {typeof remainingSeconds === 'number' && (
+                  <Typography.Text type="secondary">
+                    {t('customerFlow.qrExpiresIn', { time: formatTime(remainingSeconds) })}
+                  </Typography.Text>
+                )}
+              </Flex>
+            </Flex>
           ) : (
             <>
               <Typography.Title level={4} style={{ margin: 0 }}>

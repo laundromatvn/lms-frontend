@@ -11,4 +11,5 @@ export type Payment = {
 	provider: string
 	payment_method: string
 	provider_transaction_id: string | null
+	transaction_code: string
 }

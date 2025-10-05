@@ -185,6 +185,7 @@ export const CustomerPaymentPage: React.FC = () => {
           <PaymentMethodDetails
             selectedMethod={selectedMethod}
             qrCode={payment?.details?.qr_code}
+            transactionCode={payment?.transaction_code}
             loading={getPaymentLoading}
             remainingSeconds={typeof remainingMs === 'number' ? Math.ceil(remainingMs / 1000) : undefined}
           />

@@ -63,7 +63,8 @@
     "pleaseTryAgain": "Please try again",
     "pleaseNotifyMessage": "Please notify message",
     "pleaseGetInvoice": "Please get invoice",
-    "pleasePressStart": "Please press start"
+    "pleasePressStart": "Please press start",
+    "pleaseEnsureThisTransactionCodeInPaymentContent": "Please ensure this transaction code is in the payment content: {{transactionCode}}"
   },
   "messages": {
     "signInSuccess": "Sign in successfully",
