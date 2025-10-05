@@ -9,6 +9,9 @@ const __dirname = dirname(__filename)
 
 export default defineConfig({
   plugins: [react()],
+  server: {
+    port: 3000,
+  },
   resolve: {
     alias: {
       '@public': resolvePath(__dirname, './public'),

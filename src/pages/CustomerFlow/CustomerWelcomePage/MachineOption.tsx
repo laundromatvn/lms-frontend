@@ -28,8 +28,8 @@ export const MachineOption: React.FC<Props> = ({ machineType, onSelect }) => {
       gap={theme.custom.spacing.large}
       onClick={onSelect}
       style={{
-        width: 400,
-        height: 600,
+        width: 360,
+        height: 480,
         cursor: 'pointer',
         border: `2px solid ${machineType === MachineTypeEnum.WASHER
           ? theme.custom.colors.info.default

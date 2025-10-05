@@ -4,6 +4,8 @@ import { Tag } from 'antd';
 
 import { useTheme } from '@shared/theme/useTheme';
 
+import { toCamelCase } from '@shared/utils/string';
+
 interface Props {
   value: string;
   color?: string;
@@ -23,8 +25,10 @@ export const DynamicTag: React.FC<Props> = ({ value, color, style }) => {
       case 'pending':
       case 'pending_setup':
       case 'busy':
+      case 'starting':
         return theme.custom.colors.warning.default;
       case 'error':
+      case 'out_of_service':
         return theme.custom.colors.danger.default;
       case 'success':
         return theme.custom.colors.success.default;
@@ -44,6 +48,6 @@ export const DynamicTag: React.FC<Props> = ({ value, color, style }) => {
       ...style,
     }}
   >
-    {value}
+    {toCamelCase(value)}
   </Tag>;
 };

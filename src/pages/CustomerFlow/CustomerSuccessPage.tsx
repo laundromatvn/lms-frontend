@@ -55,7 +55,7 @@ export const CustomerSuccessPage: React.FC = () => {
               backgroundColor: theme.custom.colors.warning.light,
             }}
           >
-            <Image src={notifyMessageImage} alt="success" width={400} height={400} preview={false} />
+            <Image src={notifyMessageImage} alt="success" width={240} height={240} preview={false} />
 
             <Button
               type="primary"
@@ -83,7 +83,7 @@ export const CustomerSuccessPage: React.FC = () => {
               backgroundColor: theme.custom.colors.info.light,
             }}
           >
-            <Image src={getInvoiceImage} alt="success" width={400} height={400} preview={false} />
+            <Image src={getInvoiceImage} alt="success" width={240} height={240} preview={false} />
 
             <Button
               type="primary"

@@ -34,8 +34,14 @@ export const CustomerWelcomePage: React.FC = () => {
         gap={theme.custom.spacing.xxxxlarge}
         style={{ width: '100%', marginTop: theme.custom.spacing.large }}
       >
-        <MachineOption machineType={MachineTypeEnum.WASHER} onSelect={() => navigate('/customer-flow/load-clothes?workingType=WASH')} />
-        <MachineOption machineType={MachineTypeEnum.DRYER} onSelect={() => navigate('/customer-flow/load-clothes?workingType=DRY')} />
+        <MachineOption
+          machineType={MachineTypeEnum.WASHER}
+          onSelect={() => navigate('/customer-flow/load-clothes?workingType=WASH')}
+        />
+        <MachineOption
+          machineType={MachineTypeEnum.DRYER}
+          onSelect={() => navigate('/customer-flow/load-clothes?workingType=DRY')}
+        />
       </Flex>
 
       <Typography.Text style={{ fontWeight: theme.custom.fontWeight.small, fontStyle: 'italic' }}>

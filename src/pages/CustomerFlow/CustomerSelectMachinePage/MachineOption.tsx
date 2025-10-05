@@ -19,6 +19,7 @@ import type { AddOnOption, SelectedMachineOption } from './type';
 import { WashModalContent } from './WashModalContent';
 import { DryModalContent } from './DryModalContent';
 import { AddOnTypeEnum } from '@shared/enums/AddOnTypeEnum';
+import { DynamicTag } from '@shared/components/DynamicTag';
 
 const MIN_DRYING_TIME = 15;
 
@@ -102,9 +103,19 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
           }}
         />
 
-        <Typography.Text strong>{machine.name}</Typography.Text>
+        <Typography.Text strong>
+          {machine.name || `${t('common.relayNo', 'Relay No.')} ${machine.relay_no}`}
+        </Typography.Text>
 
-        <Typography.Text strong style={{ color: theme.custom.colors.success.default }}>
+        <DynamicTag value={machine.status} />
+
+        <Typography.Text
+          strong
+          style={{
+            color: theme.custom.colors.success.default,
+            fontSize: theme.custom.fontSize.medium,
+          }}
+        >
           {formatCurrencyCompact(totalPrice())}
         </Typography.Text>
       </Box>
