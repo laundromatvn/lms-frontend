@@ -1,4 +1,5 @@
 import { MachineTypeEnum } from "@shared/enums/MachineTypeEnum";
+import { MachineStatusEnum } from "@shared/enums/MachineStatusEnum";
 
 export type Machine = {
   id: string;
@@ -11,5 +12,5 @@ export type Machine = {
   machine_type: MachineTypeEnum;
   details: Record<string, any>;
   base_price: string;
-  status: string;
+  status: MachineStatusEnum;
 }

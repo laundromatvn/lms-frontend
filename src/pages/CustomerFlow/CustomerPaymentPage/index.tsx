@@ -11,6 +11,7 @@ import { type Payment } from '@shared/types/Payment';
 
 import { useCreatePaymentApi } from '@shared/hooks/useCreatePaymentApi';
 import { useGetPaymentApi } from '@shared/hooks/useGetPaymentApi';
+import { useTriggerPaymentTimeoutApi } from '@shared/hooks/useTriggerPaymentTimeoutApi';
 
 import { storeStorage } from '@core/storage/storeStorage';
 import { tenantStorage } from '@core/storage/tenantStorage';
@@ -34,7 +35,7 @@ export const CustomerPaymentPage: React.FC = () => {
 
   const paymentMethodOptions = [
     { label: t('customerFlow.qr'), value: PaymentMethodEnum.QR },
-    { label: t('customerFlow.card'), value: PaymentMethodEnum.CARD },
+    // { label: t('customerFlow.card'), value: PaymentMethodEnum.CARD },
   ];
 
   const [payment, setPayment] = React.useState<Payment | null>(null);
@@ -49,6 +50,10 @@ export const CustomerPaymentPage: React.FC = () => {
     loading: getPaymentLoading,
     data: getPaymentData,
   } = useGetPaymentApi();
+  const {
+    triggerPaymentTimeout,
+    loading: triggerTimeoutLoading,
+  } = useTriggerPaymentTimeoutApi();
 
   const [remainingMs, setRemainingMs] = React.useState<number | null>(null);
   const countdownDeadlineRef = React.useRef<number | null>(null);
@@ -75,8 +80,18 @@ export const CustomerPaymentPage: React.FC = () => {
 
     let isMounted = true;
     const timeoutMs = PAYMENT_TIMEOUT;
-    const timeoutId = window.setTimeout(() => {
+    const timeoutId = window.setTimeout(async () => {
       if (!isMounted) return;
+      
+      try {
+        const order = orderStorage.load();
+        if (order?.id) {
+          await triggerPaymentTimeout(order.id);
+        }
+      } catch (error) {
+        console.error('Failed to trigger payment timeout:', error);
+      }
+      
       navigate('/customer-flow/failed');
     }, timeoutMs);
     countdownDeadlineRef.current = Date.now() + timeoutMs;

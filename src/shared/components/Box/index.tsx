@@ -15,6 +15,7 @@ interface Props {
   onClick?: () => void;
   onMouseEnter?: React.MouseEventHandler<HTMLDivElement>;
   onMouseLeave?: React.MouseEventHandler<HTMLDivElement>;
+  disabled?: boolean;
 }
 
 export const Box: React.FC<Props> = ({
@@ -28,6 +29,7 @@ export const Box: React.FC<Props> = ({
   onClick,
   onMouseEnter,
   onMouseLeave,
+  disabled = false,
 }) => {
   const theme = useTheme();
 
@@ -44,8 +46,10 @@ export const Box: React.FC<Props> = ({
       width: 'fit-content',
       height: 'fit-content',
       ...style,
+      opacity: disabled ? 0.5 : 1,
+      cursor: disabled ? 'not-allowed' : 'pointer',
     }}
-    onClick={onClick}
+    onClick={disabled ? undefined : onClick}
     onMouseEnter={onMouseEnter}
     onMouseLeave={onMouseLeave}
   >

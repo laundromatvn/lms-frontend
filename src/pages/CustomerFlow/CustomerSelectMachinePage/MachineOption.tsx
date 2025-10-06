@@ -20,6 +20,7 @@ import { WashModalContent } from './WashModalContent';
 import { DryModalContent } from './DryModalContent';
 import { AddOnTypeEnum } from '@shared/enums/AddOnTypeEnum';
 import { DynamicTag } from '@shared/components/DynamicTag';
+import { MachineStatusEnum } from '@shared/enums/MachineStatusEnum';
 
 const MIN_DRYING_TIME = 15;
 
@@ -93,6 +94,7 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
           borderWidth: isSelected ? 4 : 0,
           backgroundColor: lightColor,
         }}
+        disabled={machine.status !== MachineStatusEnum.IDLE}
       >
         <WashingMachineMinimalistic
           weight="BoldDuotone"
@@ -107,13 +109,13 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
           {machine.name || `${t('common.relayNo', 'Relay No.')} ${machine.relay_no}`}
         </Typography.Text>
 
-        <DynamicTag value={machine.status} />
+        <DynamicTag value={machine.status} style={{ fontSize: theme.custom.fontSize.medium }} />
 
         <Typography.Text
           strong
           style={{
             color: theme.custom.colors.success.default,
-            fontSize: theme.custom.fontSize.medium,
+            fontSize: theme.custom.fontSize.xxxlarge,
           }}
         >
           {formatCurrencyCompact(totalPrice())}
