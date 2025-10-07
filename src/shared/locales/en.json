@@ -39,7 +39,8 @@
     "tryAgain": "Try Again",
     "notifyMessage": "Notify Message",
     "getInvoice": "Get Invoice",
-    "done": "Done"
+    "done": "Done",
+    "signInByQR": "Sign In by QR"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
@@ -73,7 +74,8 @@
     "verifyOTPFailed": "Failed to verify OTP",
     "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved.",
     "thisFeatureIsComingSoon": "This feature is coming soon",
-    "fetchStoresFailed": "Failed to fetch stores"
+    "fetchStoresFailed": "Failed to fetch stores",
+    "scanQRCodeToSignIn": "Scan the QR code to sign in"
   },
   "machines": {
     "label": "Machine {{id}}",

@@ -2,6 +2,7 @@ import { HomePage } from '@pages/HomePage';
 import { DemoPage } from '@pages/DemoPage';
 
 import { SignInPage } from '@pages/Auth';
+import { SignInByQRPage } from '@pages/Auth/SignInByQRPage';
 import { GenerateOTPPage } from '@pages/Auth/GenerateOTPPage';
 import { VerifyOTPPage } from '@pages/Auth/VerifyOTPPage';
 
@@ -32,6 +33,10 @@ export const routes: Route[] = [
   {
     path: '/auth/sign-in',
     component: <SignInPage />,
+  },
+  {
+    path: '/auth/sign-in-by-qr',
+    component: <SignInByQRPage />,
   },
   {
     path: '/auth/generate-otp',

@@ -39,7 +39,8 @@
     "tryAgain": "Thử lại",
     "notifyMessage": "Thông báo",
     "getInvoice": "Lấy hóa đơn",
-    "done": "Hoàn thành"
+    "done": "Hoàn thành",
+    "signInByQR": "Đăng nhập bằng QR"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu",
@@ -73,7 +74,8 @@
     "verifyOTPFailed": "Xác thực OTP thất bại",
     "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved.",
     "thisFeatureIsComingSoon": "Tính năng này sẽ sớm ra mắt",
-    "fetchStoresFailed": "Lấy danh sách cửa hàng thất bại"
+    "fetchStoresFailed": "Lấy danh sách cửa hàng thất bại",
+    "scanQRCodeToSignIn": "Quét mã QR để đăng nhập"
   },
   "machines": {
     "label": "Máy {{id}}",
