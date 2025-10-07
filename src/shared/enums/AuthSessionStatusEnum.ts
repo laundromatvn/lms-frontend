@@ -1,8 +1,8 @@
 export const AuthSessionStatusEnum = {
-  NEW: 'NEW',
-  IN_PROGRESS: 'IN_PROGRESS',
-  SUCCESS: 'SUCCESS',
-  FAILED: 'FAILED',
+  NEW: 'new',
+  IN_PROGRESS: 'in_progress',
+  SUCCESS: 'success',
+  FAILED: 'failed',
 } as const;
 
 export type AuthSessionStatusEnum = typeof AuthSessionStatusEnum[keyof typeof AuthSessionStatusEnum];

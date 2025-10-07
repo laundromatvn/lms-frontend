@@ -5,6 +5,7 @@ import { SignInPage } from '@pages/Auth';
 import { SignInByQRPage } from '@pages/Auth/SignInByQRPage';
 import { GenerateOTPPage } from '@pages/Auth/GenerateOTPPage';
 import { VerifyOTPPage } from '@pages/Auth/VerifyOTPPage';
+import { WaitingSSOAuthenticationPage } from '@pages/Auth/WaitingSSOAuthenticationPage';
 
 import { StoreListingPage } from '@pages/StoreConfiguration/StoreListingPage';
 import { StoreDetailPage } from '@pages/StoreConfiguration/StoreDetailPage';
@@ -45,6 +46,10 @@ export const routes: Route[] = [
   {
     path: '/auth/verify-otp',
     component: <VerifyOTPPage />,
+  },
+  {
+    path: '/auth/waiting-sso-authentication',
+    component: <WaitingSSOAuthenticationPage />,
   },
   // Store Configuration
   {

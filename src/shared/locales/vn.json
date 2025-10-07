@@ -75,7 +75,12 @@
     "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved.",
     "thisFeatureIsComingSoon": "Tính năng này sẽ sớm ra mắt",
     "fetchStoresFailed": "Lấy danh sách cửa hàng thất bại",
-    "scanQRCodeToSignIn": "Quét mã QR để đăng nhập"
+    "scanQRCodeToSignIn": "Quét mã QR để đăng nhập",
+    "generateAuthSessionFailed": "Tạo phiên đăng nhập thất bại",
+    "pleaseSignInOnPortal": "Vui lòng đăng nhập trên portal",
+    "pleaseTryAgain": "Vui lòng thử lại",
+    "pleaseWaitABitWeAreProcessingYourRequest": "Vui lòng chờ một chút, chúng tôi đang xử lý yêu cầu của bạn",
+    "sessionExpiresIn": "Phiên sẽ hết hạn sau {{time}}"
   },
   "machines": {
     "label": "Máy {{id}}",

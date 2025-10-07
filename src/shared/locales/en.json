@@ -75,7 +75,12 @@
     "allRightsReserved": "© 2025 TitanZ Technology JSC. All rights reserved.",
     "thisFeatureIsComingSoon": "This feature is coming soon",
     "fetchStoresFailed": "Failed to fetch stores",
-    "scanQRCodeToSignIn": "Scan the QR code to sign in"
+    "scanQRCodeToSignIn": "Scan the QR code to sign in",
+    "generateAuthSessionFailed": "Failed to generate auth session",
+    "pleaseSignInOnPortal": "Please sign in on portal",
+    "pleaseTryAgain": "Please try again",
+    "pleaseWaitABitWeAreProcessingYourRequest": "Please wait a bit, we are processing your request",
+    "sessionExpiresIn": "Session expires in {{time}}"
   },
   "machines": {
     "label": "Machine {{id}}",

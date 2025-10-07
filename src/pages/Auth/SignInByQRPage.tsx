@@ -8,7 +8,6 @@ import { useTheme } from '@shared/theme/useTheme';
 
 import {
   useGenerateAuthSessionApi,
-  type GenerateAuthSessionResponse,
 } from '@shared/hooks/useGenerateAuthSessionApi';
 import {
   useGetAuthSessionApi,
@@ -19,8 +18,10 @@ import { Box } from '@shared/components/Box';
 import { AuthContainer } from './components';
 
 import { getPortalFrontendUrl } from '@shared/utils/env';
+import { AuthSessionStatusEnum } from '@shared/enums/AuthSessionStatusEnum';
 
 const PORTAL_FRONTEND_URL = getPortalFrontendUrl() as string;
+const CHECK_AUTH_SESSION_INTERVAL = 2000; // 2 seconds
 
 export const SignInByQRPage: React.FC = () => {
   const theme = useTheme();
@@ -38,9 +39,6 @@ export const SignInByQRPage: React.FC = () => {
   } = useGenerateAuthSessionApi();
   const {
     getAuthSession,
-    loading: getAuthSessionLoading,
-    data: getAuthSessionData,
-    error: getAuthSessionError,
   } = useGetAuthSessionApi();
 
   const handleGenerateAuthSession = async () => {
@@ -54,8 +52,37 @@ export const SignInByQRPage: React.FC = () => {
   }, [generateAuthSessionData]);
 
   useEffect(() => {
+    if (generateAuthSessionError) {
+      api.error({
+        message: t('messages.generateAuthSessionFailed'),
+      });
+    }
+  }, [generateAuthSessionError]);
+
+  useEffect(() => {
     handleGenerateAuthSession();
   }, []);
+
+  useEffect(() => {
+    if (!sessionId) return;
+
+    let isMounted = true;
+    const intervalId = window.setInterval(async () => {
+      try {
+        const session = (await getAuthSession(sessionId)) as GetAuthSessionResponse;
+        if (!isMounted) return;
+        if (session.status === AuthSessionStatusEnum.IN_PROGRESS) {
+          window.clearInterval(intervalId);
+          navigate(`/auth/waiting-sso-authentication?session_id=${sessionId}`);
+        }
+      } catch {}
+    }, CHECK_AUTH_SESSION_INTERVAL);
+
+    return () => {
+      isMounted = false;
+      window.clearInterval(intervalId);
+    };
+  }, [sessionId]);
 
   return (
     <AuthContainer style={{ cursor: 'default' }}>

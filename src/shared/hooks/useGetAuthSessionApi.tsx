@@ -11,7 +11,7 @@ export type GetAuthSessionResponse = AuthSession;
 export async function getAuthSessionApi(sessionId: string): Promise<GetAuthSessionResponse> {
   const url = `${getBackendUrl()}/api/v1/auth/sso/session/${sessionId}`
 
-  const res = await axios.get<GetAuthSessionResponse>(url.replace(getBackendUrl(), ''))
+  const res = await axios.get<GetAuthSessionResponse>(url)
   return res.data as GetAuthSessionResponse
 }
 
