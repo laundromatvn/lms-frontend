@@ -2,15 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { Flex, Typography, Skeleton, notification, Button } from 'antd';
+import { Typography, Skeleton, notification, Button } from 'antd';
 
 import { useTheme } from '@shared/theme/useTheme';
 
+import { tenantStorage } from '@core/storage/tenantStorage';
+import { profileStorage } from '@core/storage/profileStorage';
+
 import { type Tenant } from '@shared/types/tenant';
 import { type Store } from '@shared/types/store';
-import { type ListStoreResponse } from '@shared/hooks/useListStoreApi';
-import { tenantStorage } from '@core/storage/tenantStorage';
-import { useListStoreApi } from '@shared/hooks/useListStoreApi';
+
+import {
+  useListStoreApi,
+  type ListStoreResponse,
+} from '@shared/hooks/useListStoreApi';
+import {
+  useGetLMSProfileApi,
+  type GetMeResponse,
+} from '@shared/hooks/useGetLMSProfile';
 
 import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 import { StoreMenu } from './components/StoreMenu';
@@ -34,16 +43,15 @@ export const StoreListingPage: React.FC = () => {
     data: listStoreData,
     error: listStoreError,
   } = useListStoreApi<ListStoreResponse>();
+  const {
+    getLMSProfile,
+    data: getLMSProfileData,
+    error: getLMSProfileError,
+  } = useGetLMSProfileApi<GetMeResponse>();
 
   const getStores = async () => {
-    if (!tenant) return;
-
     await listStore({ tenant_id: tenant.id, page: 1, page_size: 10 });
   }
-
-  useEffect(() => {
-    getStores();
-  }, []);
 
   useEffect(() => {
     if (listStoreData && listStoreData.data) {
@@ -58,6 +66,26 @@ export const StoreListingPage: React.FC = () => {
       });
     }
   }, [listStoreError]);
+
+  useEffect(() => {
+    if (getLMSProfileData) {
+      profileStorage.save(getLMSProfileData);
+      tenantStorage.save(getLMSProfileData.tenant);
+      getStores();
+    }
+  }, [getLMSProfileData]);
+
+  useEffect(() => {
+    if (getLMSProfileError) {
+      api.error({
+        message: t('messages.fetchLMSProfileFailed'),
+      });
+    }
+  }, [getLMSProfileError]);
+
+  useEffect(() => {
+    getLMSProfile();
+  }, []);
 
   return (
     <DefaultLayout style={{ alignItems: 'center' }}>

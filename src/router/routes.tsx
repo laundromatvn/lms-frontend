@@ -31,12 +31,12 @@ export const routes: Route[] = [
     component: <DemoPage />,
   },
   // Auth
+  // {
+  //   path: '/auth/sign-in',
+  //   component: <SignInPage />,
+  // },
   {
     path: '/auth/sign-in',
-    component: <SignInPage />,
-  },
-  {
-    path: '/auth/sign-in-by-qr',
     component: <SignInByQRPage />,
   },
   {

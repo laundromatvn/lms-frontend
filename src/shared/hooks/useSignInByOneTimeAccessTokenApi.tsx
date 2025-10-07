@@ -23,14 +23,14 @@ export const useSignInByOneTimeAccessTokenApi = <T = SignInByOneTimeAccessTokenR
     const url = `${getBackendUrl()}/api/v1/auth/sso/sign-in-by-one-time-access-token`
 
     const body = {
-      oneTimeAccessToken,
+      one_time_access_token: oneTimeAccessToken,
     }
 
     try {
       const headers = { 'Content-Type': 'application/json' }
       const response = await axios.post<T>(url, body, { headers })
       setState({ data: response.data as T, loading: false, error: null });
-      return response.data as T
+      return response as T
     } catch (error: any) {
       setState({ data: null, loading: false, error: new Error(error.message) });
       throw error;

@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { data, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { Divider, Typography, Flex, Button } from 'antd';
+import { Divider, Typography, Flex, Button, notification } from 'antd';
 
 import {
   EmojiFunnySquare,
@@ -11,14 +11,26 @@ import {
 
 import { useTheme } from '@shared/theme/useTheme';
 
+import { ACCESS_TOKEN_TTL_SECONDS, REFRESH_TOKEN_TTL_SECONDS } from '@core/constant';
+import { type TokenBundle } from '@core/auth/tokenManager';
+
+import { AuthSessionStatusEnum } from '@shared/enums/AuthSessionStatusEnum';
+import { tokenManager } from '@core/auth/tokenManager';
+import { oneTimeTokenStorage } from '@core/storage/oneTimeTokenStorage';
+
 import {
   useGetAuthSessionApi,
 } from '@shared/hooks/useGetAuthSessionApi';
+import {
+  useSignInByOneTimeAccessTokenApi,
+} from '@shared/hooks/useSignInByOneTimeAccessTokenApi';
+import {
+  useGetLMSProfileApi,
+} from '@shared/hooks/useGetLMSProfile';
 
 import { Box } from '@shared/components/Box';
 import { AuthContainer } from './components';
 
-import { AuthSessionStatusEnum } from '@shared/enums/AuthSessionStatusEnum';
 
 const CHECK_AUTH_SESSION_INTERVAL = 2_000; // ms
 const TIMEOUT_INTERVAL = 180_000; // ms
@@ -27,6 +39,8 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
   const theme = useTheme();
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const [api, contextHolder] = notification.useNotification();
 
   const [searchParams] = useSearchParams();
   const sessionId = searchParams.get('session_id');
@@ -45,6 +59,19 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
     getAuthSession,
     data: getAuthSessionData,
   } = useGetAuthSessionApi();
+  const {
+    signInByOneTimeAccessToken,
+    loading: signInByOneTimeAccessTokenLoading,
+    data: signInByOneTimeAccessTokenData,
+    error: signInByOneTimeAccessTokenError,
+  } = useSignInByOneTimeAccessTokenApi();
+
+  const handleSignInByOneTimeAccessToken = () => {
+    const token = oneTimeTokenStorage.load();
+    if (!token) return;
+
+    signInByOneTimeAccessToken({ oneTimeAccessToken: token });
+  };
   
   useEffect(() => {
     if (!sessionId) return;
@@ -142,14 +169,45 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
   useEffect(() => {
     if (authSessionStatus !== AuthSessionStatusEnum.IN_PROGRESS) return;
     if (countdown <= 0) return;
+    if (!getAuthSessionData) return;
 
-    if (getAuthSessionData) {
-      setAuthSessionStatus(getAuthSessionData.status);
+    setAuthSessionStatus(getAuthSessionData.status);
+    
+    if (getAuthSessionData.status === AuthSessionStatusEnum.SUCCESS) {
+      const token = getAuthSessionData.data as string | null;
+      if (typeof token === 'string' && token.length > 0) {
+        oneTimeTokenStorage.save(token);
+        handleSignInByOneTimeAccessToken();
+      }
     }
   }, [getAuthSessionData]);
 
+  useEffect(() => {
+    if (signInByOneTimeAccessTokenData) {
+      const bundle: TokenBundle = {
+        accessToken: (signInByOneTimeAccessTokenData as any).access_token,
+        refreshToken: (signInByOneTimeAccessTokenData as any).refresh_token,
+        accessTokenExp: Date.now() + ACCESS_TOKEN_TTL_SECONDS * 1000,
+        refreshTokenExp: Date.now() + REFRESH_TOKEN_TTL_SECONDS * 1000,
+      }
+      tokenManager.setTokens(bundle)
+
+      navigate('/store-configuration/stores');
+    }
+  }, [signInByOneTimeAccessTokenData]);
+
+  useEffect(() => {
+    if (signInByOneTimeAccessTokenError) {
+      api.error({
+        message: t('messages.signInByOneTimeAccessTokenFailed'),
+      });
+    }
+  }, [signInByOneTimeAccessTokenError]);  
+
   return (
     <AuthContainer style={{ cursor: 'default' }}>
+      {contextHolder}
+
       <Typography.Title level={2}>{t('common.signIn')}</Typography.Title>
       <Typography.Text type="secondary">{t('messages.pleaseSignInOnPortal')}</Typography.Text>
 
@@ -172,7 +230,7 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
             <Typography.Text type="danger">{t('messages.pleaseTryAgain')}</Typography.Text>
             <Button
               type="primary"
-              onClick={() => navigate('/auth/sign-in-by-qr')}
+              onClick={() => navigate('/auth/sign-in')}
               size="large"
             >{t('common.signInByQR')}</Button>
           </Flex>
