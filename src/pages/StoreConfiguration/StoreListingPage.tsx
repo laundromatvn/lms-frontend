@@ -49,8 +49,8 @@ export const StoreListingPage: React.FC = () => {
     error: getLMSProfileError,
   } = useGetLMSProfileApi<GetMeResponse>();
 
-  const getStores = async () => {
-    await listStore({ tenant_id: tenant.id, page: 1, page_size: 10 });
+  const getStores = async (tenantId: string) => {
+    await listStore({ tenant_id: tenantId, page: 1, page_size: 10 });
   }
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export const StoreListingPage: React.FC = () => {
     if (getLMSProfileData) {
       profileStorage.save(getLMSProfileData);
       tenantStorage.save(getLMSProfileData.tenant);
-      getStores();
+      getStores(getLMSProfileData.tenant.id);
     }
   }, [getLMSProfileData]);
 
@@ -96,16 +96,17 @@ export const StoreListingPage: React.FC = () => {
 
       {listStoreError && <Typography.Text type="danger">{t('messages.fetchStoresFailed')}</Typography.Text>}
 
+      <LeftRightSection
+        left={<Typography.Text style={{ fontSize: theme.custom.fontSize.medium }}>
+          {t('storeConfiguration.selectedStore', { storeName: stores.find((store) => store.id === selectedStoreId)?.name })}
+        </Typography.Text>}
+        right={<Button type="default" size="large" onClick={() => getStores(tenant.id)}>
+          {t('common.reload')}
+        </Button>}
+      />
+
       {!isLoading && stores.length > 0 && (
         <>
-          <LeftRightSection
-            left={<Typography.Text style={{ fontSize: theme.custom.fontSize.medium }}>
-              {t('storeConfiguration.selectedStore', { storeName: stores.find((store) => store.id === selectedStoreId)?.name })}
-            </Typography.Text>}
-            right={<Button type="default" size="large" onClick={getStores}>
-              {t('common.reload')}
-            </Button>}
-          />
 
           <StoreMenu
             stores={stores}
@@ -118,9 +119,9 @@ export const StoreListingPage: React.FC = () => {
               <Button
                 type="primary"
                 size="large"
-                  disabled={!selectedStoreId}
-                  style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
-                  onClick={() => navigate(`/store-configuration/stores/${selectedStoreId}`)}  
+                disabled={!selectedStoreId}
+                style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+                onClick={() => navigate(`/store-configuration/stores/${selectedStoreId}`)}
               >
                 {t('common.continue')}
               </Button>
