@@ -53,7 +53,6 @@ export const SignInByQRPage: React.FC = () => {
   } = useGetAuthSessionApi();
 
   const handleGenerateAuthSession = async () => {
-    console.log('[SignInByQR] generating auth session...')
     await generateAuthSession();
   };
 
@@ -89,14 +88,12 @@ export const SignInByQRPage: React.FC = () => {
 
   useEffect(() => {
     if (generateAuthSessionData) {
-      console.log('[SignInByQR] generated session id:', generateAuthSessionData.id)
       setSessionId(generateAuthSessionData.id);
     }
   }, [generateAuthSessionData]);
 
   useEffect(() => {
     if (generateAuthSessionError) {
-      console.error('[SignInByQR] generate auth session failed:', generateAuthSessionError)
       api.error({
         message: t('messages.generateAuthSessionFailed'),
       });
@@ -104,7 +101,6 @@ export const SignInByQRPage: React.FC = () => {
   }, [generateAuthSessionError]);
 
   useEffect(() => {
-    console.log('[SignInByQR] mount: start flow')
     handleGenerateAuthSession();
     return () => clearTimers();
   }, []);
@@ -113,10 +109,7 @@ export const SignInByQRPage: React.FC = () => {
     if (!sessionId) {
       return;
     }
-    if (isTimedOut) {
-      console.log('[SignInByQR] timed out → stop polling')
-      return;
-    }
+    if (isTimedOut) return;
 
     let isMounted = true;
     if (!pollIntervalRef.current) {
@@ -125,9 +118,7 @@ export const SignInByQRPage: React.FC = () => {
         try {
           const session = (await getAuthSession(sessionId)) as GetAuthSessionResponse;
           if (!isMounted) return;
-          console.log('[SignInByQR] polled session', { status: session.status });
           if (session.status === AuthSessionStatusEnum.IN_PROGRESS || session.status === AuthSessionStatusEnum.SUCCESS) {
-            console.log('[SignInByQR] navigate → waiting-sso-authentication', { sessionId })
             clearTimers();
             navigate(`/auth/waiting-sso-authentication?session_id=${sessionId}`);
           }
@@ -138,7 +129,6 @@ export const SignInByQRPage: React.FC = () => {
     if (!timeoutRef.current) {
       timeoutRef.current = window.setTimeout(() => {
         setIsTimedOut(true);
-        console.warn('[SignInByQR] session timed out')
         clearTimers();
       }, TIMEOUT_INTERVAL);
     }
@@ -149,7 +139,6 @@ export const SignInByQRPage: React.FC = () => {
           const next = prev - 1_000;
           if (next <= 0) {
             setIsTimedOut(true);
-            console.warn('[SignInByQR] countdown reached 0 → timeout')
             clearTimers();
             return 0;
           }
