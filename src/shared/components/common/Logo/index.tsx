@@ -8,7 +8,7 @@ import { Typography } from 'antd';
 import { Box } from '@shared/components/Box';
 import { tokenManager } from '@core/auth/tokenManager';
 import { storeStorage } from '@core/storage/storeStorage';
-import { AuthGuardModal } from '@shared/components/common/AuthGuardModal';
+import { AuthGuardModal } from './AuthGuardModal';
 
 interface Props {
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
