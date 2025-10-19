@@ -88,6 +88,7 @@ export const SignInByQRPage: React.FC = () => {
 
   useEffect(() => {
     if (generateAuthSessionData) {
+      console.log("url", `${PORTAL_FRONTEND_URL}/auth/sign-in?session_id=${generateAuthSessionData.id}`);
       setSessionId(generateAuthSessionData.id);
     }
   }, [generateAuthSessionData]);

@@ -1,5 +1,6 @@
-import axios from 'axios'
 import { useCallback, useState } from 'react'
+
+import axiosClient from '@core/axiosClient';
 
 import { getBackendUrl } from '@shared/utils/env'
 import { type ApiState } from '@shared/hooks/types'
@@ -11,7 +12,7 @@ export type GetSystemTaskResponse = SystemTask;
 export async function getSystemTaskApi(systemTaskId: string): Promise<GetSystemTaskResponse> {
   const url = `${getBackendUrl()}/api/v1/system-task/${systemTaskId}`
 
-  const res = await axios.get<GetSystemTaskResponse>(url)
+  const res = await axiosClient.get<GetSystemTaskResponse>(url)
   return res.data as GetSystemTaskResponse
 }
 

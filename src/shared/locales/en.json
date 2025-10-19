@@ -40,7 +40,9 @@
     "notifyMessage": "Notify Message",
     "getInvoice": "Get Invoice",
     "done": "Done",
-    "signInByQR": "Sign In by QR"
+    "signInByQR": "Sign In by QR",
+    "success": "Success",
+    "failed": "Failed"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
@@ -89,7 +91,8 @@
     "pleaseSignInOnPortal": "Please sign in on portal",
     "pleaseTryAgain": "Please try again",
     "pleaseWaitABitWeAreProcessingYourRequest": "Please wait a bit, we are processing your request",
-    "sessionExpiresIn": "Session expires in {{time}}"
+    "sessionExpiresIn": "Session expires in {{time}}",
+    "systemTaskExpiresIn": "System task expires in {{time}}"
   },
   "machines": {
     "label": "Machine {{id}}",

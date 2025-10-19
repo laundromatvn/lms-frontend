@@ -1,20 +1,23 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Typography, Flex, QRCode } from 'antd';
+import { Button, Flex, theme } from 'antd';
 
-import { getPortalFrontendUrl } from '@shared/utils/env';
+import { useTheme } from '@shared/theme/useTheme';
 
-import { tenantStorage } from '@core/storage/tenantStorage';
+import { useGetSystemTaskApi } from '@shared/hooks/useGetSystemTaskApi';
 
 import { useInactivityRedirect } from '@shared/hooks/useInactivityRedirect';
-import {
-  useVerifyForStoreConfigurationAccessApi
-} from '@shared/hooks/useVerifyForStoreConfigurationAccessApi'; 
-
-import { SystemTaskTypeEnum } from '@shared/enums/SystemTaskTypeEnum';
-
 import { BaseModal } from '@shared/components/BaseModal';
+import { SystemTaskStatusEnum } from '@shared/enums/SystemTaskStatusEnum';
+
+import { AuthGuardModalStep } from './enum';
+
+import { DisplayQRCodeStep } from './DisplayQRCodeStep';
+import { WaitingVerificationStep } from './WaitingVerificationStep';
+import { SuccessStep } from './SuccessStep';
+import { FailedStep } from './FailedStep';
+import LeftRightSection from '@shared/components/LeftRightSection';
 
 
 interface Props {
@@ -26,49 +29,40 @@ const TIMEOUT_MS = 180_000;
 
 export const AuthGuardModal: React.FC<Props> = ({ open, onClose }) => {
   const { t } = useTranslation();
-  
-  const tenant = tenantStorage.load();
+  const theme = useTheme();
 
   const [remainingMs, setRemainingMs] = useState<number>(TIMEOUT_MS);
-  const [qrCodeUrl, setQrCodeUrl] = useState<string>('');
+  const [step, setStep] = useState<AuthGuardModalStep>(AuthGuardModalStep.DISPLAY_QR_CODE);
+  const [systemTaskId, setSystemTaskId] = useState<string>('');
+
+  const { getSystemTask } = useGetSystemTaskApi();
+
+  useEffect(() => {
+    if (!open || !systemTaskId) return;
+
+    const id = window.setInterval(async () => {
+      try {
+        const task = await getSystemTask(systemTaskId);
+        if (task.status === SystemTaskStatusEnum.IN_PROGRESS) {
+          setStep(AuthGuardModalStep.WAITING_VERIFICATION_STEP);
+        } else if (task.status === SystemTaskStatusEnum.SUCCESS) {
+          setStep(AuthGuardModalStep.SUCCESS);
+        } else if (task.status === SystemTaskStatusEnum.FAILED) {
+          setStep(AuthGuardModalStep.FAILED);
+        }
+      } catch (_) {
+        // ignore transient errors while polling
+      }
+    }, 2000);
+
+    return () => window.clearInterval(id);
+  }, [open, systemTaskId, getSystemTask]);
 
   useInactivityRedirect({
     timeoutMs: TIMEOUT_MS,
     targetPath: '/customer-flow/welcome',
     onTimeout: () => onClose(),
   });
-  const {
-    verifyForStoreConfigurationAccess,
-    loading: verifyForStoreConfigurationAccessLoading,
-    data: verifyForStoreConfigurationAccessData,
-  } = useVerifyForStoreConfigurationAccessApi();
-
-  const handleVerifyForStoreConfigurationAccess = async () => {
-    if (!tenant) return;
-
-    await verifyForStoreConfigurationAccess({
-      tenant_id: tenant.id,
-    });
-  };
-
-  const buildQRCodeUrl = () => {
-    const baseUrl = `${getPortalFrontendUrl()}/auth/sign-in`;
-    const queryParams = new URLSearchParams();
-    const systemTaskId = verifyForStoreConfigurationAccessData?.system_task_id ?? '';
-
-    if (!systemTaskId) return baseUrl;
-
-    queryParams.set('session_id', systemTaskId);
-    queryParams.set('action', SystemTaskTypeEnum.VERIFY_FOR_STORE_CONFIGURATION_ACCESS);
-
-    console.log("url", `${baseUrl}?${queryParams.toString()}`);
-
-    return `${baseUrl}?${queryParams.toString()}`;
-  };
-
-  useEffect(() => {
-    setQrCodeUrl(buildQRCodeUrl());
-  }, [verifyForStoreConfigurationAccessData]);
 
   useEffect(() => {
     if (!open) return;
@@ -82,33 +76,47 @@ export const AuthGuardModal: React.FC<Props> = ({ open, onClose }) => {
     return () => window.clearInterval(id);
   }, [open]);
 
-  useEffect(() => {
-    handleVerifyForStoreConfigurationAccess();
-  }, []);
-
-  const [seconds, unit] = useMemo(() => {
-    return [Math.ceil(remainingMs / 1000), 's'];
-  }, [remainingMs]);
-
   return (
-    <BaseModal isModalOpen={open} setIsModalOpen={() => onClose()}>
-      <Flex vertical align="center" justify="center" style={{ height: '100%', gap: 16 }}>
-        <Typography.Title level={3} style={{ margin: 0 }}>
-          {t('modals.authGuard.title')}
-        </Typography.Title>
-        <Typography.Paragraph style={{ textAlign: 'center', margin: 0 }}>
-          {t('modals.authGuard.body')}
-        </Typography.Paragraph>
-        <Typography.Text type="secondary" style={{ textAlign: 'center' }}>
-          {t('modals.authGuard.countdown', { seconds, unit })}
-        </Typography.Text>
+    <BaseModal
+      isModalOpen={open}
+      setIsModalOpen={() => onClose()}
+    >
+      <Flex vertical style={{ width: '100%', height: 'calc(100% - 64px)' }}>
+        {step === AuthGuardModalStep.DISPLAY_QR_CODE && (
+          <DisplayQRCodeStep
+            open={open}
+            timeLeftMs={remainingMs}
+            onSuccess={(systemTaskId: string) => setSystemTaskId(systemTaskId)}
+            onResetTimeout={() => setRemainingMs(TIMEOUT_MS)}
+          />
+        )}
 
-        <QRCode
-          status={(
-            verifyForStoreConfigurationAccessLoading || TIMEOUT_MS - remainingMs <= 0
-          ) ? 'loading' : 'active'}
-          value={qrCodeUrl}
-          size={200}
+        {step === AuthGuardModalStep.WAITING_VERIFICATION_STEP && (
+          <WaitingVerificationStep
+            remainingMs={remainingMs}
+          />
+        )}
+
+        {step === AuthGuardModalStep.SUCCESS && (
+          <SuccessStep onClose={onClose} />
+        )}
+
+        {step === AuthGuardModalStep.FAILED && (
+          <FailedStep onClose={onClose} />
+        )}
+
+        <LeftRightSection
+          left={(
+            <Button
+              type="default"
+              size="large"
+              style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+              onClick={() => onClose()}
+            >
+              {t('common.back')}
+            </Button>
+          )}
+          right={null}
         />
       </Flex>
     </BaseModal>

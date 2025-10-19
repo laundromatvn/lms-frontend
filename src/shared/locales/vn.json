@@ -40,7 +40,9 @@
     "notifyMessage": "Thông báo",
     "getInvoice": "Lấy hóa đơn",
     "done": "Hoàn thành",
-    "signInByQR": "Đăng nhập bằng QR"
+    "signInByQR": "Đăng nhập bằng QR",
+    "success": "Thành công",
+    "failed": "Thất bại"
   },
   "customerFlow": {
     "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu",
@@ -89,7 +91,8 @@
     "pleaseSignInOnPortal": "Vui lòng đăng nhập trên portal",
     "pleaseTryAgain": "Vui lòng thử lại",
     "pleaseWaitABitWeAreProcessingYourRequest": "Vui lòng chờ một chút, chúng tôi đang xử lý yêu cầu của bạn",
-    "sessionExpiresIn": "Phiên sẽ hết hạn sau {{time}}"
+    "sessionExpiresIn": "Phiên sẽ hết hạn sau {{time}}",
+    "systemTaskExpiresIn": "Nhiệm vụ hệ thống sẽ hết hạn sau {{time}}"
   },
   "machines": {
     "label": "Máy {{id}}",
