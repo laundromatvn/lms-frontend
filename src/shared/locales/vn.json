@@ -67,6 +67,15 @@
     "pleasePressStart": "Vui lòng bấm bắt đầu",
     "pleaseEnsureThisTransactionCodeInPaymentContent": "Vui lòng đảm bảo mã giao dịch này nằm trong nội dung thanh toán: {{transactionCode}}"
   },
+  "modals": {
+    "authGuard": {
+      "title": "Yêu cầu quyền quản trị",
+      "body": "Vui lòng xác thực để truy cập chức năng quản trị.",
+      "signIn": "Đăng nhập",
+      "cancel": "Hủy",
+      "countdown": "Không có thao tác. Sẽ trở về trang chào mừng sau {{seconds}}{{unit}}."
+    }
+  },
   "messages": {
     "signInSuccess": "Đăng nhập thành công",
     "incorrectCredentials": "Thông tin đăng nhập không chính xác",

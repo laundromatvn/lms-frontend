@@ -5,6 +5,7 @@ type UseInactivityRedirectOptions = {
   timeoutMs?: number;
   targetPath?: string;
   ignoreWhileMounted?: boolean;
+  onTimeout?: () => void;
 };
 
 const DEFAULT_TIMEOUT_MS = 90_000; // 90 seconds
@@ -31,7 +32,11 @@ export function useInactivityRedirect(options?: UseInactivityRedirectOptions): v
 
       timerRef.current = window.setTimeout(() => {
         console.log(`[inactivity] redirecting to ${targetPath} after ${timeoutMs}ms of inactivity (resets: ${resetCountRef.current})`);
-        navigate(targetPath, { replace: true });
+        try {
+          options?.onTimeout?.();
+        } finally {
+          navigate(targetPath, { replace: true });
+        }
       }, timeoutMs);
 
       resetCountRef.current += 1;
@@ -46,6 +51,7 @@ export function useInactivityRedirect(options?: UseInactivityRedirectOptions): v
     const events: (keyof DocumentEventMap)[] = [
       'touchstart',
       'touchmove',
+      'click',
       'keydown',
       'scroll',
     ];
@@ -63,5 +69,5 @@ export function useInactivityRedirect(options?: UseInactivityRedirectOptions): v
         window.removeEventListener(eventName, handleEvent as EventListener);
       });
     };
-  }, [navigate, targetPath, timeoutMs]);
+  }, [navigate, targetPath, timeoutMs, options]);
 }

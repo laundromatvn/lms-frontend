@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useTheme } from '@shared/theme/useTheme';
@@ -6,6 +6,9 @@ import { useTheme } from '@shared/theme/useTheme';
 import { Typography } from 'antd';
 
 import { Box } from '@shared/components/Box';
+import { tokenManager } from '@core/auth/tokenManager';
+import { storeStorage } from '@core/storage/storeStorage';
+import { AuthGuardModal } from '@shared/components/common/AuthGuardModal';
 
 interface Props {
   size?: 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge';
@@ -16,6 +19,20 @@ export const Logo: React.FC<Props> = ({ size = 'medium', style }) => {
   const theme = useTheme();
 
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleClick = useCallback(() => {
+    const isAuthenticated = tokenManager.isAuthenticated();
+    const storeId = storeStorage.load();
+    const isStoreSet = typeof storeId === 'string' && storeId.length > 0;
+
+    if (!isAuthenticated || !isStoreSet) {
+      navigate('/auth/sign-in');
+      return;
+    }
+
+    setIsModalOpen(true);
+  }, [navigate]);
 
   const height = (() => {
     switch (size) {
@@ -35,27 +52,30 @@ export const Logo: React.FC<Props> = ({ size = 'medium', style }) => {
   })();
 
   return (
-    <Box
-      align="center"
-      justify="center"
-      style={{
-        cursor: 'pointer',
-        padding: theme.custom.spacing.xxsmall,
-        backgroundColor: theme.custom.colors.primary.light,
-        ...style,
-      }}
-      onClick={() => navigate('/')}
-    >
-      <img src="/logo.png" alt="Logo" style={{ height }} />
-      <Typography.Title
-        level={2}
+    <>
+      <Box
+        align="center"
+        justify="center"
         style={{
-          margin: 0,
-          color: theme.custom.colors.primary.default,
+          cursor: 'pointer',
+          padding: theme.custom.spacing.xxsmall,
+          backgroundColor: theme.custom.colors.primary.light,
+          ...style,
         }}
+        onClick={handleClick}
       >
-        WashGo247
-      </Typography.Title>
-    </Box>
+        <img src="/logo.png" alt="Logo" style={{ height }} />
+        <Typography.Title
+          level={2}
+          style={{
+            margin: 0,
+            color: theme.custom.colors.primary.default,
+          }}
+        >
+          WashGo247
+        </Typography.Title>
+      </Box>
+      <AuthGuardModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
+    </>
   );
 };

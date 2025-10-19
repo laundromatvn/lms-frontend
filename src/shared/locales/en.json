@@ -67,6 +67,15 @@
     "pleasePressStart": "Please press start",
     "pleaseEnsureThisTransactionCodeInPaymentContent": "Please ensure this transaction code is in the payment content: {{transactionCode}}"
   },
+  "modals": {
+    "authGuard": {
+      "title": "Admin access required",
+      "body": "Please authenticate to access admin functions.",
+      "signIn": "Sign In",
+      "cancel": "Cancel",
+      "countdown": "No activity detected. Returning to welcome in {{seconds}}{{unit}}."
+    }
+  },
   "messages": {
     "signInSuccess": "Sign in successfully",
     "incorrectCredentials": "Incorrect credentials",
