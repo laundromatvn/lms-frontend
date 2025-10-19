@@ -26,7 +26,10 @@ import {
 } from '@shared/hooks/useSignInByOneTimeAccessTokenApi';
 import {
   useGetLMSProfileApi,
+  type GetMeResponse,
 } from '@shared/hooks/useGetLMSProfile';
+import { tenantStorage } from '@core/storage/tenantStorage';
+import { profileStorage } from '@core/storage/profileStorage';
 
 import { Box } from '@shared/components/Box';
 import { AuthContainer } from './components';
@@ -65,11 +68,17 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
     data: signInByOneTimeAccessTokenData,
     error: signInByOneTimeAccessTokenError,
   } = useSignInByOneTimeAccessTokenApi();
+  const {
+    getLMSProfile,
+    data: getLMSProfileData,
+    error: getLMSProfileError,
+  } = useGetLMSProfileApi<GetMeResponse>();
 
   const handleSignInByOneTimeAccessToken = () => {
     const token = oneTimeTokenStorage.load();
     if (!token) return;
 
+    console.log('[WaitingSSO] sign in by one-time token...')
     signInByOneTimeAccessToken({ oneTimeAccessToken: token });
   };
   
@@ -79,6 +88,7 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
     if (pollIntervalRef.current) return;
 
     let isMounted = true;
+    console.log('[WaitingSSO] start polling', { sessionId })
     pollIntervalRef.current = window.setInterval(async () => {
       if (countdownRef.current <= 0) {
         // Stop polling if timed out
@@ -86,6 +96,7 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
           window.clearInterval(pollIntervalRef.current);
           pollIntervalRef.current = null;
         }
+        console.warn('[WaitingSSO] stop polling: timeout reached')
         return;
       }
 
@@ -93,6 +104,7 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
         await getAuthSession(sessionId);
         if (!isMounted) return;
       } catch {
+        console.error('[WaitingSSO] getAuthSession failed')
         setAuthSessionStatus(AuthSessionStatusEnum.FAILED);
         setCountdown(0);
       }
@@ -113,6 +125,7 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
     if (timeoutRef.current) return;
 
     timeoutRef.current = window.setTimeout(() => {
+      console.warn('[WaitingSSO] session timed out')
       setAuthSessionStatus(AuthSessionStatusEnum.FAILED);
       setCountdown(0);
     }, TIMEOUT_INTERVAL);
@@ -164,6 +177,7 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
       window.clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
+    console.log('[WaitingSSO] stopped timers due to status change', { status: authSessionStatus })
   }, [authSessionStatus]);
 
   useEffect(() => {
@@ -171,11 +185,13 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
     if (countdown <= 0) return;
     if (!getAuthSessionData) return;
 
+    console.log('[WaitingSSO] polled session', { status: getAuthSessionData.status })
     setAuthSessionStatus(getAuthSessionData.status);
     
     if (getAuthSessionData.status === AuthSessionStatusEnum.SUCCESS) {
       const token = getAuthSessionData.data as string | null;
       if (typeof token === 'string' && token.length > 0) {
+        console.log('[WaitingSSO] received one-time token, proceed to sign-in')
         oneTimeTokenStorage.save(token);
         handleSignInByOneTimeAccessToken();
       }
@@ -191,18 +207,42 @@ export const WaitingSSOAuthenticationPage: React.FC = () => {
         refreshTokenExp: Date.now() + REFRESH_TOKEN_TTL_SECONDS * 1000,
       }
       tokenManager.setTokens(bundle)
-
-      navigate('/store-configuration/stores');
+      console.log('[WaitingSSO] sign-in success → fetch LMS profile before navigating')
+      getLMSProfile()
     }
   }, [signInByOneTimeAccessTokenData]);
 
   useEffect(() => {
+    if (!getLMSProfileData) return;
+
+    try {
+      profileStorage.save(getLMSProfileData)
+      tenantStorage.save(getLMSProfileData.tenant)
+      console.log('[WaitingSSO] LMS profile saved, tenant set → navigate to stores config')
+    } catch (e) {
+      console.warn('[WaitingSSO] failed to persist LMS profile/tenant')
+    }
+
+    navigate('/store-configuration/stores')
+  }, [getLMSProfileData])
+
+  useEffect(() => {
     if (signInByOneTimeAccessTokenError) {
+      console.error('[WaitingSSO] signInByOneTimeAccessToken failed', signInByOneTimeAccessTokenError)
       api.error({
         message: t('messages.signInByOneTimeAccessTokenFailed'),
       });
     }
   }, [signInByOneTimeAccessTokenError]);  
+
+  useEffect(() => {
+    if (getLMSProfileError) {
+      console.error('[WaitingSSO] getLMSProfile failed', getLMSProfileError)
+      api.error({
+        message: t('messages.fetchLMSProfileFailed'),
+      });
+    }
+  }, [getLMSProfileError]);
 
   return (
     <AuthContainer style={{ cursor: 'default' }}>

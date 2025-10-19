@@ -7,6 +7,7 @@ import { PROACTIVE_REFRESH_CHECK_INTERVAL_MS, FORCE_ACCESS_REFRESH_INTERVAL_MS, 
 
 import AppRouter from './router';
 import { routes } from './router/routes';
+import { BootGuard } from './router/BootGuard';
 
 const App: React.FC = () => {
   const proactiveIdRef = useRef<number | null>(null);
@@ -62,7 +63,9 @@ const App: React.FC = () => {
   return (
     <Router>
       <ThemeProvider>
-        <AppRouter routes={routes} />
+        <BootGuard>
+          <AppRouter routes={routes} />
+        </BootGuard>
       </ThemeProvider>
     </Router>
   );

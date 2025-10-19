@@ -7,6 +7,7 @@ import { Typography, Skeleton, Button, Flex } from 'antd';
 import { useTheme } from '@shared/theme/useTheme';
 
 import { storeStorage } from '@core/storage/storeStorage';
+import { defaultRouteStorage } from '@core/storage/defaultRouteStorage';
 import { type Machine } from '@shared/types/machine';
 import { useListMachineApi, type ListMachineResponse } from '@shared/hooks/useListMachineApi';
 
@@ -76,7 +77,7 @@ export const StoreDetailPage: React.FC = () => {
                   type="primary"
                   size="large"
                   style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
-                  onClick={() => navigate('/customer-flow/welcome')}
+                  onClick={() => { defaultRouteStorage.save('/customer-flow/welcome'); navigate('/customer-flow/welcome'); }}
                 >
                   {t('common.start')}
                 </Button>
