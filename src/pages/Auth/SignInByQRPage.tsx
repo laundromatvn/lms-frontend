@@ -116,6 +116,7 @@ export const SignInByQRPage: React.FC = () => {
         try {
           const session = (await getAuthSession(sessionId)) as GetAuthSessionResponse;
           if (!isMounted) return;
+          console.log('session status', session.status);
           if (session.status === AuthSessionStatusEnum.IN_PROGRESS) {
             clearTimers();
             navigate(`/auth/waiting-sso-authentication?session_id=${sessionId}`);

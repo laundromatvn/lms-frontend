@@ -1,10 +1,8 @@
 import { HomePage } from '@pages/HomePage';
 import { DemoPage } from '@pages/DemoPage';
 
-import { SignInPage } from '@pages/Auth';
 import { SignInByQRPage } from '@pages/Auth/SignInByQRPage';
 import { GenerateOTPPage } from '@pages/Auth/GenerateOTPPage';
-import { VerifyOTPPage } from '@pages/Auth/VerifyOTPPage';
 import { WaitingSSOAuthenticationPage } from '@pages/Auth/WaitingSSOAuthenticationPage';
 
 import { StoreListingPage } from '@pages/StoreConfiguration/StoreListingPage';
@@ -30,11 +28,6 @@ export const routes: Route[] = [
     path: '/demo',
     component: <DemoPage />,
   },
-  // Auth
-  // {
-  //   path: '/auth/sign-in',
-  //   component: <SignInPage />,
-  // },
   {
     path: '/auth/sign-in',
     component: <SignInByQRPage />,
@@ -42,10 +35,6 @@ export const routes: Route[] = [
   {
     path: '/auth/generate-otp',
     component: <GenerateOTPPage />,
-  },
-  {
-    path: '/auth/verify-otp',
-    component: <VerifyOTPPage />,
   },
   {
     path: '/auth/waiting-sso-authentication',
