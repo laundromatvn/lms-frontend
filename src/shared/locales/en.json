@@ -92,7 +92,8 @@
     "pleaseTryAgain": "Please try again",
     "pleaseWaitABitWeAreProcessingYourRequest": "Please wait a bit, we are processing your request",
     "sessionExpiresIn": "Session expires in {{time}}",
-    "systemTaskExpiresIn": "System task expires in {{time}}"
+    "systemTaskExpiresIn": "System task expires in {{time}}",
+    "machineWillRunFor": "Machine will run for:"
   },
   "machines": {
     "label": "Machine {{id}}",

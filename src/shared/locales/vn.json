@@ -92,7 +92,8 @@
     "pleaseTryAgain": "Vui lòng thử lại",
     "pleaseWaitABitWeAreProcessingYourRequest": "Vui lòng chờ một chút, chúng tôi đang xử lý yêu cầu của bạn",
     "sessionExpiresIn": "Phiên sẽ hết hạn sau {{time}}",
-    "systemTaskExpiresIn": "Nhiệm vụ hệ thống sẽ hết hạn sau {{time}}"
+    "systemTaskExpiresIn": "Nhiệm vụ hệ thống sẽ hết hạn sau {{time}}",
+    "machineWillRunFor": "Máy sẽ chạy trong:"
   },
   "machines": {
     "label": "Máy {{id}}",
@@ -110,6 +111,6 @@
     "touchOnMachineDescription": "(*) Nhấn vào máy để bắt đầu",
     "selectForMachine": "Chọn cho máy: {{machineName}}",
     "selectMultipleAddOns": "Chọn nhiều dịch vụ:",
-    "selectDuringDuration": "Chọn thời gian sấy:"
+    "selectDryingDuration": "Chọn thời gian sấy:"
   }
 }

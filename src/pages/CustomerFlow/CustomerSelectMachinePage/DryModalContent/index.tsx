@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import {
-  AddSquare,
-  MinusSquare,
+  AddCircle,
+  MinusCircle,
 } from '@solar-icons/react';
 
 import { Button, Flex, Typography } from 'antd';
@@ -14,10 +14,10 @@ import { Box } from '@shared/components/Box';
 import { type AddOnOption } from '../type';
 import { AddOnTypeEnum } from '@shared/enums/AddOnTypeEnum';
 
-const DEFAULT_STEP = 15;
+const DEFAULT_STEP = 10;
 const DEFAULT_DURATION = 30;
 const MAX_DURATION = 90;
-const MIN_DURATION = 15;
+const MIN_DURATION = 10;
 
 interface Props {
   selectedAddOns: AddOnOption[];
@@ -28,7 +28,7 @@ export const DryModalContent: React.FC<Props> = ({ selectedAddOns, setSelectedAd
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const defaultDuration = [15, 30, 45, 60];
+  const defaultDuration = [20, 30, 40, 60];
   const [selectedDuration, setSelectedDuration] = useState<number>(DEFAULT_DURATION);
 
   const onAddDuration = () => {
@@ -79,46 +79,85 @@ export const DryModalContent: React.FC<Props> = ({ selectedAddOns, setSelectedAd
               border: selectedDuration === duration ? `2px solid ${theme.custom.colors.primary.default}` : 'none',
             }}
           >
-            <Typography.Text strong>{duration}</Typography.Text>
+            <Typography.Text strong style={{ fontSize: theme.custom.fontSize.xlarge }}>{duration}</Typography.Text>
             <Typography.Text>{t('common.minutes')}</Typography.Text>
           </Box>
         ))}
       </Flex>
 
       <Box
+        vertical
         justify="center"
         align="center"
         gap={theme.custom.spacing.large}
-        style={{ width: '100%' }}
+        style={{ width: '100%', height: '100%' }}
       >
-        <Button
-          type="default"
-          size="large"
-          onClick={onSubtractDuration}
-          disabled={selectedDuration <= MIN_DURATION}
-        >
-          {`- ${DEFAULT_STEP}`}
-        </Button>
+        <Typography.Text style={{ fontSize: theme.custom.fontSize.xlarge }}>
+          {t('messages.machineWillRunFor')}
+        </Typography.Text>
 
-        <Flex vertical align="center" gap={theme.custom.spacing.xsmall}>
-          <Typography.Text
-            strong
+        <Flex gap={theme.custom.spacing.large}>
+          <Button
+            type="default"
+            size="large"
+            onClick={onSubtractDuration}
+            disabled={selectedDuration <= MIN_DURATION}
             style={{
+              width: 128,
+              height: 72,
+              borderRadius: theme.custom.radius.full,
               fontSize: theme.custom.fontSize.xxlarge,
-              color: theme.custom.colors.success.default,
+              fontWeight: theme.custom.fontWeight.large,
+              backgroundColor: selectedDuration <= MIN_DURATION
+                ? theme.custom.colors.neutral.default : theme.custom.colors.neutral.light,
+              color: selectedDuration <= MIN_DURATION
+                ? theme.custom.colors.text.disabled : theme.custom.colors.text.primary,
             }}
-          >{selectedDuration}</Typography.Text>
-          <Typography.Text>{t('common.minutes')}</Typography.Text>
-        </Flex>
+          >
+            <MinusCircle weight="Linear" size={28} style={{
+              color: selectedDuration <= MIN_DURATION
+                ? theme.custom.colors.text.disabled : theme.custom.colors.text.primary
+            }} />
 
-        <Button
-          type="default"
-          size="large"
-          onClick={onAddDuration}
-          disabled={selectedDuration >= MAX_DURATION}
-        >
-          {`+ ${DEFAULT_STEP}`}
-        </Button>
+            {DEFAULT_STEP}
+          </Button>
+
+          <Flex align="center" gap={theme.custom.spacing.xsmall}>
+            <Typography.Text
+              strong
+              style={{
+                fontSize: theme.custom.fontSize.xxxxxlarge,
+                color: theme.custom.colors.success.default,
+              }}
+            >{selectedDuration}</Typography.Text>
+            <Typography.Text style={{ fontSize: theme.custom.fontSize.xlarge }}>{t('common.minutes')}</Typography.Text>
+          </Flex>
+
+          <Button
+            type="default"
+            size="large"
+            onClick={onAddDuration}
+            disabled={selectedDuration >= MAX_DURATION}
+            style={{
+              width: 128,
+              height: 72,
+              borderRadius: theme.custom.radius.full,
+              fontSize: theme.custom.fontSize.xxlarge,
+              fontWeight: theme.custom.fontWeight.large,
+              backgroundColor: selectedDuration >= MAX_DURATION
+                ? theme.custom.colors.neutral.default : theme.custom.colors.success.default,
+              color: selectedDuration >= MAX_DURATION
+                ? theme.custom.colors.text.disabled : theme.custom.colors.text.inverted,
+            }}
+          >
+            <AddCircle weight="Linear" size={28} style={{
+              color: selectedDuration >= MAX_DURATION
+                ? theme.custom.colors.text.disabled : theme.custom.colors.text.inverted
+            }} />
+
+            {DEFAULT_STEP}
+          </Button>
+        </Flex>
       </Box>
     </Flex>
   );
