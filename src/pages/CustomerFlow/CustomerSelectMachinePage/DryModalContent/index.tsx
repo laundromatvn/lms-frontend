@@ -28,7 +28,7 @@ export const DryModalContent: React.FC<Props> = ({ selectedAddOns, setSelectedAd
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const defaultDuration = [20, 30, 40, 60];
+  const defaultDuration = [40, 50, 60];
   const [selectedDuration, setSelectedDuration] = useState<number>(DEFAULT_DURATION);
 
   const onAddDuration = () => {
