@@ -67,7 +67,7 @@
     "pleaseNotifyMessage": "Please notify message",
     "pleaseGetInvoice": "Please get invoice",
     "pleasePressStart": "Please press start",
-    "pleaseEnsureThisTransactionCodeInPaymentContent": "Please ensure this transaction code is in the payment content: {{transactionCode}}"
+    "pleaseEnsureThisTransactionCodeInPaymentContent": "Please ensure this transaction code is in the payment content"
   },
   "modals": {
     "authGuard": {

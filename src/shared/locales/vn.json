@@ -67,7 +67,7 @@
     "pleaseNotifyMessage": "Vui lòng thông báo",
     "pleaseGetInvoice": "Vui lòng lấy hóa đơn",
     "pleasePressStart": "Vui lòng bấm bắt đầu",
-    "pleaseEnsureThisTransactionCodeInPaymentContent": "Vui lòng đảm bảo mã giao dịch này nằm trong nội dung thanh toán: {{transactionCode}}"
+    "pleaseEnsureThisTransactionCodeInPaymentContent": "Vui lòng đảm bảo mã giao dịch này nằm trong nội dung thanh toán"
   },
   "modals": {
     "authGuard": {

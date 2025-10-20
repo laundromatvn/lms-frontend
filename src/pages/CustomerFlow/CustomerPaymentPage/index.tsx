@@ -24,7 +24,7 @@ import { PaymentMethodSelection } from './PaymentMethodSelection';
 import { PaymentMethodDetails } from './PaymentMethodDetails';
 
 const PAYMENT_POLLING_INTERVAL = 2000;
-const PAYMENT_TIMEOUT = 90_000;
+const PAYMENT_TIMEOUT = 180_000;
 
 export const CustomerPaymentPage: React.FC = () => {
   const { t } = useTranslation();
@@ -35,7 +35,6 @@ export const CustomerPaymentPage: React.FC = () => {
 
   const paymentMethodOptions = [
     { label: t('customerFlow.qr'), value: PaymentMethodEnum.QR },
-    // { label: t('customerFlow.card'), value: PaymentMethodEnum.CARD },
   ];
 
   const [payment, setPayment] = React.useState<Payment | null>(null);
@@ -50,10 +49,7 @@ export const CustomerPaymentPage: React.FC = () => {
     loading: getPaymentLoading,
     data: getPaymentData,
   } = useGetPaymentApi();
-  const {
-    triggerPaymentTimeout,
-    loading: triggerTimeoutLoading,
-  } = useTriggerPaymentTimeoutApi();
+  const { triggerPaymentTimeout } = useTriggerPaymentTimeoutApi();
 
   const [remainingMs, setRemainingMs] = React.useState<number | null>(null);
   const countdownDeadlineRef = React.useRef<number | null>(null);

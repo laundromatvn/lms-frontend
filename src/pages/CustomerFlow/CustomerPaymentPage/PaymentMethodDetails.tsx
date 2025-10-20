@@ -7,6 +7,8 @@ import { useTheme } from '@shared/theme/useTheme';
 
 import { PaymentMethodEnum } from '@shared/enums/PaymentMethodEnum';
 
+import { Box } from '@shared/components/Box';
+
 interface PaymentMethodDetailsProps {
   selectedMethod: PaymentMethodEnum;
   qrCode?: string | null;
@@ -53,16 +55,33 @@ export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ sele
       >
         {selectedMethod === PaymentMethodEnum.QR ? (
           qrCode ? (
-            <Flex align="center" justify="center" gap={theme.custom.spacing.medium}>
-              <QRCode size={200} value={qrCode} />
+            <Flex align="center" justify="center" gap={theme.custom.spacing.large}>
+              <QRCode size={200} value={qrCode} style={{ backgroundColor: theme.custom.colors.background.light }}/>
 
-              <Flex vertical align="center" justify="center" gap={theme.custom.spacing.medium} style={{ width: 400 }}>
-                <Typography.Text>{t('customerFlow.scanToPay')}</Typography.Text>
-                <Typography.Text type="secondary" style={{ textAlign: 'center' }}>
-                  {t('customerFlow.pleaseEnsureThisTransactionCodeInPaymentContent', { transactionCode })}
+              <Flex vertical align="flex-start" justify="center" gap={theme.custom.spacing.small} style={{ width: 400 }}>
+                <Typography.Text strong style={{ fontSize: theme.custom.fontSize.xxlarge }}>
+                  {t('customerFlow.scanToPay')}
                 </Typography.Text>
+
+                <Typography.Text type="secondary" style={{ fontSize: theme.custom.fontSize.large }}>
+                  {t('customerFlow.pleaseEnsureThisTransactionCodeInPaymentContent')}
+                </Typography.Text>
+
+                <Box
+                  align="center"
+                  style={{
+                    width: '100%',
+                    border: `1px solid ${theme.custom.colors.neutral[200]}`,
+                    borderRadius: theme.custom.radius.large,
+                    padding: theme.custom.spacing.medium,
+                    fontSize: theme.custom.fontSize.xxlarge,
+                  }}
+                >
+                  {transactionCode}
+                </Box>
+
                 {typeof remainingSeconds === 'number' && (
-                  <Typography.Text type="secondary">
+                  <Typography.Text type="secondary" style={{ fontSize: theme.custom.fontSize.large }}>
                     {t('customerFlow.qrExpiresIn', { time: formatTime(remainingSeconds) })}
                   </Typography.Text>
                 )}
