@@ -5,6 +5,8 @@ import { useTheme } from '@shared/theme/useTheme';
 
 import { Typography } from 'antd';
 
+import { tenantStorage } from '@core/storage/tenantStorage';
+
 import { Box } from '@shared/components/Box';
 import { tokenManager } from '@core/auth/tokenManager';
 import { storeStorage } from '@core/storage/storeStorage';
@@ -20,6 +22,8 @@ export const Logo: React.FC<Props> = ({ size = 'medium', style }) => {
 
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const tenant = tenantStorage.load();
 
   const handleClick = useCallback(() => {
     const isAuthenticated = tokenManager.isAuthenticated();
@@ -72,7 +76,7 @@ export const Logo: React.FC<Props> = ({ size = 'medium', style }) => {
             color: theme.custom.colors.primary.default,
           }}
         >
-          WashGo247
+          {tenant?.name || 'WashGo247'}
         </Typography.Title>
       </Box>
       <AuthGuardModal open={isModalOpen} onClose={() => setIsModalOpen(false)} />
