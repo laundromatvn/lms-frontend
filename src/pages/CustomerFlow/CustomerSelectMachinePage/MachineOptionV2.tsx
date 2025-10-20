@@ -98,6 +98,7 @@ export const MachineOptionV2: React.FC<Props> = ({ machine, selectedMachineOptio
         style={{
           height: 324,
           minWidth: 248,
+          width: '100%',
           borderColor: defaultColor,
           borderWidth: isSelected ? 4 : 0,
           backgroundColor: lightColor,
@@ -107,13 +108,14 @@ export const MachineOptionV2: React.FC<Props> = ({ machine, selectedMachineOptio
       >
         <Box
           align="center"
-          justify="flex-end"
+          justify="space-between"
           style={{
             width: '100%',
             background: 'transparent',
             padding: theme.custom.spacing.xsmall,
           }}
         >
+          <DynamicTag value={machine.machine_type} style={{ fontSize: theme.custom.fontSize.medium }} />
           <DynamicTag value={machine.status} style={{ fontSize: theme.custom.fontSize.medium }} />
         </Box>
 
@@ -173,7 +175,10 @@ export const MachineOptionV2: React.FC<Props> = ({ machine, selectedMachineOptio
           onClick={() => onRemove({ machine, addOns: [] })}
           style={{
             width: '100%',
-            height: 48
+            height: 48,
+            backgroundColor: theme.custom.colors.danger.light,
+            borderColor: theme.custom.colors.danger.default,
+            color: theme.custom.colors.danger.default,
           }}
         >
           {t('common.removeSelection')}

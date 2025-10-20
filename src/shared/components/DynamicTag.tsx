@@ -32,6 +32,10 @@ export const DynamicTag: React.FC<Props> = ({ value, color, style }) => {
         return theme.custom.colors.danger.default;
       case 'success':
         return theme.custom.colors.success.default;
+      case 'washer':
+        return theme.custom.colors.info[400];
+      case 'dryer':
+        return theme.custom.colors.warning[400];
       default:
         return theme.custom.colors.neutral[400];
     }
