@@ -30,7 +30,6 @@ export const CustomerOrderOverviewPage: React.FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Auto-reset after 90s of inactivity back to welcome
   useInactivityRedirect({ timeoutMs: 90_000, targetPath: '/customer-flow/welcome' });
 
   const { 

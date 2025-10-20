@@ -40,10 +40,10 @@ export const OrderSummarySection: React.FC<Props> = ({ selectedMachines, style }
         ...style,
       }}
     >
-      {calculatedMachines.map((item) => (
+      {calculatedMachines.map((item, index) => (
         <Flex justify="space-between" style={{ width: '100%' }} >
           <Typography.Text style={{ fontSize: theme.custom.fontSize.xxxlarge }}>
-            {item.selectedMachine.machine.name || `${t('storeConfiguration.relayNo', 'Relay No.', { relayNo: item.selectedMachine.machine.relay_no })}`}
+            {`${index + 1}. ${item.selectedMachine.machine.name || `${t('storeConfiguration.relayNo', 'Relay No.', { relayNo: item.selectedMachine.machine.relay_no })}`}`}
             </Typography.Text>
           <Typography.Text
             strong
