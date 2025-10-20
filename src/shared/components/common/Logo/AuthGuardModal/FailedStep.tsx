@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Typography, Flex, Button } from 'antd';
+import { Typography, Button } from 'antd';
 
 import { 
   SadSquare,
 } from '@solar-icons/react'
 
 import { useTheme } from '@shared/theme/useTheme';
+
+import { Box } from '@shared/components/Box';
 
 interface Props {
   onClose: () => void;
@@ -35,14 +37,24 @@ export const FailedStep: React.FC<Props> = ({ onClose }) => {
   }, [remainingMs, onClose]);
 
   return (
-    <Flex vertical align="center" justify="center" style={{ height: '100%', gap: 16 }}>
+    <Box
+      vertical
+      align="center"
+      justify="center"
+      style={{
+        width: '100%',
+        height: '100%',
+        gap: 16,
+      }}
+      gap={theme.custom.spacing.medium}
+    >
       <SadSquare color={theme.custom.colors.danger.default} weight='BoldDuotone' width={96} height={96} />
-      <Typography.Text type="secondary">{t('messages.failed')}</Typography.Text>
+      <Typography.Text type="secondary">{t('common.failed')}</Typography.Text>
       <Typography.Text type="secondary">
-        {t('modals.authGuard.countdown', { seconds: Math.ceil(remainingMs / 1000), unit: 's' })}
+        {t('messages.sessionExpiresIn', { time: `${Math.ceil(remainingMs / 1000)}s` })}
       </Typography.Text>
       <Button type="primary" onClick={onClose}>{t('common.close')}</Button>
-    </Flex>
+    </Box>
   );
 };
 

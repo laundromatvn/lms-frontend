@@ -4,9 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { Typography, Flex, QRCode } from 'antd';
 
 import { getPortalFrontendUrl } from '@shared/utils/env';
+
+import { useTheme } from '@shared/theme/useTheme';
+
 import { tenantStorage } from '@core/storage/tenantStorage';
+
 import { useVerifyForStoreConfigurationAccessApi } from '@shared/hooks/useVerifyForStoreConfigurationAccessApi';
+
 import { SystemTaskTypeEnum } from '@shared/enums/SystemTaskTypeEnum';
+import { Box } from '@shared/components/Box';
 
 interface Props {
   open: boolean;
@@ -19,10 +25,10 @@ export const DisplayQRCodeStep: React.FC<Props> = ({
   open,
   timeLeftMs,
   onSuccess,
-  onResetTimeout,
 }) => {
   const { t } = useTranslation();
-
+  const theme = useTheme();
+  
   const tenant = tenantStorage.load();
 
   const {
@@ -61,7 +67,17 @@ export const DisplayQRCodeStep: React.FC<Props> = ({
   }, [open]);
 
   return (
-    <Flex vertical align="center" justify="center" style={{ height: '100%', gap: 16 }}>
+    <Box
+      vertical
+      align="center"
+      justify="center"
+      style={{
+        width: '100%',
+        height: '100%',
+        gap: 16,
+      }}
+      gap={theme.custom.spacing.medium}
+    >
       <Typography.Title level={3} style={{ margin: 0 }}>
         {t('modals.authGuard.title')}
       </Typography.Title>
@@ -77,7 +93,7 @@ export const DisplayQRCodeStep: React.FC<Props> = ({
         value={qrCodeUrl}
         size={200}
       />
-    </Flex>
+    </Box>
   );
 };
 
