@@ -66,7 +66,7 @@ export const DryModalContent: React.FC<Props> = ({ selectedAddOns, setSelectedAd
     >
       <Typography.Text >{t('storeConfiguration.selectDryingDuration')}</Typography.Text>
 
-      <Flex justify="space-between" style={{ width: '100%' }}>
+      <Flex justify="space-between" gap={theme.custom.spacing.large} style={{ width: '100%' }}>
         {defaultDuration.map((duration) => (
           <Box
             vertical
@@ -74,12 +74,12 @@ export const DryModalContent: React.FC<Props> = ({ selectedAddOns, setSelectedAd
             align="center"
             onClick={() => setSelectedDuration(duration)}
             style={{
-              width: 200,
-              height: 100,
-              border: selectedDuration === duration ? `2px solid ${theme.custom.colors.primary.default}` : 'none',
+              width: '100%',
+              height: 128,
+              border: selectedDuration === duration ? `4px solid ${theme.custom.colors.primary.default}` : 'none',
             }}
           >
-            <Typography.Text strong style={{ fontSize: theme.custom.fontSize.xlarge }}>{duration}</Typography.Text>
+            <Typography.Text strong style={{ fontSize: theme.custom.fontSize.xxlarge }}>{duration}</Typography.Text>
             <Typography.Text>{t('common.minutes')}</Typography.Text>
           </Box>
         ))}
@@ -118,8 +118,6 @@ export const DryModalContent: React.FC<Props> = ({ selectedAddOns, setSelectedAd
               color: selectedDuration <= MIN_DURATION
                 ? theme.custom.colors.text.disabled : theme.custom.colors.text.primary
             }} />
-
-            {DEFAULT_STEP}
           </Button>
 
           <Flex align="center" gap={theme.custom.spacing.xsmall}>
@@ -154,8 +152,6 @@ export const DryModalContent: React.FC<Props> = ({ selectedAddOns, setSelectedAd
               color: selectedDuration >= MAX_DURATION
                 ? theme.custom.colors.text.disabled : theme.custom.colors.text.inverted
             }} />
-
-            {DEFAULT_STEP}
           </Button>
         </Flex>
       </Box>
