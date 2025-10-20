@@ -54,7 +54,7 @@ export const MachineOptionV2: React.FC<Props> = ({ machine, selectedMachineOptio
   const lightColor = machine.machine_type === MachineTypeEnum.WASHER
     ? theme.custom.colors.info.light
     : theme.custom.colors.warning.light;
-
+  
   const onSelectAddOn = (addOnOption: AddOnOption) => {
     if (selectedAddOns.some((option) => option.addOn.id === addOnOption.addOn.id)) {
       return;
@@ -104,7 +104,7 @@ export const MachineOptionV2: React.FC<Props> = ({ machine, selectedMachineOptio
           backgroundColor: lightColor,
           overflow: 'hidden',
         }}
-        disabled={machine.status !== MachineStatusEnum.IDLE}
+        disabled={machine.status !== MachineStatusEnum.IDLE && machine.machine_type != MachineTypeEnum.DRYER}
       >
         <Box
           align="center"
