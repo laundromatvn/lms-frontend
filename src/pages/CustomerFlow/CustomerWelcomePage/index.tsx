@@ -32,7 +32,15 @@ export const CustomerWelcomePage: React.FC = () => {
         justify="center"
         align="flex-start"
         gap={theme.custom.spacing.xxxxlarge}
-        style={{ width: '100%', marginTop: theme.custom.spacing.large }}
+        style={{
+          width: '100%',
+          height: '100%',
+          marginTop: theme.custom.spacing.large,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          paddingRight: theme.custom.spacing.medium,
+          paddingLeft: theme.custom.spacing.medium,
+        }}
       >
         <MachineOption
           machineType={MachineTypeEnum.WASHER}
