@@ -45,6 +45,7 @@
     "failed": "Failed"
   },
   "customerFlow": {
+    "payhere": "Pay Here",
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
     "selectWashingMachine": "Select Washing Machine ({{totalSelected}}/{{maxSelected}})",
     "selectDryerMachine": "Select Dryer Machine ({{totalSelected}}/{{maxSelected}})",

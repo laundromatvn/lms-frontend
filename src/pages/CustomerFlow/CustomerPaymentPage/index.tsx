@@ -103,7 +103,7 @@ export const CustomerPaymentPage: React.FC = () => {
         if (status === 'SUCCESS') {
           window.clearInterval(intervalId);
           window.clearTimeout(timeoutId);
-          navigate('/customer-flow/success');
+          navigate('/customer-flow/press-start');
         } else if (status === 'FAILED' || status === 'CANCELLED') {
           window.clearInterval(intervalId);
           window.clearTimeout(timeoutId);

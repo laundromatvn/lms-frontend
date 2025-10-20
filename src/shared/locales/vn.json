@@ -45,6 +45,7 @@
     "failed": "Thất bại"
   },
   "customerFlow": {
+    "payhere": "Thanh toán tại đây",
     "pleaseLoadYourClothesFirst": "Vui lòng để quần áo vào máy trước khi bắt đầu",
     "selectWashingMachine": "Chọn Máy Giặt ({{totalSelected}}/{{maxSelected}})",
     "selectDryerMachine": "Chọn Máy Sấy ({{totalSelected}}/{{maxSelected}})",

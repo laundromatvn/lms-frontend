@@ -26,7 +26,15 @@ export const CustomerWelcomePage: React.FC = () => {
 
   return (
     <DefaultLayout style={{ alignItems: 'center' }}>
-      <Typography.Title level={2}>{t('customerFlow.whatWouldYouLikeToDo')}</Typography.Title>
+      <Flex vertical align="center" justify="center" gap={theme.custom.spacing.small}>
+        <Typography.Title level={1} style={{ fontSize: theme.custom.fontSize.xxxxxlarge, margin: 0 }}>
+          {t('customerFlow.payhere')}
+        </Typography.Title>
+
+        <Typography.Text style={{ fontSize: theme.custom.fontSize.xxlarge }}>
+          {t('customerFlow.whatWouldYouLikeToDo')}
+        </Typography.Text>
+      </Flex>
 
       <Flex
         justify="center"
