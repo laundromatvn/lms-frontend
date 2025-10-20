@@ -39,7 +39,7 @@ export const Instruction: React.FC<Props> = ({ imageUrl, instruction, style }) =
 
       <Typography.Text
         style={{
-          fontSize: theme.custom.fontSize.xlarge,
+          fontSize: theme.custom.fontSize.xxxxlarge,
           fontWeight: theme.custom.fontWeight.medium,
         }}
       >
