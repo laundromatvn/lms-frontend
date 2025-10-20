@@ -31,7 +31,6 @@ export function useInactivityRedirect(options?: UseInactivityRedirectOptions): v
       if (timerRef.current) window.clearTimeout(timerRef.current);
 
       timerRef.current = window.setTimeout(() => {
-        console.log(`[inactivity] redirecting to ${targetPath} after ${timeoutMs}ms of inactivity (resets: ${resetCountRef.current})`);
         try {
           options?.onTimeout?.();
         } finally {
@@ -40,14 +39,12 @@ export function useInactivityRedirect(options?: UseInactivityRedirectOptions): v
       }, timeoutMs);
 
       resetCountRef.current += 1;
-      console.log(`[inactivity] reset timer #${resetCountRef.current} (timeout=${timeoutMs}ms)`);
     };
 
     const handleEvent = () => {
       resetTimer();
     };
 
-    // Consider common interactions on touch screens and kiosks
     const events: (keyof DocumentEventMap)[] = [
       'touchstart',
       'touchmove',
