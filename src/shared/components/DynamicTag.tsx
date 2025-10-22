@@ -17,11 +17,9 @@ export const DynamicTag: React.FC<Props> = ({ value, color, style }) => {
   const theme = useTheme();
   const { t } = useTranslation();
 
-  const translatedValue = useMemo(() => {
-    return t(`common.${value.toLowerCase()}`);
-  }, [value]);
+  const translatedValue = t(`common.${value.toLowerCase()}`);
 
-  const dynamicColor = useMemo(() => {
+  const dynamicColor = () => {
     switch (value.toLowerCase()) {
       case 'active':
       case 'idle':
@@ -45,10 +43,10 @@ export const DynamicTag: React.FC<Props> = ({ value, color, style }) => {
       default:
         return theme.custom.colors.neutral[400];
     }
-  }, [value]);
+  }
 
   return <Tag
-    color={color || dynamicColor}
+    color={color || dynamicColor()}
     style={{
       borderRadius: theme.custom.radius.full,
       paddingLeft: theme.custom.spacing.medium,
