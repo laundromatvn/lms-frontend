@@ -10,9 +10,10 @@ interface Props {
   imageUrl: string,
   instruction: string,
   style?: React.CSSProperties,
+  children?: React.ReactNode,
 }
 
-export const Instruction: React.FC<Props> = ({ imageUrl, instruction, style }) => {
+export const Instruction: React.FC<Props> = ({ imageUrl, instruction, style, children }) => {
   const theme = useTheme();
 
   return (
@@ -45,6 +46,8 @@ export const Instruction: React.FC<Props> = ({ imageUrl, instruction, style }) =
       >
         {instruction}
       </Typography.Text>
+
+      {children}
     </Box>
   );
 };

@@ -67,8 +67,10 @@
     "pleaseTryAgain": "Please try again",
     "pleaseNotifyMessage": "Please notify message",
     "pleaseGetInvoice": "Please get invoice",
-    "pleasePressStart": "Please press start",
-    "pleaseEnsureThisTransactionCodeInPaymentContent": "Please ensure this transaction code is in the payment content"
+    "pleasePressStart": "Please press the \"Start\" button on the machine",
+    "pleaseEnsureThisTransactionCodeInPaymentContent": "Please ensure this transaction code is in the payment content",
+    "warningIfNotPressStart": "Warning: If you do not press start, your order will be not refundable after {{time}}",
+    "yourOrderWillBeNotRefundable": "Your order will be not refundable"
   },
   "modals": {
     "authGuard": {

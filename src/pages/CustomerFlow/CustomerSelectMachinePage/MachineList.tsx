@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useTheme } from '@shared/theme/useTheme';
 import { WorkingTypeEnum } from '@shared/enums/WorkingTypeEnum';
@@ -33,13 +33,53 @@ export const MachineList: React.FC<Props> = ({
 }) => {
   const theme = useTheme();
 
+  // Detect screen orientation to adjust grid columns
+  const [isPortrait, setIsPortrait] = useState<boolean>(() => {
+    try {
+      return window.matchMedia('(orientation: portrait)').matches;
+    } catch {
+      return window.innerHeight > window.innerWidth;
+    }
+  });
+
+  useEffect(() => {
+    let mediaQuery: MediaQueryList | null = null;
+    const updateFromResize = () => setIsPortrait(window.innerHeight > window.innerWidth);
+
+    try {
+      mediaQuery = window.matchMedia('(orientation: portrait)');
+      const handleChange = () => setIsPortrait(mediaQuery!.matches);
+      if (mediaQuery.addEventListener) {
+        mediaQuery.addEventListener('change', handleChange);
+      } else if (mediaQuery.addListener) {
+        mediaQuery.addListener(handleChange);
+      }
+    } catch {
+      // Fallback to resize listener only
+    }
+
+    window.addEventListener('resize', updateFromResize);
+
+    return () => {
+      if (mediaQuery) {
+        const handleChange = () => setIsPortrait(mediaQuery!.matches);
+        if (mediaQuery.removeEventListener) {
+          mediaQuery.removeEventListener('change', handleChange);
+        } else if (mediaQuery.removeListener) {
+          mediaQuery.removeListener(handleChange);
+        }
+      }
+      window.removeEventListener('resize', updateFromResize);
+    };
+  }, []);
+
   return (
     <div
       style={{
         width: '100%',
         height: '100%',
         display: 'grid',
-        gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
+        gridTemplateColumns: `repeat(${isPortrait ? 2 : 4}, minmax(0, 1fr))`,
         gap: theme.custom.spacing.medium,
         overflowY: 'auto',
         overflowX: 'hidden',
