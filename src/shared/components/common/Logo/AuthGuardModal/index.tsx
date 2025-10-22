@@ -81,7 +81,7 @@ export const AuthGuardModal: React.FC<Props> = ({ open, onClose }) => {
       isModalOpen={open}
       setIsModalOpen={() => onClose()}
     >
-      <Flex vertical gap={theme.custom.spacing.medium} style={{ width: '100%', height: 'calc(100% - 64px)' }}>
+      <Flex vertical gap={theme.custom.spacing.medium} style={{ width: '100%', height: '100%' }}>
         {step === AuthGuardModalStep.DISPLAY_QR_CODE && (
           <DisplayQRCodeStep
             open={open}
