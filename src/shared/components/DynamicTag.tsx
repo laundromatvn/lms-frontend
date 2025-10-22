@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Tag } from 'antd';
 
@@ -14,6 +15,11 @@ interface Props {
 
 export const DynamicTag: React.FC<Props> = ({ value, color, style }) => {
   const theme = useTheme();
+  const { t } = useTranslation();
+
+  const translatedValue = useMemo(() => {
+    return t(`common.${value.toLowerCase()}`);
+  }, [value]);
 
   const dynamicColor = useMemo(() => {
     switch (value.toLowerCase()) {
@@ -49,9 +55,13 @@ export const DynamicTag: React.FC<Props> = ({ value, color, style }) => {
       paddingRight: theme.custom.spacing.medium,
       height: 'fit-content',
       width: 'fit-content',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      display: 'block',
       ...style,
     }}
   >
-    {toCamelCase(value)}
+    {toCamelCase(translatedValue)}
   </Tag>;
 };

@@ -29,8 +29,8 @@
     "cancel": "Hủy",
     "coldWater": "Nước lạnh",
     "hotWater": "Nước nóng",
-    "detergent": "Xà phòng",
-    "softener": "Chất lỏng giặt",
+    "detergent": "Nước giặt",
+    "softener": "Nước xả",
     "default": "Mặc định",
     "minutes": "Phút",
     "total": "Tổng",
@@ -42,7 +42,15 @@
     "done": "Hoàn thành",
     "signInByQR": "Đăng nhập bằng QR",
     "success": "Thành công",
-    "failed": "Thất bại"
+    "failed": "Thất bại",
+    "pending_setup": "Đang chờ thiết lập",
+    "idle": "Sẵn sàng",
+    "busy": "Đang bận",
+    "starting": "Khởi động",
+    "out_of_service": "Bảo trì",
+    "error": "Lỗi",
+    "inactive": "Không hoạt động",
+    "active": "Hoạt động"
   },
   "customerFlow": {
     "payhere": "Thanh toán tại đây",
