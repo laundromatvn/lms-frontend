@@ -49,6 +49,7 @@ export const Header: React.FC = () => {
           width: '100%',
           height: '100%',
           maxWidth: MAX_WIDTH,
+          padding: theme.custom.spacing.medium,
         }}>
 
         <Flex
