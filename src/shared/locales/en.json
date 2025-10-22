@@ -45,13 +45,12 @@
     "failed": "Failed",
     "active": "Active",
     "inactive": "Inactive",
+    "pending_setup": "Pending Setup",
     "idle": "Idle",
-    "pending": "Pending",
-    "pendingSetup": "Pending Setup",
     "busy": "Busy",
     "starting": "Starting",
-    "error": "Error",
-    "outOfService": "Out of Service"
+    "out_of_service": "Out of Service",
+    "error": "Error"
   },
   "customerFlow": {
     "payhere": "Pay Here",
