@@ -42,7 +42,15 @@
     "done": "Done",
     "signInByQR": "Sign In by QR",
     "success": "Success",
-    "failed": "Failed"
+    "failed": "Failed",
+    "active": "Active",
+    "inactive": "Inactive",
+    "pending": "Pending",
+    "pendingSetup": "Pending Setup",
+    "busy": "Busy",
+    "starting": "Starting",
+    "error": "Error",
+    "outOfService": "Out of Service"
   },
   "customerFlow": {
     "payhere": "Pay Here",
