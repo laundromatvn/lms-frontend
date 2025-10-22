@@ -21,6 +21,8 @@ interface Props {
   onResetTimeout: () => void;
 }
 
+const DEFAULT_REDIRECT_TO = '/verification-success';
+
 export const DisplayQRCodeStep: React.FC<Props> = ({
   open,
   timeLeftMs,
@@ -56,6 +58,7 @@ export const DisplayQRCodeStep: React.FC<Props> = ({
     const queryParams = new URLSearchParams();
     queryParams.set('session_id', systemTaskId);
     queryParams.set('action', SystemTaskTypeEnum.VERIFY_FOR_STORE_CONFIGURATION_ACCESS);
+    queryParams.set('redirect_to', DEFAULT_REDIRECT_TO);
 
     setQrCodeUrl(`${baseUrl}?${queryParams.toString()}`);
 
