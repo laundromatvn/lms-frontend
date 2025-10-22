@@ -45,6 +45,7 @@
     "failed": "Failed",
     "active": "Active",
     "inactive": "Inactive",
+    "idle": "Idle",
     "pending": "Pending",
     "pendingSetup": "Pending Setup",
     "busy": "Busy",
