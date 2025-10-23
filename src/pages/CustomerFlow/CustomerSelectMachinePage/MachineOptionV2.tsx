@@ -25,7 +25,7 @@ import { AddOnTypeEnum } from '@shared/enums/AddOnTypeEnum';
 import { DynamicTag } from '@shared/components/DynamicTag';
 import { MachineStatusEnum } from '@shared/enums/MachineStatusEnum';
 
-const MIN_DRYING_TIME = 15;
+const MIN_DRYING_TIME = 10;
 
 interface Props {
   machine: Machine;
