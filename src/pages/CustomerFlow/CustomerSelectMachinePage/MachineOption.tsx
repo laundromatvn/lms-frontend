@@ -47,13 +47,16 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
   const defaultColor = machine.machine_type === MachineTypeEnum.WASHER
     ? theme.custom.colors.info.default
     : theme.custom.colors.warning.default;
+  const selectedBackgroundColor = machine.machine_type === MachineTypeEnum.WASHER
+    ? theme.custom.colors.info[300]
+    : theme.custom.colors.warning[300];
   const iconColor = machine.machine_type === MachineTypeEnum.WASHER
     ? theme.custom.colors.info[400]
     : theme.custom.colors.warning[400];
   const lightColor = machine.machine_type === MachineTypeEnum.WASHER
     ? theme.custom.colors.info.light
     : theme.custom.colors.warning.light;
-  
+
   const onSelectAddOn = (addOnOption: AddOnOption) => {
     if (selectedAddOns.some((option) => option.addOn.id === addOnOption.addOn.id)) {
       return;
@@ -100,7 +103,7 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
           width: '100%',
           borderColor: defaultColor,
           borderWidth: isSelected ? 4 : 0,
-          backgroundColor: lightColor,
+          backgroundColor: isSelected ? selectedBackgroundColor : lightColor,
           overflow: 'hidden',
         }}
         disabled={machine.status !== MachineStatusEnum.IDLE && machine.machine_type != MachineTypeEnum.DRYER}
