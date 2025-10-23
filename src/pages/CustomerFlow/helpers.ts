@@ -1,7 +1,7 @@
 import { MachineTypeEnum } from "@shared/enums/MachineTypeEnum";
 import type { SelectedMachineOption } from "./CustomerSelectMachinePage/type";
 
-const MIN_DRYING_TIME = 15;
+const MIN_DRYING_TIME = 10;
 
 export const calculateSelectedMachinePrice = (selectedMachines: SelectedMachineOption) => {
   return selectedMachines.machine.machine_type === MachineTypeEnum.WASHER
