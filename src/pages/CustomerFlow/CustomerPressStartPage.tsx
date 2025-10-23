@@ -26,6 +26,13 @@ export const CustomerPressStartPage: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
+  const navigationButtonStyle = {
+    width: 300,
+    height: 64,
+    borderRadius: theme.custom.radius.full,
+    fontSize: theme.custom.fontSize.xxlarge,
+  };
+
   useInactivityRedirect({ timeoutMs: WARNING_TIME * 1000, targetPath: '/customer-flow/welcome' });
 
   const { timeLeft, start, formatTime } = useCountdown({
@@ -118,7 +125,7 @@ export const CustomerPressStartPage: React.FC = () => {
           <Button
             type="primary"
             size="large"
-            style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+            style={navigationButtonStyle}
             onClick={() => navigate('/customer-flow/welcome')}
           >
             {t('common.done')}

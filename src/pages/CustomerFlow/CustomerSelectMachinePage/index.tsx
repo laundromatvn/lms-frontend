@@ -29,6 +29,13 @@ export const CustomerSelectMachinePage: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
+  const navigationButtonStyle = {
+    width: 300,
+    height: 64,
+    borderRadius: theme.custom.radius.full,
+    fontSize: theme.custom.fontSize.xxlarge,
+  };
+
   const [api, contextHolder] = notification.useNotification();
 
   const [searchParams] = useSearchParams();
@@ -155,7 +162,7 @@ export const CustomerSelectMachinePage: React.FC = () => {
           <Button
             type="default"
             size="large"
-            style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+            style={navigationButtonStyle}
             onClick={() => navigate(`/customer-flow/load-clothes`)}
           >
             {t('common.back')}
@@ -165,7 +172,7 @@ export const CustomerSelectMachinePage: React.FC = () => {
           <Button
             type="primary"
             size="large"
-            style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+            style={navigationButtonStyle}
             onClick={() => {
               selectMachineStorage.save({
                 selectedWashingMachineOptions,

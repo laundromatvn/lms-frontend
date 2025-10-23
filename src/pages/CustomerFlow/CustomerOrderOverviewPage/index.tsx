@@ -24,6 +24,13 @@ export const CustomerOrderOverviewPage: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
+  const navigationButtonStyle = {
+    width: 300,
+    height: 64,
+    borderRadius: theme.custom.radius.full,
+    fontSize: theme.custom.fontSize.xxlarge,
+  };
+
   const selectedWashingMachines= useMemo(() => selectMachineStorage.load().selectedWashingMachineOptions, []);
   const selectedDryerMachines= useMemo(() => selectMachineStorage.load().selectedDryerMachineOptions, []);
   const selectedMachines = useMemo(() => [...selectedWashingMachines, ...selectedDryerMachines], [selectedWashingMachines, selectedDryerMachines]);
@@ -72,7 +79,7 @@ export const CustomerOrderOverviewPage: React.FC = () => {
           <Button
             type="default"
             size="large"
-            style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+            style={navigationButtonStyle}
             onClick={() => navigate(`/customer-flow/select-machines`)}
           >
             {t('common.back')}
@@ -82,7 +89,7 @@ export const CustomerOrderOverviewPage: React.FC = () => {
           <Button
             type="primary"
             size="large"
-            style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+            style={navigationButtonStyle}
             onClick={handleNext}
           >
             {t('common.confirm')}

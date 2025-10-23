@@ -31,6 +31,13 @@ export const CustomerPaymentPage: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
+  const navigationButtonStyle = {
+    width: 300,
+    height: 64,
+    borderRadius: theme.custom.radius.full,
+    fontSize: theme.custom.fontSize.xxlarge,
+  };
+
   const [selectedMethod, setSelectedMethod] = React.useState<PaymentMethodEnum>(PaymentMethodEnum.QR);
 
   const paymentMethodOptions = [
@@ -208,7 +215,7 @@ export const CustomerPaymentPage: React.FC = () => {
           <Button
             type="default"
             size="large"
-            style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+            style={navigationButtonStyle}
             onClick={() => navigate('/customer-flow/order-overview')}
           >
             {t('common.back')}

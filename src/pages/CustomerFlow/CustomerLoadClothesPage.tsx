@@ -20,16 +20,17 @@ export const CustomerLoadClothesPage: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
+  const navigationButtonStyle = {
+    width: 300,
+    height: 64,
+    borderRadius: theme.custom.radius.full,
+    fontSize: theme.custom.fontSize.xxlarge,
+  };
+
   const [searchParams] = useSearchParams();
   const workingType = searchParams.get('workingType') as WorkingTypeEnum;
 
   useInactivityRedirect({ timeoutMs: TIMEOUT_MS, targetPath: '/customer-flow/welcome' });
-
-  const buttonStyle = {
-    width: 300,
-    height: 64,
-    borderRadius: theme.custom.radius.full,
-  };
 
   return (
     <DefaultLayout style={{ alignItems: 'space-between' }}>
@@ -80,7 +81,7 @@ export const CustomerLoadClothesPage: React.FC = () => {
           <Button
             type="default"
             size="large"
-            style={buttonStyle}
+            style={navigationButtonStyle}
             onClick={() => navigate('/customer-flow/welcome')}
           >
             {t('common.back')}
@@ -90,7 +91,7 @@ export const CustomerLoadClothesPage: React.FC = () => {
           <Button
             type="primary"
             size="large"
-            style={buttonStyle}
+            style={navigationButtonStyle}
             onClick={() => navigate(`/customer-flow/select-machines?workingType=${workingType}`)}
           >
             {t('common.continue')}

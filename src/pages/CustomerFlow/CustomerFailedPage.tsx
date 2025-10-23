@@ -18,6 +18,13 @@ export const CustomerFailedPage: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
+  const navigationButtonStyle = {
+    width: 300,
+    height: 64,
+    borderRadius: theme.custom.radius.full,
+    fontSize: theme.custom.fontSize.xxlarge,
+  };
+
   // Auto-reset after 90s of inactivity back to welcome
   useInactivityRedirect({ timeoutMs: 90_000, targetPath: '/customer-flow/welcome' });
 
@@ -50,7 +57,7 @@ export const CustomerFailedPage: React.FC = () => {
           <Button
             type="primary"
             size="large"
-            style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+            style={navigationButtonStyle}
             onClick={() => navigate('/customer-flow/welcome')}
           >
             {t('common.tryAgain')}

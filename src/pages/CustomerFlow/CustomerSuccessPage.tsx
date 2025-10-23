@@ -22,6 +22,13 @@ export const CustomerSuccessPage: React.FC = () => {
   const theme = useTheme();
   const navigate = useNavigate();
 
+  const navigationButtonStyle = {
+    width: 300,
+    height: 64,
+    borderRadius: theme.custom.radius.full,
+    fontSize: theme.custom.fontSize.xxlarge,
+  };
+
   const [searchParams] = useSearchParams();
   const workingType = searchParams.get('workingType') as WorkingTypeEnum;
 
@@ -102,7 +109,7 @@ export const CustomerSuccessPage: React.FC = () => {
             <Button
               type="primary"
               size="large"
-              style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+              style={navigationButtonStyle}
               onClick={() => navigate('/customer-flow/press-start')}
             >
               {t('common.continue')}
@@ -126,7 +133,7 @@ export const CustomerSuccessPage: React.FC = () => {
             <Button
               type="default"
               size="large"
-              style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+              style={navigationButtonStyle}
               onClick={() => setIsModalOpen(false)}
             >
               {t('common.back')}
