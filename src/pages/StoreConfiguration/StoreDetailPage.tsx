@@ -15,6 +15,8 @@ import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 import { LeftRightSection } from '@shared/components/LeftRightSection';
 import { MachineMenu } from './components/MachineMenu';
 
+const DEFAULT_ROUTE = '/customer-flow/welcome';
+
 export const StoreDetailPage: React.FC = () => {
   const { t } = useTranslation();
   const theme = useTheme();
@@ -77,7 +79,10 @@ export const StoreDetailPage: React.FC = () => {
                   type="primary"
                   size="large"
                   style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
-                  onClick={() => { defaultRouteStorage.save('/customer-flow/welcome'); navigate('/customer-flow/welcome'); }}
+                  onClick={() => {
+                    defaultRouteStorage.save(DEFAULT_ROUTE);
+                    navigate(DEFAULT_ROUTE);
+                  }}
                 >
                   {t('common.start')}
                 </Button>

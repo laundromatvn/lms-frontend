@@ -2,17 +2,18 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { Button, Image } from 'antd';
+import { Button, Flex, Typography } from 'antd';
 
 import { useTheme } from '@shared/theme/useTheme';
-
 import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 import { useInactivityRedirect } from '@shared/hooks/useInactivityRedirect';
 import { WorkingTypeEnum } from '@shared/enums/WorkingTypeEnum';
 import { LeftRightSection } from '@shared/components/LeftRightSection';
-import { Instruction } from './components/Instruction';
+import { Box } from '@shared/components/Box';
 
 import loadClothesImage from '@public/customerFlow/loadClothes.png';
+
+const TIMEOUT_MS = 90_000;
 
 export const CustomerLoadClothesPage: React.FC = () => {
   const { t } = useTranslation();
@@ -22,24 +23,65 @@ export const CustomerLoadClothesPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const workingType = searchParams.get('workingType') as WorkingTypeEnum;
 
-  // Auto-reset after 90s of inactivity back to welcome
-  useInactivityRedirect({ timeoutMs: 90_000, targetPath: '/customer-flow/welcome' });
+  useInactivityRedirect({ timeoutMs: TIMEOUT_MS, targetPath: '/customer-flow/welcome' });
+
+  const buttonStyle = {
+    width: 300,
+    height: 64,
+    borderRadius: theme.custom.radius.full,
+  };
 
   return (
-    <DefaultLayout>
-      <Instruction
-        instruction={t('customerFlow.pleaseLoadYourClothesFirst')}
-        imageUrl={loadClothesImage}
-        style={{ height: 'calc(100% - 64px)' }}
-      />
+    <DefaultLayout style={{ alignItems: 'space-between' }}>
+      <Flex
+        vertical
+        align="space-between"
+        justify="center"
+        gap={theme.custom.spacing.medium}
+        style={{ height: '100%', overflow: 'hidden' }}
+      >
+        <div
+          style={{
+            backgroundImage: `url(${loadClothesImage})`,
+            backgroundSize: 'contain',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            width: '100%',
+            height: '80%',
+          }}
+        />
+
+        <Box
+          vertical
+          border
+          justify="center"
+          align="center"
+          style={{
+            width: '100%',
+            padding: theme.custom.spacing.large,
+            borderColor: theme.custom.colors.primary.default,
+            backgroundColor: theme.custom.colors.primary.light,
+          }}
+        >
+          <Typography.Text
+            style={{
+              fontSize: theme.custom.fontSize.xxxxlarge,
+              fontWeight: theme.custom.fontWeight.medium,
+              color: theme.custom.colors.primary.default,
+            }}
+          >
+            {t('customerFlow.pleaseLoadYourClothesFirst')}
+          </Typography.Text>
+        </Box>
+      </Flex>
 
       <LeftRightSection
         left={(
           <Button
             type="default"
             size="large"
-            style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
-            onClick={() => navigate(`/customer-flow/welcome`)}
+            style={buttonStyle}
+            onClick={() => navigate('/customer-flow/welcome')}
           >
             {t('common.back')}
           </Button>
@@ -48,14 +90,14 @@ export const CustomerLoadClothesPage: React.FC = () => {
           <Button
             type="primary"
             size="large"
-            style={{ width: 300, height: 64, borderRadius: theme.custom.radius.full }}
+            style={buttonStyle}
             onClick={() => navigate(`/customer-flow/select-machines?workingType=${workingType}`)}
           >
             {t('common.continue')}
           </Button>
         )}
         align="flex-end"
-        style={{ height: 64 }}
+        style={{ height: 64, flexShrink: 0, marginBottom: theme.custom.spacing.medium }}
       />
     </DefaultLayout>
   );

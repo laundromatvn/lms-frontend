@@ -26,6 +26,10 @@ export const DefaultLayout: React.FC<Props> = ({ children, style }) => {
         minHeight: '100vh',
         width: '100vw',
         backgroundColor: theme.custom.colors.background.light,
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'space-between',
+        alignItems: 'center',
       }}
     >
       <Header />
@@ -40,7 +44,6 @@ export const DefaultLayout: React.FC<Props> = ({ children, style }) => {
           maxWidth: MAX_WIDTH,
           width: '100%',
           height: 'calc(100vh - 64px - 48px)',
-          minHeight: 'calc(100vh - 64px - 48px)',
           margin: 'auto',
           padding: theme.custom.spacing.medium,
           overflow: 'hidden',

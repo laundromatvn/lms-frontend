@@ -84,7 +84,7 @@ export const PaymentMethodOption: React.FC<Props> = ({ item, selectedValue, onSe
         right={
           isSelected && (
             <Flex align="center" gap={theme.custom.spacing.small} style={{ height: '100%' }}>
-              <DynamicTag value={t('common.selected', 'Selected')} color={primaryColor} />
+              <DynamicTag value={t('common.selected')} color={primaryColor} />
             </Flex>
           )
         }

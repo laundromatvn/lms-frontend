@@ -12,6 +12,7 @@ export const BootGuard: React.FC<Props> = ({ children }) => {
   const navigate = useNavigate()
   const location = useLocation()
   const defaultAppliedRef = useRef(false)
+
   useEffect(() => {
     const currentPath = location.pathname
     const isAuth = tokenManager.isAuthenticated()
