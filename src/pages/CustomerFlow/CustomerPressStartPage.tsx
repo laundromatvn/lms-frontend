@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
-import { Button, Typography } from 'antd';
+import { Button, Flex, Typography } from 'antd';
 
 import { Siren } from '@solar-icons/react';
 
@@ -41,31 +41,76 @@ export const CustomerPressStartPage: React.FC = () => {
 
   return (
     <DefaultLayout>
-      <Instruction
-        instruction={t('customerFlow.pleasePressStart')}
-        imageUrl={pressStartImage}
-        style={{ height: 'calc(100% - 64px)' }}
+      <Flex
+        vertical
+        align="space-between"
+        justify="center"
+        gap={theme.custom.spacing.medium}
+        style={{ width: '100%', height: '100%', overflow: 'hidden' }}
       >
+        <div
+          style={{
+            backgroundImage: `url(${pressStartImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            width: '100%',
+            height: '80%',
+          }}
+        />
+
         <Box
           vertical
+          border
           justify="center"
           align="center"
-          gap={theme.custom.spacing.medium}
           style={{
-            backgroundColor: theme.custom.colors.warning.light,
-            padding: theme.custom.spacing.large,
-          }}>
-          <Siren size={48} weight='BoldDuotone' color={theme.custom.colors.danger.default} />
-
-          <Typography.Text>
-            {t('customerFlow.warningIfNotPressStart', { time: formatTime(timeLeft) })}
-          </Typography.Text>
-
-          <Typography.Text color={theme.custom.colors.danger.default}>
-            {t('customerFlow.yourOrderWillBeNotRefundable')}
+            width: '100%',
+            borderColor: theme.custom.colors.primary.default,
+            backgroundColor: theme.custom.colors.primary.light,
+          }}
+        >
+          <Typography.Text
+            style={{
+              fontSize: theme.custom.fontSize.xxxlarge,
+              fontWeight: theme.custom.fontWeight.medium,
+              color: theme.custom.colors.primary.default,
+            }}
+          >
+            {t('customerFlow.pleasePressStart')}
           </Typography.Text>
         </Box>
-      </Instruction>
+
+        <Box
+          border
+          justify="center"
+          align="flex-start"
+          gap={theme.custom.spacing.medium}
+          style={{
+            width: '100%',
+            padding: theme.custom.spacing.large,
+            backgroundColor: theme.custom.colors.warning.light,
+            border: `2px solid ${theme.custom.colors.warning.default}`,
+          }}
+        >
+          <Siren
+            size={48}
+            weight='BoldDuotone'
+            color={theme.custom.colors.danger.default}
+            style={{ marginRight: theme.custom.spacing.medium }}
+          />
+
+          <Flex vertical align="flex-start" justify="center" gap={theme.custom.spacing.medium}>
+            <Typography.Text>
+              {t('customerFlow.warningIfNotPressStart', { time: formatTime(timeLeft) })}
+            </Typography.Text>
+
+            <Typography.Text strong style={{ color: theme.custom.colors.danger.default }}>
+              {t('customerFlow.yourOrderWillBeNotRefundable')}
+            </Typography.Text>
+          </Flex>
+        </Box>
+      </Flex>
 
       <LeftRightSection
         left={null}
