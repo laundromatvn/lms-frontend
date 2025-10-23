@@ -19,6 +19,8 @@ interface Props {
   onSelect: () => void;
 }
 
+const ICON_SIZE = '75%';
+
 export const MachineOption: React.FC<Props> = ({ machineType, onSelect }) => {
   const theme = useTheme();
   const { t } = useTranslation();
@@ -32,15 +34,6 @@ export const MachineOption: React.FC<Props> = ({ machineType, onSelect }) => {
   const iconBackgroundColor = machineType === MachineTypeEnum.WASHER
     ? theme.custom.colors.info[400]
     : theme.custom.colors.warning[400];
-
-  const Icon = () => {
-    switch (machineType) {
-      case MachineTypeEnum.WASHER:
-        return <Waterdrop weight="BoldDuotone" style={{ color: lightColor, width: '100%', height: '100%' }} />;
-      case MachineTypeEnum.DRYER:
-        return <Wind weight="BoldDuotone" style={{ color: lightColor, width: '100%', height: '100%' }} />;
-    }
-  };
 
   return (
     <Box
@@ -59,24 +52,14 @@ export const MachineOption: React.FC<Props> = ({ machineType, onSelect }) => {
         backgroundColor: iconBackgroundColor,
       }}
     >
-      <Box
-        vertical
-        align="center"
-        justify="center"
-        style={{
-          width: '100%',
-          height: '100%',
-          padding: theme.custom.spacing.medium,
-          background: 'transparent',
-        }}
-      >
-        <Icon />
-      </Box>
+      {machineType === MachineTypeEnum.WASHER
+        ? <Waterdrop weight="BoldDuotone" style={{ color: lightColor, width: ICON_SIZE, height: ICON_SIZE }} />
+        : <Wind weight="BoldDuotone" style={{ color: lightColor, width: ICON_SIZE, height: ICON_SIZE }} />}
 
       <Typography.Text
         strong
         style={{
-          fontSize: theme.custom.fontSize.xxxxxlarge,
+          fontSize: theme.custom.fontSize.xxxxlarge,
           color: theme.custom.colors.text.inverted,
         }}
       >
