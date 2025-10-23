@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { WashingMachineMinimalistic } from '@solar-icons/react';
+import {
+  Waterdrop,
+  Wind,
+} from '@solar-icons/react';
 
 import { Button, Flex, Modal, Typography } from 'antd';
 
@@ -22,7 +25,7 @@ import { AddOnTypeEnum } from '@shared/enums/AddOnTypeEnum';
 import { DynamicTag } from '@shared/components/DynamicTag';
 import { MachineStatusEnum } from '@shared/enums/MachineStatusEnum';
 
-const MIN_DRYING_TIME = 15;
+const MIN_DRYING_TIME = 10;
 
 interface Props {
   machine: Machine;
@@ -44,10 +47,13 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
   const defaultColor = machine.machine_type === MachineTypeEnum.WASHER
     ? theme.custom.colors.info.default
     : theme.custom.colors.warning.default;
+  const iconColor = machine.machine_type === MachineTypeEnum.WASHER
+    ? theme.custom.colors.info[400]
+    : theme.custom.colors.warning[400];
   const lightColor = machine.machine_type === MachineTypeEnum.WASHER
     ? theme.custom.colors.info.light
     : theme.custom.colors.warning.light;
-
+  
   const onSelectAddOn = (addOnOption: AddOnOption) => {
     if (selectedAddOns.some((option) => option.addOn.id === addOnOption.addOn.id)) {
       return;
@@ -85,41 +91,81 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
         vertical
         border
         align="center"
-        justify="center"
+        justify="space-between"
         gap={theme.custom.spacing.large}
         onClick={() => setIsModalOpen(true)}
         style={{
-          height: 312,
+          height: 324,
+          minWidth: 248,
+          width: '100%',
           borderColor: defaultColor,
           borderWidth: isSelected ? 4 : 0,
           backgroundColor: lightColor,
+          overflow: 'hidden',
         }}
-        disabled={machine.status !== MachineStatusEnum.IDLE}
+        disabled={machine.status !== MachineStatusEnum.IDLE && machine.machine_type != MachineTypeEnum.DRYER}
       >
-        <WashingMachineMinimalistic
-          weight="BoldDuotone"
-          color={defaultColor}
+        <Box
+          align="center"
+          justify="space-between"
           style={{
             width: '100%',
-            height: '100%',
+            background: 'transparent',
+            padding: theme.custom.spacing.xsmall,
           }}
-        />
+        >
+          <DynamicTag value={machine.machine_type} style={{ fontSize: theme.custom.fontSize.medium }} />
+          <DynamicTag value={machine.status} style={{ fontSize: theme.custom.fontSize.medium }} />
+        </Box>
 
-        <Typography.Text strong>
-          {machine.name || `${t('common.relayNo', 'Relay No.')} ${machine.relay_no}`}
-        </Typography.Text>
-
-        <DynamicTag value={machine.status} style={{ fontSize: theme.custom.fontSize.medium }} />
+        <Box
+          vertical
+          align="center"
+          justify="center"
+          style={{ backgroundColor: iconColor }}
+        >
+          {machine.machine_type === MachineTypeEnum.WASHER
+            ? <Waterdrop size={48} weight="BoldDuotone" color={theme.custom.colors.text.inverted} />
+            : <Wind size={48} weight="BoldDuotone" color={theme.custom.colors.text.inverted} />
+          }
+        </Box>
 
         <Typography.Text
           strong
+          ellipsis
           style={{
-            color: theme.custom.colors.success.default,
             fontSize: theme.custom.fontSize.xxxlarge,
+            color: defaultColor,
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            display: 'block',
+            width: '100%',
+            textAlign: 'center',
           }}
         >
-          {formatCurrencyCompact(totalPrice())}
+          {machine.name || `${t('common.relayNo', 'Relay No.')} ${machine.relay_no}`}
         </Typography.Text>
+
+        <Box
+          align="center"
+          justify="center"
+          style={{
+            width: '100%',
+            backgroundColor: theme.custom.colors.success.default,
+            padding: theme.custom.spacing.xsmall,
+          }}
+        >
+          <Typography.Text
+            strong
+            style={{
+              fontSize: theme.custom.fontSize.xxlarge,
+              color: theme.custom.colors.text.inverted,
+            }}
+          >
+            {formatCurrencyCompact(totalPrice())}
+          </Typography.Text>
+        </Box>
       </Box>
 
       {isSelected && (
@@ -128,7 +174,10 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
           onClick={() => onRemove({ machine, addOns: [] })}
           style={{
             width: '100%',
-            height: 48
+            height: 48,
+            backgroundColor: theme.custom.colors.danger.light,
+            borderColor: theme.custom.colors.danger.default,
+            color: theme.custom.colors.danger.default,
           }}
         >
           {t('common.removeSelection')}
@@ -158,10 +207,10 @@ export const MachineOption: React.FC<Props> = ({ machine, selectedMachineOptions
               onRemove={onRemoveAddOn}
             />
             : <DryModalContent
-                selectedAddOns={selectedAddOns}
-                setSelectedAddOns={setSelectedAddOns}
-              />
-            }
+              selectedAddOns={selectedAddOns}
+              setSelectedAddOns={setSelectedAddOns}
+            />
+          }
         </Flex>
 
         <LeftRightSection

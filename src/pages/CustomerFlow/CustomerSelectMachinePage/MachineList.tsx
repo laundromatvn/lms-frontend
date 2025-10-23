@@ -7,7 +7,7 @@ import { type Machine } from '@shared/types/machine';
 
 import type { SelectedMachineOption } from './type';
 
-import { MachineOptionV2 } from './MachineOptionV2';
+import { MachineOption } from './MachineOption';
 
 
 interface Props {
@@ -88,7 +88,7 @@ export const MachineList: React.FC<Props> = ({
       }}
     >
       {machines.filter((machine) => Number(machine.base_price || 0) > 0).map((machine) => (
-        <MachineOptionV2
+        <MachineOption
           key={machine.id}
           machine={machine}
           selectedMachineOptions={workingType === WorkingTypeEnum.WASH
