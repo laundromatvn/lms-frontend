@@ -67,7 +67,6 @@ export const Header: React.FC = () => {
           align="center"
           gap={theme.custom.spacing.xsmall}
           style={{
-            width: '100%',
             height: '100%',
           }}>
           <Flag
