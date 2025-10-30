@@ -1,13 +1,13 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
-import { Flex, Typography, QRCode, Spin } from 'antd';
+import { Flex } from 'antd';
 
 import { useTheme } from '@shared/theme/useTheme';
 
 import { PaymentMethodEnum } from '@shared/enums/PaymentMethodEnum';
 
-import { Box } from '@shared/components/Box';
+import { QRPaymentMethod } from './QRPaymentMethod';
+import { CardPaymentMethod } from './CardPaymentMethod';
 
 interface PaymentMethodDetailsProps {
   selectedMethod: PaymentMethodEnum;
@@ -18,15 +18,32 @@ interface PaymentMethodDetailsProps {
   remainingSeconds?: number;
 }
 
-export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ selectedMethod, qrCode, transactionCode, loading, style, remainingSeconds }) => {
-  const { t } = useTranslation();
+export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ 
+  selectedMethod, 
+  qrCode, 
+  transactionCode, 
+  loading, 
+  style, 
+  remainingSeconds 
+}) => {
   const theme = useTheme();
 
-  const formatTime = (totalSeconds: number) => {
-    const seconds = Math.max(0, Math.floor(totalSeconds));
-    const minutes = Math.floor(seconds / 60);
-    const restSeconds = seconds % 60;
-    return `${minutes}:${String(restSeconds).padStart(2, '0')}`;
+  const renderPaymentMethod = () => {
+    switch (selectedMethod) {
+      case PaymentMethodEnum.QR:
+        return (
+          <QRPaymentMethod
+            qrCode={qrCode}
+            transactionCode={transactionCode}
+            loading={loading}
+            remainingSeconds={remainingSeconds}
+          />
+        );
+      case PaymentMethodEnum.CARD:
+        return <CardPaymentMethod />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -53,61 +70,7 @@ export const PaymentMethodDetails: React.FC<PaymentMethodDetailsProps> = ({ sele
         gap={theme.custom.spacing.medium}
         style={{ width: '100%', height: '100%', overflowY: 'auto' }}
       >
-        {selectedMethod === PaymentMethodEnum.QR ? (
-          qrCode ? (
-            <Flex align="center" justify="center" gap={theme.custom.spacing.large}>
-              <QRCode size={200} value={qrCode} style={{ backgroundColor: theme.custom.colors.background.light }}/>
-
-              <Flex vertical align="flex-start" justify="center" gap={theme.custom.spacing.small} style={{ width: 400 }}>
-                <Typography.Text strong style={{ fontSize: theme.custom.fontSize.xxlarge }}>
-                  {t('customerFlow.scanToPay')}
-                </Typography.Text>
-
-                <Typography.Text type="secondary" style={{ fontSize: theme.custom.fontSize.large }}>
-                  {t('customerFlow.pleaseEnsureThisTransactionCodeInPaymentContent')}
-                </Typography.Text>
-
-                <Box
-                  align="center"
-                  style={{
-                    width: '100%',
-                    border: `1px solid ${theme.custom.colors.neutral[200]}`,
-                    borderRadius: theme.custom.radius.large,
-                    padding: theme.custom.spacing.medium,
-                    fontSize: theme.custom.fontSize.xxlarge,
-                  }}
-                >
-                  {transactionCode}
-                </Box>
-
-                {typeof remainingSeconds === 'number' && (
-                  <Typography.Text type="secondary" style={{ fontSize: theme.custom.fontSize.large }}>
-                    {t('customerFlow.qrExpiresIn', { time: formatTime(remainingSeconds) })}
-                  </Typography.Text>
-                )}
-              </Flex>
-            </Flex>
-          ) : (
-            <>
-              <Typography.Title level={4} style={{ margin: 0 }}>
-                {t('customerFlow.qr')}
-              </Typography.Title>
-              <Spin size="large" />
-              <Typography.Text type="secondary">
-                {loading ? t('common.loading') : t('customerFlow.waitingForQrCode')}
-              </Typography.Text>
-            </>
-          )
-        ) : (
-          <>
-            <Typography.Title level={4} style={{ margin: 0 }}>
-              {t('customerFlow.card')}
-            </Typography.Title>
-            <Typography.Text type="secondary">
-              {t('customerFlow.paymentCardComingSoon')}
-            </Typography.Text>
-          </>
-        )}
+        {renderPaymentMethod()}
       </Flex>
     </Flex>
   );
