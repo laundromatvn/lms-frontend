@@ -30,7 +30,7 @@ import { PaymentMethodDetails } from './PaymentMethodDetails';
 const PAYMENT_POLLING_INTERVAL = 2000;
 const PAYMENT_TIMEOUT = 180_000;
 
-const DISCOUNT_AUTO_NAVIGATE_TIMEOUT = 5_000;  
+const DISCOUNT_AUTO_NAVIGATE_TIMEOUT = 15_000;  
 
 export const CustomerPaymentPage: React.FC = () => {
   const { t } = useTranslation();
@@ -154,9 +154,11 @@ export const CustomerPaymentPage: React.FC = () => {
   }, [getPaymentData]);
 
   useEffect(() => {
+    if (isDiscountModalOpen) return
+
     const cleanup = handleCheckPayment();
     return cleanup;
-  }, [payment?.id]);
+  }, [payment?.id, isDiscountModalOpen]);
 
   useEffect(() => {
     if (!countdownDeadlineRef.current) return;
