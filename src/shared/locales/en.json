@@ -51,7 +51,7 @@
     "starting": "Starting",
     "out_of_service": "Out of Service",
     "error": "Error"
-  },
+  },  
   "customerFlow": {
     "payhere": "Pay Here",
     "pleaseLoadYourClothesFirst": "Please load your clothes first",
@@ -104,7 +104,9 @@
     "pleaseWaitABitWeAreProcessingYourRequest": "Please wait a bit, we are processing your request",
     "sessionExpiresIn": "Session expires in {{time}}",
     "systemTaskExpiresIn": "System task expires in {{time}}",
-    "machineWillRunFor": "Machine will run for:"
+    "machineWillRunFor": "Machine will run for:",
+    "discount100": "Discount 100%",
+    "paymentNotRequired": "You are free of charge. Press continue to start."
   },
   "machines": {
     "label": "Machine {{id}}",

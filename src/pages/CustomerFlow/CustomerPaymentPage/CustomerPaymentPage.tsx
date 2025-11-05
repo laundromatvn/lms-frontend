@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { Button, Flex, Skeleton, Typography } from 'antd';
 
+import { Gift } from '@solar-icons/react';
+
 import { useTheme } from '@shared/theme/useTheme';
 
 import { PaymentMethodEnum } from '@shared/enums/PaymentMethodEnum';
@@ -20,11 +22,15 @@ import { paymentStorage } from '@core/storage/paymentStorage';
 
 import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 import { LeftRightSection } from '@shared/components/LeftRightSection';
+import { BaseModal } from '@shared/components/BaseModal';
+import { Box } from '@shared/components/Box';
 import { PaymentMethodSelection } from './PaymentMethodSelection';
 import { PaymentMethodDetails } from './PaymentMethodDetails';
 
 const PAYMENT_POLLING_INTERVAL = 2000;
 const PAYMENT_TIMEOUT = 180_000;
+
+const DISCOUNT_AUTO_NAVIGATE_TIMEOUT = 5_000;  
 
 export const CustomerPaymentPage: React.FC = () => {
   const { t } = useTranslation();
@@ -60,6 +66,9 @@ export const CustomerPaymentPage: React.FC = () => {
 
   const [remainingMs, setRemainingMs] = React.useState<number | null>(null);
   const countdownDeadlineRef = React.useRef<number | null>(null);
+  
+  const [isDiscountModalOpen, setIsDiscountModalOpen] = React.useState(false);
+  const discountAutoNavigateTimeoutRef = React.useRef<number | null>(null);
 
   const handleCreatePayment = async () => {
     const storeId = storeStorage.load();
@@ -76,6 +85,15 @@ export const CustomerPaymentPage: React.FC = () => {
       total_amount: Number(order.total_amount),
       payment_method: selectedMethod,
     });
+  };
+
+  const handleContinueFromDiscount = () => {
+    if (discountAutoNavigateTimeoutRef.current) {
+      window.clearTimeout(discountAutoNavigateTimeoutRef.current);
+      discountAutoNavigateTimeoutRef.current = null;
+    }
+    setIsDiscountModalOpen(false);
+    navigate('/customer-flow/press-start');
   };
 
   const handleCheckPayment = () => {
@@ -157,8 +175,25 @@ export const CustomerPaymentPage: React.FC = () => {
     if (createPaymentData) {
       paymentStorage.save(createPaymentData);
       setPayment(createPaymentData);
-      handleCheckPayment();
+      
+      const order = orderStorage.load();
+      if (order && (order.total_amount === '0' || order.total_amount === '0.00' || parseFloat(order.total_amount) === 0)) {
+        setIsDiscountModalOpen(true);
+        
+        discountAutoNavigateTimeoutRef.current = window.setTimeout(() => {
+          navigate('/customer-flow/press-start');
+        }, DISCOUNT_AUTO_NAVIGATE_TIMEOUT);
+      } else {
+        handleCheckPayment();
     }
+    }
+    
+    return () => {
+      if (discountAutoNavigateTimeoutRef.current) {
+        window.clearTimeout(discountAutoNavigateTimeoutRef.current);
+        discountAutoNavigateTimeoutRef.current = null;
+      }
+    };
   }, [createPaymentData]);
 
   useEffect(() => {
@@ -223,6 +258,66 @@ export const CustomerPaymentPage: React.FC = () => {
         )}
         right={null}
       />
+
+      <BaseModal
+        isModalOpen={isDiscountModalOpen}
+        setIsModalOpen={setIsDiscountModalOpen}
+      >
+        <Flex
+          vertical
+          align="center"
+          justify="center"
+          gap={theme.custom.spacing.large}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <Box
+            border
+            vertical
+            align="center"
+            justify="center"
+            gap={theme.custom.spacing.medium}
+            style={{
+              width: '100%',
+              height: '100%',
+              borderColor: theme.custom.colors.success.default,
+              backgroundColor: theme.custom.colors.success.light,
+            }}
+          >
+            <Gift color={theme.custom.colors.success.default} weight='BoldDuotone' width={96} height={96} />
+
+            <Typography.Text
+              strong
+              style={{
+                fontSize: theme.custom.fontSize.xxlarge,
+                fontWeight: theme.custom.fontWeight.xlarge,
+                color: theme.custom.colors.success.default,
+              }}
+            >
+              {t('messages.discount100')}
+            </Typography.Text>
+
+            <Typography.Text style={{ fontSize: theme.custom.fontSize.medium }}>
+              {t('messages.paymentNotRequired')}
+            </Typography.Text>
+          </Box>
+
+          <LeftRightSection
+            left={null}
+            right={(
+              <Button
+                type="primary"
+                size="large"
+                style={navigationButtonStyle}
+                onClick={handleContinueFromDiscount}
+              >
+                {t('common.continue')}
+              </Button>
+            )}
+            align="flex-end"
+            style={{ height: 64 }}
+          />
+        </Flex>
+      </BaseModal>
     </DefaultLayout>
   );
 };

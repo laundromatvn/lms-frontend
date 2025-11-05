@@ -104,7 +104,9 @@
     "pleaseWaitABitWeAreProcessingYourRequest": "Vui lòng chờ một chút, chúng tôi đang xử lý yêu cầu của bạn",
     "sessionExpiresIn": "Phiên sẽ hết hạn sau {{time}}",
     "systemTaskExpiresIn": "Nhiệm vụ hệ thống sẽ hết hạn sau {{time}}",
-    "machineWillRunFor": "Máy sẽ chạy trong:"
+    "machineWillRunFor": "Máy sẽ chạy trong:",
+    "discount100": "Khuyến mãi 100%",
+    "paymentNotRequired": "Bạn đã được miễn phí. Nhấn tiếp tục để bắt đầu."
   },
   "machines": {
     "label": "Máy {{id}}",
