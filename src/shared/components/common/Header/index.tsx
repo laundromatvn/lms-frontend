@@ -3,9 +3,11 @@ import { useTranslation } from 'react-i18next';
 
 import { useTheme } from '@shared/theme/useTheme';
 
+import { Refresh } from '@solar-icons/react';
+
 import Flag from 'react-world-flags';
 
-import { Flex, Layout } from 'antd';
+import { Button, Flex, Layout } from 'antd';
 
 import { Logo } from '@shared/components/common/Logo';
 
@@ -68,7 +70,17 @@ export const Header: React.FC = () => {
           gap={theme.custom.spacing.xsmall}
           style={{
             height: '100%',
-          }}>
+          }}
+        >
+          <Button
+            type="text"
+            size="large"
+            style={{ color: theme.custom.colors.text.inverted }}
+            icon={<Refresh size={24} />}
+            onClick={() => {
+              window.location.reload();
+            }}
+          />
           <Flag
             code="vn"
             style={{
