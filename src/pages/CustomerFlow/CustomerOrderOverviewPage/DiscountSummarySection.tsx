@@ -60,7 +60,7 @@ export const DiscountSummarySection: React.FC<DiscountSummarySectionProps> = ({ 
                 color: theme.custom.colors.success.default,
               }}
             >
-              {t(`promotion.reward_type.${reward.type}`, { value: reward.value })}
+              {t(`promotion.reward_type.${reward.type}`, { value: getRewardValue(reward) })}
             </Typography.Text>
           )
         })}
