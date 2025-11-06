@@ -97,7 +97,17 @@ export const CustomerOrderOverviewPage: React.FC = () => {
           padding: theme.custom.spacing.medium,
         }}
       >
-        {newOrder && <OrderSummarySection order={newOrder} selectedMachines={selectedMachines} style={{ width: 640 }}/>}
+        {createOrderLoading && (
+          <Spin spinning={createOrderLoading} size="large" />
+        )}
+
+        {newOrder && (
+          <OrderSummarySection
+            order={newOrder}
+            selectedMachines={selectedMachines}
+            style={{ width: 640 }}
+          />
+        )}
       </Flex>
 
       <LeftRightSection

@@ -86,14 +86,21 @@ export const OrderSummarySection: React.FC<Props> = ({ order, selectedMachines, 
         </Typography.Text>
       </Flex>
 
-      <Divider
-        style={{
-          borderRadius: theme.custom.radius.full,
-          border: `1px solid ${theme.custom.colors.neutral[200]}`,
-        }}
-      />
+      {(order.promotion_summary?.rewards
+        && Array.isArray(order.promotion_summary.rewards)
+        && order.promotion_summary.rewards.length > 0
+      ) && (
+          <>
+            <Divider
+              style={{
+                borderRadius: theme.custom.radius.full,
+                border: `1px solid ${theme.custom.colors.neutral[200]}`,
+              }}
+            />
 
-      <DiscountSummarySection order={order} />
+            <DiscountSummarySection order={order} />
+          </>
+        )}
 
       <Divider
         style={{

@@ -51,7 +51,7 @@ export const DiscountSummarySection: React.FC<DiscountSummarySectionProps> = ({ 
           {t('common.specialDiscount')}
         </Typography.Text>
 
-        {order.promotion_summary?.rewards.map((reward) => {
+        {order.promotion_summary?.rewards?.map((reward) => {
           return (
             <Typography.Text
               strong
