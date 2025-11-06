@@ -34,6 +34,7 @@
     "default": "Default",
     "minutes": "Minutes",
     "total": "Total",
+    "subTotal": "Sub Total",
     "confirm": "Confirm",
     "pay": "Pay",
     "tryAgain": "Try Again",
@@ -50,7 +51,11 @@
     "busy": "Busy",
     "starting": "Starting",
     "out_of_service": "Out of Service",
-    "error": "Error"
+    "error": "Error",
+    "specialDiscount": "Special Discount",
+    "savings": "Savings: {{value}}",
+    "totalPayment": "Total Payment",
+    "completelyFree": "🎉 Your order is completely free"
   },  
   "customerFlow": {
     "payhere": "Pay Here",
@@ -125,5 +130,11 @@
     "selectForMachine": "Select for machine: {{machineName}}",
     "selectMultipleAddOns": "Select multiple add-ons:",
     "selectDryingDuration": "Select drying duration:"
+  },
+  "promotion": {
+    "reward_type": {
+      "FIXED_AMOUNT": "Fixed amount: {{value}}",
+      "PERCENTAGE_AMOUNT": "Percentage amount: {{value}}%"
+    }
   }
 }

@@ -33,7 +33,8 @@
     "softener": "Nước xả",
     "default": "Mặc định",
     "minutes": "Phút",
-    "total": "Tổng",
+    "total": "Tổng tiền",
+    "subTotal": "Tạm tính",
     "confirm": "Xác nhận",
     "pay": "Thanh toán",
     "tryAgain": "Thử lại",
@@ -50,7 +51,11 @@
     "out_of_service": "Bảo trì",
     "error": "Lỗi",
     "inactive": "Không hoạt động",
-    "active": "Hoạt động"
+    "active": "Hoạt động",
+    "specialDiscount": "Khuyến mãi đặc biệt",
+    "savings": "Tiết kiệm: {{value}}",
+    "totalPayment": "Tổng thanh toán",
+    "completelyFree": "🎉 Đơn hàng của bạn hoàn toàn miễn phí"
   },
   "customerFlow": {
     "payhere": "Thanh toán tại đây",
@@ -125,5 +130,11 @@
     "selectForMachine": "Chọn cho máy: {{machineName}}",
     "selectMultipleAddOns": "Chọn nhiều dịch vụ:",
     "selectDryingDuration": "Chọn thời gian sấy:"
+  },
+  "promotion": {
+    "reward_type": {
+      "FIXED_AMOUNT": "Giảm trực tiếp {{value}}",
+      "PERCENTAGE_AMOUNT": "Giảm {{value}}%"
+    }
   }
 }

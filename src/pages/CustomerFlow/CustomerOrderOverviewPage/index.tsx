@@ -10,13 +10,17 @@ import { storeStorage } from '@core/storage/storeStorage';
 import { selectMachineStorage } from '@core/storage/selectMachineStorage';
 import { orderStorage } from '@core/storage/orderStorage';
 
+import { useInactivityRedirect } from '@shared/hooks/useInactivityRedirect';
 import { useCreateOrderApi, type CreateOrderResponse } from '@shared/hooks/useCreateOrderApi';
+
+import type { Order } from '@shared/types/Order';
 
 import { DefaultLayout } from '@shared/components/layouts/DefaultLayout';
 import { LeftRightSection } from '@shared/components/LeftRightSection';
 import { BaseModal } from '@shared/components/BaseModal';
+import { Box } from '@shared/components/Box';
+
 import { OrderSummarySection } from './OrderSummarySection';
-import { useInactivityRedirect } from '@shared/hooks/useInactivityRedirect';
 
 
 export const CustomerOrderOverviewPage: React.FC = () => {
@@ -31,13 +35,17 @@ export const CustomerOrderOverviewPage: React.FC = () => {
     fontSize: theme.custom.fontSize.xxlarge,
   };
 
+  const storeId = storeStorage.load();
+
+  const [newOrder, setNewOrder] = useState<Order | null>(null);
+
   const selectedWashingMachines= useMemo(() => selectMachineStorage.load().selectedWashingMachineOptions, []);
   const selectedDryerMachines= useMemo(() => selectMachineStorage.load().selectedDryerMachineOptions, []);
   const selectedMachines = useMemo(() => [...selectedWashingMachines, ...selectedDryerMachines], [selectedWashingMachines, selectedDryerMachines]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useInactivityRedirect({ timeoutMs: 90_000, targetPath: '/customer-flow/welcome' });
+  // useInactivityRedirect({ timeoutMs: 90_000, targetPath: '/customer-flow/welcome' });
 
   const { 
     createOrder,
@@ -45,33 +53,51 @@ export const CustomerOrderOverviewPage: React.FC = () => {
     data: createOrderData,
   } = useCreateOrderApi<CreateOrderResponse>();
 
-  const handleNext = async () => {
-    const storeId = storeStorage.load();
-    if (!storeId) {
-      return;
-    }
+  const handleCreateOrder = async () => {
+    if (!storeId) return;
 
-    await createOrder({
+    createOrder({
       store_id: storeId,
       machine_selections: selectedMachines,
     });
+  };
 
-    setIsModalOpen(true);
+  const handleNext = async () => {
+    if (!newOrder) return;
+
+    navigate(`/customer-flow/payment?orderId=${newOrder.id}`);
   };
 
   useEffect(() => {
     if (createOrderData) {
       orderStorage.save(createOrderData);
-      navigate(`/customer-flow/payment?orderId=${createOrderData.id}`);
+      setNewOrder(createOrderData);
+      setIsModalOpen(false);
     }
   }, [createOrderData]);
+
+  useEffect(() => {
+    setIsModalOpen(false);
+  }, [createOrderLoading]);
+
+  useEffect(() => {
+    handleCreateOrder();
+  }, []);
 
   return (
     <DefaultLayout style={{ alignItems: 'center' }}>
       <Typography.Title level={2}>{t('customerFlow.orderOverview')}</Typography.Title>
 
-      <Flex vertical align="center" style={{ width: '100%', height: '100%' }}>
-        <OrderSummarySection selectedMachines={selectedMachines} style={{ width: 640 }}/>
+      <Flex
+        vertical
+        align="center"
+        style={{
+          width: '100%',
+          height: '100%',
+          padding: theme.custom.spacing.medium,
+        }}
+      >
+        {newOrder && <OrderSummarySection order={newOrder} selectedMachines={selectedMachines} style={{ width: 640 }}/>}
       </Flex>
 
       <LeftRightSection
@@ -100,10 +126,10 @@ export const CustomerOrderOverviewPage: React.FC = () => {
       />
 
       <BaseModal
-        isModalOpen={isModalOpen && createOrderLoading}
+        isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
       >
-        <Flex 
+        <Box 
           vertical
           justify="center"
           align="center"
@@ -111,8 +137,11 @@ export const CustomerOrderOverviewPage: React.FC = () => {
           style={{ width: '100%', height: '100%' }}
         >
           <Spin spinning={createOrderLoading} size="large" />
-          <Typography.Text>{t('customerFlow.pleaseWaitABitWeAreProcessingYourOrder')}</Typography.Text>
-        </Flex>
+
+          <Typography.Text style={{ fontSize: theme.custom.fontSize.large }}>
+            {t('customerFlow.pleaseWaitABitWeAreProcessingYourOrder')}
+          </Typography.Text>
+        </Box>
       </BaseModal>
     </DefaultLayout>
   );
